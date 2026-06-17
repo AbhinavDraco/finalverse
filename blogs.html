@@ -8,10 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-       <link rel="icon" type="image/png" sizes="32x32" href="rag.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="rag.jpg">
     <link rel="icon" type="image/png" sizes="16x16" href="rag.jpg">
     <link rel="shortcut icon" href="favicon.ico">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GG7CQ1TL2G"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -823,6 +822,148 @@
             color: var(--accent);
         }
 
+        .community-item.active {
+            background: rgba(129, 140, 255, 0.15);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ======================== COMMUNITY VIEW MODAL ======================== */
+        .community-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9997;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .community-modal.active { display: block; }
+
+        .community-modal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+
+        .community-modal-banner {
+            background: linear-gradient(135deg, #818cf8, #6366f1);
+            padding: 40px 30px 20px;
+            position: relative;
+        }
+
+        .community-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.3);
+            border: none;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition);
+        }
+
+        .community-modal-close:hover { background: rgba(0,0,0,0.5); }
+
+        .community-modal-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .community-modal-name {
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .community-modal-desc {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .community-modal-body {
+            padding: 25px 30px;
+        }
+
+        .community-modal-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: var(--secondary);
+            border-radius: 8px;
+        }
+
+        .community-stat {
+            text-align: center;
+        }
+
+        .community-stat-value {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .community-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .community-posts-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .community-post-item {
+            padding: 14px;
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .community-post-item:hover {
+            border-color: var(--accent);
+            background: rgba(129, 140, 255, 0.05);
+        }
+
+        .community-post-item-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .community-post-item:hover .community-post-item-title {
+            color: var(--accent);
+        }
+
+        .community-post-item-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
         @media (max-width: 1200px) {
             .container-fluid { grid-template-columns: 1fr 320px; }
             .sidebar { display: none; }
@@ -922,7 +1063,6 @@
                     <span class="karma-label">Post Score</span>
                     <span class="karma-value" id="postKarma">0</span>
                 </div>
-                <button class="btn-primary" onclick="logout()">Logout</button>
             </div>
         </div>
     </div>
@@ -981,6 +1121,23 @@
                     <textarea class="form-textarea" id="communityDescription" placeholder="What is this community about?" maxlength="200"></textarea>
                 </div>
                 <button class="btn-primary" onclick="submitCommunity()">Create Community</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- COMMUNITY VIEW MODAL -->
+    <div class="community-modal" id="communityViewModal" onclick="if(event.target === this) closeCommunityModal()">
+        <div class="community-modal-container" onclick="event.stopPropagation()">
+            <div class="community-modal-banner">
+                <button class="community-modal-close" onclick="closeCommunityModal()">✕</button>
+                <div class="community-modal-icon">🏘️</div>
+                <div class="community-modal-name" id="communityModalName"></div>
+                <div class="community-modal-desc" id="communityModalDesc"></div>
+            </div>
+            <div class="community-modal-body">
+                <div class="community-modal-stats" id="communityModalStats"></div>
+                <div class="community-posts-title">Posts in this Community</div>
+                <div id="communityModalPosts"></div>
             </div>
         </div>
     </div>
@@ -1070,6 +1227,48 @@ const ADMIN_USERNAME = "abhi67";
 const MANAGER_USERNAME = "zekken";
 const ADMIN_PASSWORD = "admin67";
 const MANAGER_PASSWORD = "sush67";
+
+// ==================== URL / TITLE MANAGEMENT ====================
+function slugify(text) {
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
+}
+
+function setPostURL(postTitle) {
+    const slug = slugify(postTitle);
+    const newURL = '/blogs/' + slug;
+    history.pushState({ postSlug: slug, postTitle: postTitle }, postTitle, newURL);
+    document.title = postTitle + ' - DracoLogs';
+}
+
+function resetURL() {
+    history.pushState({}, 'DracoLogs', '/');
+    document.title = 'DracoLogs - Advanced Community Platform';
+}
+
+// Handle browser back/forward navigation
+window.addEventListener('popstate', function(e) {
+    if (e.state && e.state.postSlug) {
+        // User navigated back to a post - find and open it
+        const slug = e.state.postSlug;
+        const post = allPosts.find(p => slugify(p.title) === slug);
+        if (post) {
+            openFullscreenPostInternal(post.id, false); // false = don't push state again
+        }
+    } else {
+        // User navigated back to main feed
+        currentOpenPostId = null;
+        document.getElementById('fullscreenPostModal').classList.remove('active');
+        document.title = 'DracoLogs - Advanced Community Platform';
+    }
+});
 
 // ==================== TOAST ====================
 function showToast(message, type = 'success') {
@@ -1280,7 +1479,7 @@ function renderCommunities() {
     }
 
     container.innerHTML = allCommunities.map(comm => `
-        <div class="community-item" title="${comm.description}">
+        <div class="community-item" title="${comm.description}" onclick="openCommunityModal('${comm.id}')">
             🏘️ ${comm.name}
         </div>
     `).join('');
@@ -1299,6 +1498,60 @@ function loadCommunitySelect() {
         }
     });
 }
+
+// ==================== COMMUNITY VIEW MODAL ====================
+window.openCommunityModal = function(communityId) {
+    const comm = allCommunities.find(c => c.id === communityId);
+    if (!comm) return;
+
+    // Get posts belonging to this community
+    const communityPosts = allPosts.filter(p => p.communityId === communityId);
+
+    document.getElementById('communityModalName').textContent = comm.name;
+    document.getElementById('communityModalDesc').textContent = comm.description;
+
+    // Stats
+    const totalVotes = communityPosts.reduce((acc, p) => acc + (p.upvotes?.length || 0), 0);
+    document.getElementById('communityModalStats').innerHTML = `
+        <div class="community-stat">
+            <div class="community-stat-value">${communityPosts.length}</div>
+            <div class="community-stat-label">Posts</div>
+        </div>
+        <div class="community-stat">
+            <div class="community-stat-value">${totalVotes}</div>
+            <div class="community-stat-label">Total Upvotes</div>
+        </div>
+        <div class="community-stat">
+            <div class="community-stat-value">${comm.members ? comm.members.length : 1}</div>
+            <div class="community-stat-label">Members</div>
+        </div>
+        <div class="community-stat">
+            <div class="community-stat-value">${comm.creator}</div>
+            <div class="community-stat-label">Created by</div>
+        </div>
+    `;
+
+    // Posts list
+    if (communityPosts.length === 0) {
+        document.getElementById('communityModalPosts').innerHTML = '<div class="no-content" style="padding: 20px 0;">No posts in this community yet. Be the first to post!</div>';
+    } else {
+        const sorted = [...communityPosts].sort((a, b) => b.createdAt - a.createdAt);
+        document.getElementById('communityModalPosts').innerHTML = sorted.map(post => `
+            <div class="community-post-item" onclick="closeCommunityModal(); openFullscreenPost('${post.id}')">
+                <div class="community-post-item-title">${post.title}</div>
+                <div class="community-post-item-meta">
+                    by ${post.author} • ${timeAgo(post.createdAt)} • ⬆️ ${(post.upvotes?.length || 0) - (post.downvotes?.length || 0)} • 💬 ${post.comments?.length || 0}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    document.getElementById('communityViewModal').classList.add('active');
+};
+
+window.closeCommunityModal = function() {
+    document.getElementById('communityViewModal').classList.remove('active');
+};
 
 // ==================== POSTS ====================
 window.submitPost = async function() {
@@ -1403,7 +1656,7 @@ window.upvotePost = async function(postId) {
         });
         loadFeed();
         if (currentOpenPostId === postId) {
-            openFullscreenPost(postId);
+            openFullscreenPostInternal(postId, false);
         }
     } catch (error) {
         console.error('Error:', error);
@@ -1433,7 +1686,7 @@ window.downvotePost = async function(postId) {
         });
         loadFeed();
         if (currentOpenPostId === postId) {
-            openFullscreenPost(postId);
+            openFullscreenPostInternal(postId, false);
         }
     } catch (error) {
         console.error('Error:', error);
@@ -1495,11 +1748,19 @@ function renderComments(comments) {
 }
 
 // ==================== FULLSCREEN POST ====================
-window.openFullscreenPost = function(postId) {
+// Internal function that handles both URL push and no-push cases
+function openFullscreenPostInternal(postId, pushState) {
     const post = allPosts.find(p => p.id === postId);
     if (!post) return;
 
     currentOpenPostId = postId;
+
+    // Update URL and page title
+    if (pushState) {
+        setPostURL(post.title);
+    } else {
+        document.title = post.title + ' - DracoLogs';
+    }
 
     const upvotes = (post.upvotes && Array.isArray(post.upvotes)) ? post.upvotes.length : 0;
     const downvotes = (post.downvotes && Array.isArray(post.downvotes)) ? post.downvotes.length : 0;
@@ -1536,11 +1797,17 @@ window.openFullscreenPost = function(postId) {
     document.getElementById('commentInput').value = '';
 
     document.getElementById('fullscreenPostModal').classList.add('active');
+}
+
+// Public-facing open function (always pushes URL state)
+window.openFullscreenPost = function(postId) {
+    openFullscreenPostInternal(postId, true);
 };
 
 window.closeFullscreenPost = function() {
     currentOpenPostId = null;
     document.getElementById('fullscreenPostModal').classList.remove('active');
+    resetURL();
 };
 
 // ==================== FEED ====================
