@@ -814,6 +814,9 @@
             transition: all var(--transition);
             font-size: 13px;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .community-item:hover {
@@ -826,6 +829,32 @@
             background: rgba(129, 140, 255, 0.15);
             border-color: var(--accent);
             color: var(--accent);
+        }
+
+        .community-item-name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .community-delete-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 14px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: all var(--transition);
+            flex-shrink: 0;
+            margin-left: 6px;
+            line-height: 1;
+        }
+
+        .community-delete-btn:hover {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.15);
         }
 
         /* ======================== COMMUNITY VIEW MODAL ======================== */
@@ -999,19 +1028,19 @@
 
             <div class="sidebar-section">
                 <div class="sidebar-header">Navigation</div>
-                <div class="sidebar-item active" onclick="switchFeed('home')">
+                <div class="sidebar-item active" onclick="switchFeed('home', this)">
                     <span class="sidebar-item-icon">🏠</span>
                     <span class="sidebar-item-text">Home</span>
                 </div>
-                <div class="sidebar-item" onclick="switchFeed('trending')">
+                <div class="sidebar-item" onclick="switchFeed('trending', this)">
                     <span class="sidebar-item-icon">🔥</span>
                     <span class="sidebar-item-text">Trending</span>
                 </div>
-                <div class="sidebar-item" onclick="switchFeed('recent')">
+                <div class="sidebar-item" onclick="switchFeed('recent', this)">
                     <span class="sidebar-item-icon">⏰</span>
                     <span class="sidebar-item-text">Recent</span>
                 </div>
-                <div class="sidebar-item" onclick="switchFeed('top')">
+                <div class="sidebar-item" onclick="switchFeed('top', this)">
                     <span class="sidebar-item-icon">⭐</span>
                     <span class="sidebar-item-text">Top</span>
                 </div>
@@ -1020,7 +1049,7 @@
             <div class="sidebar-section">
                 <div class="sidebar-header">Communities</div>
                 <div id="communitiesContainer" class="community-list" style="padding: 0 0 12px 0;"></div>
-                <div style="padding: 12px 20px;">
+                <div style="padding: 12px 20px;" id="createCommunityBtnWrapper">
                     <button class="create-post-btn" style="font-size: 12px; padding: 8px;" onclick="openCreateCommunityModal()">+ Create Community</button>
                 </div>
             </div>
@@ -1222,6 +1251,8 @@ let allCommunities = [];
 let currentFeed = 'home';
 let currentSort = 'newest';
 let currentOpenPostId = null;
+// Track which post was opened so we can count view on close
+let viewCountPendingPostId = null;
 
 const ADMIN_USERNAME = "abhi67";
 const MANAGER_USERNAME = "zekken";
@@ -1256,19 +1287,51 @@ function resetURL() {
 // Handle browser back/forward navigation
 window.addEventListener('popstate', function(e) {
     if (e.state && e.state.postSlug) {
-        // User navigated back to a post - find and open it
         const slug = e.state.postSlug;
         const post = allPosts.find(p => slugify(p.title) === slug);
         if (post) {
-            openFullscreenPostInternal(post.id, false); // false = don't push state again
+            openFullscreenPostInternal(post.id, false);
         }
     } else {
-        // User navigated back to main feed
+        // Count view when navigating away via browser back
+        if (currentOpenPostId) {
+            recordViewOnClose(currentOpenPostId);
+        }
         currentOpenPostId = null;
         document.getElementById('fullscreenPostModal').classList.remove('active');
         document.title = 'DracoLogs - Advanced Community Platform';
     }
 });
+
+// ==================== VIEW COUNTING ====================
+// Returns a localStorage key scoped to the current user + post
+function viewedKey(postId) {
+    const user = currentUser ? currentUser.username : 'guest';
+    return 'viewed_' + user + '_' + postId;
+}
+
+// Called when a post is actually closed — increments view once per user
+async function recordViewOnClose(postId) {
+    if (!postId) return;
+    const key = viewedKey(postId);
+    if (localStorage.getItem(key)) return; // already counted for this user
+
+    localStorage.setItem(key, '1');
+
+    const post = allPosts.find(p => p.id === postId);
+    if (!post) return;
+
+    const newViews = (post.views || 0) + 1;
+    post.views = newViews;
+
+    try {
+        await updateDoc(doc(db, 'posts', postId), { views: newViews });
+        // Refresh feed silently so view count updates in the card
+        loadFeed();
+    } catch (error) {
+        console.error('Error updating view count:', error);
+    }
+}
 
 // ==================== TOAST ====================
 function showToast(message, type = 'success') {
@@ -1350,6 +1413,7 @@ window.authenticate = function() {
     localStorage.setItem('dracoUser', JSON.stringify(currentUser));
     document.getElementById('authModal').classList.remove('active');
     updateUserDisplay();
+    updateCreateCommunityButton();
     loadInitialData();
     showToast(`Welcome, ${currentUser.username}!`);
 };
@@ -1361,6 +1425,7 @@ window.authenticateAsGuest = function() {
         currentUser = existingUser;
         document.getElementById('authModal').classList.remove('active');
         updateUserDisplay();
+        updateCreateCommunityButton();
         loadInitialData();
         showToast(`Welcome back, ${currentUser.username}!`);
         return;
@@ -1378,6 +1443,7 @@ window.authenticateAsGuest = function() {
     localStorage.setItem('dracoUser', JSON.stringify(currentUser));
     document.getElementById('authModal').classList.remove('active');
     updateUserDisplay();
+    updateCreateCommunityButton();
     loadInitialData();
     showToast(`Welcome, ${currentUser.username}!`);
 };
@@ -1396,6 +1462,14 @@ function updateUserDisplay() {
     document.getElementById('userDisplay').textContent = displayName;
 }
 
+// Show/hide "Create Community" button based on role
+function updateCreateCommunityButton() {
+    const wrapper = document.getElementById('createCommunityBtnWrapper');
+    if (!wrapper) return;
+    const isPrivileged = currentUser && (currentUser.role === 'admin' || currentUser.role === 'manager');
+    wrapper.style.display = isPrivileged ? 'block' : 'none';
+}
+
 window.openCreatePostModal = function() {
     if (!currentUser) {
         alert('Please log in first');
@@ -1410,6 +1484,10 @@ window.openCreateCommunityModal = function() {
         alert('Please log in first');
         return;
     }
+    if (currentUser.role !== 'admin' && currentUser.role !== 'manager') {
+        showToast('Only admin and manager can create communities', 'error');
+        return;
+    }
     document.getElementById('createCommunityModal').classList.add('active');
 };
 
@@ -1419,6 +1497,11 @@ window.closeModal = function(modalId) {
 
 // ==================== COMMUNITIES ====================
 window.submitCommunity = async function() {
+    if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'manager')) {
+        showToast('Only admin and manager can create communities', 'error');
+        return;
+    }
+
     const name = document.getElementById('communityName').value.trim();
     const description = document.getElementById('communityDescription').value.trim();
 
@@ -1457,6 +1540,30 @@ window.submitCommunity = async function() {
     }
 };
 
+window.deleteCommunity = async function(communityId, event) {
+    event.stopPropagation();
+    if (!currentUser || (currentUser.role !== 'admin' && currentUser.role !== 'manager')) {
+        showToast('Only admin and manager can delete communities', 'error');
+        return;
+    }
+
+    const comm = allCommunities.find(c => c.id === communityId);
+    if (!comm) return;
+
+    if (!confirm(`Delete community "${comm.name}"? This cannot be undone.`)) return;
+
+    try {
+        await deleteDoc(doc(db, 'communities', communityId));
+        allCommunities = allCommunities.filter(c => c.id !== communityId);
+        renderCommunities();
+        loadCommunitySelect();
+        showToast(`Community "${comm.name}" deleted`);
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('Failed to delete community', 'error');
+    }
+};
+
 async function loadCommunities() {
     try {
         const commSnap = await getDocs(query(collection(db, 'communities'), orderBy('createdAt', 'desc')));
@@ -1466,6 +1573,7 @@ async function loadCommunities() {
         });
         renderCommunities();
         loadCommunitySelect();
+        updateCreateCommunityButton();
     } catch (error) {
         console.error('Error loading communities:', error);
     }
@@ -1473,6 +1581,8 @@ async function loadCommunities() {
 
 function renderCommunities() {
     const container = document.getElementById('communitiesContainer');
+    const isPrivileged = currentUser && (currentUser.role === 'admin' || currentUser.role === 'manager');
+
     if (allCommunities.length === 0) {
         container.innerHTML = '<div style="padding: 12px 20px; font-size: 12px; color: var(--text-secondary);">No communities yet</div>';
         return;
@@ -1480,7 +1590,8 @@ function renderCommunities() {
 
     container.innerHTML = allCommunities.map(comm => `
         <div class="community-item" title="${comm.description}" onclick="openCommunityModal('${comm.id}')">
-            🏘️ ${comm.name}
+            <span class="community-item-name">🏘️ ${comm.name}</span>
+            ${isPrivileged ? `<button class="community-delete-btn" title="Delete community" onclick="deleteCommunity('${comm.id}', event)">🗑️</button>` : ''}
         </div>
     `).join('');
 }
@@ -1504,13 +1615,11 @@ window.openCommunityModal = function(communityId) {
     const comm = allCommunities.find(c => c.id === communityId);
     if (!comm) return;
 
-    // Get posts belonging to this community
     const communityPosts = allPosts.filter(p => p.communityId === communityId);
 
     document.getElementById('communityModalName').textContent = comm.name;
     document.getElementById('communityModalDesc').textContent = comm.description;
 
-    // Stats
     const totalVotes = communityPosts.reduce((acc, p) => acc + (p.upvotes?.length || 0), 0);
     document.getElementById('communityModalStats').innerHTML = `
         <div class="community-stat">
@@ -1531,7 +1640,6 @@ window.openCommunityModal = function(communityId) {
         </div>
     `;
 
-    // Posts list
     if (communityPosts.length === 0) {
         document.getElementById('communityModalPosts').innerHTML = '<div class="no-content" style="padding: 20px 0;">No posts in this community yet. Be the first to post!</div>';
     } else {
@@ -1748,14 +1856,12 @@ function renderComments(comments) {
 }
 
 // ==================== FULLSCREEN POST ====================
-// Internal function that handles both URL push and no-push cases
 function openFullscreenPostInternal(postId, pushState) {
     const post = allPosts.find(p => p.id === postId);
     if (!post) return;
 
     currentOpenPostId = postId;
 
-    // Update URL and page title
     if (pushState) {
         setPostURL(post.title);
     } else {
@@ -1799,22 +1905,27 @@ function openFullscreenPostInternal(postId, pushState) {
     document.getElementById('fullscreenPostModal').classList.add('active');
 }
 
-// Public-facing open function (always pushes URL state)
 window.openFullscreenPost = function(postId) {
     openFullscreenPostInternal(postId, true);
 };
 
 window.closeFullscreenPost = function() {
+    // Count view on close
+    if (currentOpenPostId) {
+        recordViewOnClose(currentOpenPostId);
+    }
     currentOpenPostId = null;
     document.getElementById('fullscreenPostModal').classList.remove('active');
     resetURL();
 };
 
 // ==================== FEED ====================
-window.switchFeed = function(feed) {
+window.switchFeed = function(feed, element) {
     currentFeed = feed;
     document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
-    event.target.closest('.sidebar-item').classList.add('active');
+    if (element) {
+        element.closest('.sidebar-item').classList.add('active');
+    }
     
     const titles = {
         'home': '🏠 Home',
@@ -1848,20 +1959,30 @@ async function loadInitialData() {
 function loadFeed() {
     let posts = [...allPosts];
 
+    // Apply feed-type sorting first
     if (currentFeed === 'trending') {
-        posts = posts.sort((a, b) => {
+        // Most net upvotes (upvotes - downvotes)
+        posts.sort((a, b) => {
             const scoreA = (a.upvotes?.length || 0) - (a.downvotes?.length || 0);
             const scoreB = (b.upvotes?.length || 0) - (b.downvotes?.length || 0);
             return scoreB - scoreA;
         });
+    } else if (currentFeed === 'recent') {
+        // Newest first
+        posts.sort((a, b) => b.createdAt - a.createdAt);
     } else if (currentFeed === 'top') {
-        posts = posts.sort((a, b) => {
+        // Most raw upvotes
+        posts.sort((a, b) => {
             const scoreA = (a.upvotes?.length || 0);
             const scoreB = (b.upvotes?.length || 0);
             return scoreB - scoreA;
         });
+    } else {
+        // home: default newest
+        posts.sort((a, b) => b.createdAt - a.createdAt);
     }
 
+    // Then apply the dropdown sort on top (overrides feed sort)
     switch(currentSort) {
         case 'trending':
             posts.sort((a, b) => {
@@ -1878,7 +1999,12 @@ function loadFeed() {
             });
             break;
         default:
-            posts.sort((a, b) => b.createdAt - a.createdAt);
+            // 'newest' — only override if feed wasn't already setting an order
+            if (currentFeed === 'trending' || currentFeed === 'top') {
+                // keep feed sort; dropdown "newest" doesn't make sense to override trending/top
+            } else {
+                posts.sort((a, b) => b.createdAt - a.createdAt);
+            }
     }
 
     renderFeed(posts);
@@ -2011,6 +2137,7 @@ if (!checkIndexAuth()) {
             currentUser = JSON.parse(saved);
             document.getElementById('authModal').classList.remove('active');
             updateUserDisplay();
+            updateCreateCommunityButton();
             loadInitialData();
         } catch (e) {
             document.getElementById('authModal').classList.add('active');
@@ -2020,6 +2147,7 @@ if (!checkIndexAuth()) {
     }
 } else {
     updateUserDisplay();
+    updateCreateCommunityButton();
     loadInitialData();
 }
 </script>
