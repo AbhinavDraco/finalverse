@@ -940,6 +940,50 @@ window.guestLogin = () => {
     window.location.href = "home.html";
 };
 </script>
+<script>
+// ====== UPDATED GUEST LOGIN METHOD WITH INTEGRATED UPGRADE BLOCK ======
+window.guestLogin = () => {
+    // Check if the user was dynamically redirected here after triggering a feature boundary
+    if (localStorage.getItem('guest_upgrade_prompt') === 'true') {
+        alert("❌ Guest access locked. You must sign up or log in with a standard profile to unlock premium interactive features.");
+        return;
+    }
+
+    localStorage.setItem('tdi_user', JSON.stringify({
+        username: 'Guest_' + Math.floor(1000 + Math.random() * 9000),
+        role: 'guest',
+        loginTime: Date.now()
+    }));
+    
+    localStorage.setItem('dracoUser', JSON.stringify({
+        username: 'GuestUser',
+        role: 'guest',
+        avatar: null
+    }));
+
+    alert("✅ Logged in successfully as Guest!");
+    window.location.href = "blogs.html"; 
+};
+
+// Auto-lock implementation on DOM load
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem('guest_upgrade_prompt') === 'true') {
+        // Automatically isolates and locks the interaction layer of your guest access buttons
+        const guestBtn = document.querySelector("button[onclick='guestLogin()']") || document.getElementById("guestBtn");
+        if (guestBtn) {
+            guestBtn.disabled = true;
+            guestBtn.style.opacity = "0.4";
+            guestBtn.style.cursor = "not-allowed";
+            guestBtn.innerText = "Guest Mode Disabled (Login Required)";
+        }
+    }
+});
+
+// ====== ENSURE CLEAR BLOCK IS ADDED TO SIGNUP/LOGIN METHODS ======
+// Ensure you place this clear trigger inside your googleLogin, facebookLogin, and normal credentials validation callbacks:
+// localStorage.removeItem('guest_upgrade_prompt');
+</script>
+<script></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
