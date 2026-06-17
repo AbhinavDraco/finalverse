@@ -1824,7 +1824,115 @@ document.getElementById("deleteAllBtn").addEventListener("click", deleteAllMessa
 // ==================== INIT ====================
 bookmarkedMsgs = JSON.parse(localStorage.getItem("bookmarkedMsgs") || "[]");
 checkAuthStatus();
+
+// Helper function to dynamically append popups and force index.html authentications
+window.triggerAuthRedirectPopup = function(actionMessage) {
+    // Destroy any existing modal instances to avoid layout stack bugs
+    const oldModal = document.getElementById('forcedGuestAuthModal');
+    if (oldModal) oldModal.remove();
+
+    // Create modal element
+    const modalHtml = `
+        <div id="forcedGuestAuthModal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100000; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif;">
+            <div style="background: #1a1a1b; border: 1px solid #343536; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div style="font-size: 40px; margin-bottom: 15px;">🔒</div>
+                <h3 style="color: #fff; margin-bottom: 10px; font-weight: 700;">Authentication Required</h3>
+                <p style="color: #818890; font-size: 14px; margin-bottom: 25px;">You must be logged into a verified profile to ${actionMessage}.</p>
+                <button id="modalRedirectLoginBtn" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #818cf8, #6366f1); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s;">
+                    Log In / Sign Up
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    document.getElementById('modalRedirectLoginBtn').addEventListener('click', () => {
+        // Flag local storage to lock guest login routes next time
+        localStorage.setItem('guest_upgrade_prompt', 'true');
+        window.location.href = "index.html";
+    });
+};
+
+// Check structural auth states
+window.isCurrentUserGuest = function() {
+    const tdiUser = JSON.parse(localStorage.getItem('tdi_user') || '{}');
+    const dracoUser = JSON.parse(localStorage.getItem('dracoUser') || '{}');
+    return (tdiUser.role === 'guest' || dracoUser.role === 'guest');
+};
+
+
     </script>
+    <script>
+// Copy helper verification engine to check local user configuration roles
+window.triggerAuthRedirectPopup = function(actionMessage) {
+    const oldModal = document.getElementById('forcedGuestAuthModal');
+    if (oldModal) oldModal.remove();
+
+    const modalHtml = `
+        <div id="forcedGuestAuthModal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100000; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif;">
+            <div style="background: #1a1a1b; border: 1px solid #343536; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div style="font-size: 40px; margin-bottom: 15px;">🔒</div>
+                <h3 style="color: #fff; margin-bottom: 10px; font-weight: 700;">Authentication Required</h3>
+                <p style="color: #818890; font-size: 14px; margin-bottom: 25px;">You must be logged into a verified profile to ${actionMessage}.</p>
+                <button id="modalRedirectLoginBtn" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #818cf8, #6366f1); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer;">
+                    Log In / Sign Up
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    document.getElementById('modalRedirectLoginBtn').addEventListener('click', () => {
+        localStorage.setItem('guest_upgrade_prompt', 'true');
+        window.location.href = "index.html";
+    });
+};
+
+window.isCurrentUserGuest = function() {
+    const tdiUser = JSON.parse(localStorage.getItem('tdi_user') || '{}');
+    const dracoUser = JSON.parse(localStorage.getItem('dracoUser') || '{}');
+    return (tdiUser.role === 'guest' || dracoUser.role === 'guest' || (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'guest'));
+};
+
+// ==================== CHAT INTERACTION PROTECTION LYNCHPIN ====================
+
+// A. Paste this check right at the start inside your text submission function (e.g., inside sendMessage() or enter key hooks)
+async function handleSendMessage() {
+    if (window.isCurrentUserGuest()) {
+        window.triggerAuthRedirectPopup("chat inside community channels");
+        return;
+    }
+    // ... your original Firebase addDoc text transmission process goes here ...
+}
+
+// B. REPLACE your old imageUploadBtn configuration listener with this:
+document.getElementById("imageUploadBtn").addEventListener("click", (e) => {
+    if (window.isCurrentUserGuest()) {
+        e.stopImmediatePropagation();
+        window.triggerAuthRedirectPopup("upload media contents");
+        return;
+    }
+    document.getElementById("imageInput").click();
+});
+
+// C. UI Soft Lock implementation on page load
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.isCurrentUserGuest()) {
+        const msgInput = document.getElementById("msgInput");
+        const sendBtn = document.querySelector(".send-btn");
+        if (msgInput) {
+            msgInput.placeholder = "🔒 Please log in to join the conversation...";
+            msgInput.disabled = true; // Hard locks guest typing capabilities
+            msgInput.style.opacity = "0.5";
+        }
+        if (sendBtn) {
+            sendBtn.style.opacity = "0.5";
+            sendBtn.style.cursor = "not-allowed";
+        }
+    }
+});
+</script>
     <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
