@@ -2151,6 +2151,72 @@ if (!checkIndexAuth()) {
     loadInitialData();
 }
 </script>
+<script>
+// Universal Authenticator Pop-up Overlays for Interconnected State Checking
+window.triggerAuthRedirectPopup = function(actionMessage) {
+    const oldModal = document.getElementById('forcedGuestAuthModal');
+    if (oldModal) oldModal.remove();
+
+    const modalHtml = `
+        <div id="forcedGuestAuthModal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100000; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif;">
+            <div style="background: #1a1a1b; border: 1px solid #343536; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                <div style="font-size: 40px; margin-bottom: 15px;">🔒</div>
+                <h3 style="color: #fff; margin-bottom: 10px; font-weight: 700;">Authentication Required</h3>
+                <p style="color: #818890; font-size: 14px; margin-bottom: 25px;">You must be logged into a verified profile to ${actionMessage}.</p>
+                <button id="modalRedirectLoginBtn" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #818cf8, #6366f1); color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s;">
+                    Log In / Sign Up
+                </button>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    document.getElementById('modalRedirectLoginBtn').addEventListener('click', () => {
+        localStorage.setItem('guest_upgrade_prompt', 'true');
+        window.location.href = "index.html";
+    });
+};
+
+window.isCurrentUserGuest = function() {
+    const tdiUser = JSON.parse(localStorage.getItem('tdi_user') || '{}');
+    const dracoUser = JSON.parse(localStorage.getItem('dracoUser') || '{}');
+    return (tdiUser.role === 'guest' || dracoUser.role === 'guest' || (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'guest'));
+};
+
+// ==================== INTERCEPT MUTATION FUNCTIONS ====================
+
+// A. Insert this at the very top line inside your window.vote function block:
+window.vote = async function(postId, type) {
+    if (window.isCurrentUserGuest()) {
+        window.triggerAuthRedirectPopup("upvote or downvote blogs");
+        return;
+    }
+    // ... your remaining vote database logic code stays exactly as it was ...
+};
+
+// B. Insert this at the very top line inside your window.addComment function block:
+window.addComment = async function(postId) {
+    if (window.isCurrentUserGuest()) {
+        window.triggerAuthRedirectPopup("add comments to public feeds");
+        return;
+    }
+    // ... your remaining comment posting database updates continue below ...
+};
+
+// C. Intercept the Create Post Button Click Listener
+document.addEventListener("DOMContentLoaded", () => {
+    const createBtn = document.querySelector(".create-post-btn");
+    if (createBtn) {
+        createBtn.addEventListener("click", (e) => {
+            if (window.isCurrentUserGuest()) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                window.triggerAuthRedirectPopup("publish blog posts to the server");
+            }
+        }, { capture: true }); // Captures event early before open modal hooks trigger
+    }
+});
+</script>
     <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
