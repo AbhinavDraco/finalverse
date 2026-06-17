@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GG7CQ1TL2G"></script>
+       <link rel="icon" type="image/png" sizes="32x32" href="rag.jpg">
+    <link rel="icon" type="image/png" sizes="16x16" href="rag.jpg">
+    <link rel="shortcut icon" href="favicon.ico">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy & Policy — DracoVerse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #050816;
+            --card: #0d1325;
+            --border: rgba(255,255,255,0.08);
+            --gradient: linear-gradient(135deg, #4f8cff, #7c4dff);
+            --gradient-soft: linear-gradient(135deg, rgba(79,140,255,0.1), rgba(124,77,255,0.1));
+            --text: #fff;
+            --text-secondary: #bcc6de;
+            --text-tertiary: #9ca3af;
+            --accent: #4f8cff;
+            --accent-alt: #7c4dff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
+            --shadow-xl: 0 20px 60px rgba(0,0,0,0.3);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(79,140,255,0.18), transparent 25%),
+                radial-gradient(circle at bottom right, rgba(124,77,255,0.18), transparent 25%),
+                var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body::-webkit-scrollbar { width: 10px; }
+        body::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        body::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #4f8cff, #7c4dff);
+            border-radius: 20px;
+            border: 3px solid rgba(5,8,22,0.8);
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
+            z-index: 900; width: calc(100% - 32px); max-width: 1200px;
+            background: rgba(5,8,22,0.85); backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 18px;
+            padding: 12px 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+        }
+        .navLogo {
+            font-size: 1.35rem; font-weight: 800;
+            background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px; text-decoration: none;
+        }
+        .navLinks { display: flex; gap: 4px; align-items: center; }
+        .navLink {
+            color: #bcc6de; text-decoration: none; font-size: 13px; font-weight: 500;
+            padding: 8px 13px; border-radius: 10px; transition: 0.2s;
+        }
+        .navLink:hover { background: rgba(79,140,255,0.1); color: #4f8cff; }
+        .navCta {
+            background: var(--gradient); color: white; border: none; cursor: pointer;
+            padding: 9px 20px; border-radius: 10px; font-weight: 600; font-size: 13px;
+            font-family: 'Poppins', sans-serif; transition: 0.3s;
+            box-shadow: 0 4px 14px rgba(79,140,255,0.3); text-decoration: none;
+        }
+        .navCta:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(79,140,255,0.4); }
+
+        /* ── PAGE WRAPPER ── */
+        .page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 120px 24px 80px;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            background: var(--gradient-soft);
+            border: 1px solid rgba(79,140,255,0.25);
+            border-radius: 28px;
+            padding: 50px 44px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease both;
+        }
+        .hero::before {
+            content: '';
+            position: absolute; top: -60px; right: -40px;
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, rgba(79,140,255,0.18), transparent 70%);
+            border-radius: 50%; pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute; bottom: -50px; left: -30px;
+            width: 220px; height: 220px;
+            background: radial-gradient(circle, rgba(124,77,255,0.15), transparent 70%);
+            border-radius: 50%; pointer-events: none;
+        }
+        .badge {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: rgba(79,140,255,0.15); border: 1px solid rgba(79,140,255,0.3);
+            color: #4f8cff; font-size: 11px; font-weight: 700;
+            padding: 5px 14px; border-radius: 50px; margin-bottom: 18px;
+            letter-spacing: 0.5px; text-transform: uppercase; position: relative; z-index: 2;
+        }
+        .hero h1 {
+            font-size: 2.8rem; font-weight: 800;
+            background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -1px; line-height: 1.1; margin-bottom: 14px;
+            position: relative; z-index: 2;
+        }
+        .hero p {
+            color: var(--text-secondary); font-size: 15px; line-height: 1.75;
+            max-width: 540px; position: relative; z-index: 2;
+        }
+        .hero-meta {
+            display: flex; gap: 20px; flex-wrap: wrap; margin-top: 24px;
+            position: relative; z-index: 2;
+        }
+        .hero-meta-item {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            border-radius: 12px; padding: 10px 18px;
+            font-size: 12px; color: var(--text-secondary);
+        }
+        .hero-meta-item strong { color: #4f8cff; display: block; font-size: 14px; margin-bottom: 2px; }
+
+        /* ── TOC ── */
+        .toc {
+            background: rgba(13,19,37,0.9); border: 1px solid var(--border);
+            border-radius: 20px; padding: 24px 28px; margin-bottom: 40px;
+            animation: fadeInUp 0.6s 0.1s ease both;
+        }
+        .toc-title {
+            font-size: 13px; font-weight: 700; color: var(--text-secondary);
+            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+        .toc-link {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 13px; color: var(--text-secondary); text-decoration: none;
+            padding: 8px 12px; border-radius: 10px; transition: all var(--transition-base);
+        }
+        .toc-link:hover { background: rgba(79,140,255,0.1); color: #4f8cff; transform: translateX(3px); }
+        .toc-link .toc-ico { font-size: 16px; }
+
+        /* ── SECTION ── */
+        .section {
+            background: rgba(13,19,37,0.92); border: 1px solid var(--border);
+            border-radius: 20px; padding: 30px 32px; margin-bottom: 20px;
+            animation: fadeInUp 0.5s ease both;
+            transition: border-color var(--transition-base), box-shadow var(--transition-base);
+        }
+        .section:hover {
+            border-color: rgba(79,140,255,0.25);
+            box-shadow: 0 8px 32px rgba(79,140,255,0.08);
+        }
+        .section-header {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+            padding-bottom: 16px; border-bottom: 1px solid var(--border);
+        }
+        .section-icon {
+            width: 44px; height: 44px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; flex-shrink: 0;
+        }
+        .icon-blue  { background: rgba(79,140,255,0.15); }
+        .icon-purple{ background: rgba(124,77,255,0.15); }
+        .icon-green { background: rgba(16,185,129,0.15); }
+        .icon-amber { background: rgba(245,158,11,0.15); }
+        .icon-red   { background: rgba(239,68,68,0.15); }
+        .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 3px; }
+        .section-sub { font-size: 12px; color: var(--text-tertiary); }
+
+        .section p {
+            font-size: 14px; color: var(--text-secondary);
+            line-height: 1.8; margin-bottom: 14px;
+        }
+        .section p:last-child { margin-bottom: 0; }
+
+        /* ── PILL ROW ── */
+        .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+        .pill {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 12px; font-weight: 600;
+            padding: 5px 12px; border-radius: 50px;
+            background: rgba(79,140,255,0.1); border: 1px solid rgba(79,140,255,0.2);
+            color: #4f8cff;
+        }
+
+        /* ── INFO CARDS ── */
+        .info-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;
+        }
+        .info-card {
+            background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+            border-radius: 14px; padding: 14px 16px;
+            transition: all var(--transition-base);
+        }
+        .info-card:hover { background: rgba(79,140,255,0.08); border-color: rgba(79,140,255,0.2); }
+        .info-card .ic-label {
+            font-size: 11px; color: var(--text-tertiary); font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;
+            display: flex; align-items: center; gap: 5px;
+        }
+        .info-card .ic-val { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+        /* ── HIGHLIGHT BOX ── */
+        .highlight {
+            background: rgba(79,140,255,0.07); border-left: 3px solid #4f8cff;
+            border-radius: 0 12px 12px 0; padding: 14px 18px;
+            margin: 14px 0; font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+        }
+        .highlight.green { background: rgba(16,185,129,0.07); border-left-color: #10b981; }
+        .highlight.amber { background: rgba(245,158,11,0.07); border-left-color: #f59e0b; }
+
+        /* ── RIGHTS GRID ── */
+        .rights-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px;
+        }
+        .right-item {
+            display: flex; align-items: flex-start; gap: 10px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            border-radius: 12px; padding: 12px 14px;
+            font-size: 13px; color: var(--text-secondary);
+            transition: all var(--transition-base);
+        }
+        .right-item:hover { background: rgba(79,140,255,0.08); border-color: rgba(79,140,255,0.25); }
+        .right-item span { line-height: 1.5; }
+        .ri-ico { font-size: 18px; flex-shrink: 0; }
+
+        /* ── CONTACT CHIPS ── */
+        .contact-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+        .contact-chip {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 13px; font-weight: 500;
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            border-radius: 14px; padding: 12px 18px; color: var(--text-secondary);
+            transition: all var(--transition-base);
+        }
+        .contact-chip:hover { background: rgba(79,140,255,0.1); border-color: rgba(79,140,255,0.3); color: #4f8cff; }
+        .contact-chip .chip-ico { font-size: 20px; }
+
+        /* ── FOOTER ── */
+        .pp-footer {
+            margin-top: 40px; padding: 24px 28px;
+            background: rgba(13,19,37,0.95); border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+        }
+        .pp-footer .brand {
+            font-size: 1.1rem; font-weight: 800;
+            background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .pp-footer span { font-size: 12px; color: var(--text-tertiary); }
+
+        /* ── PAGE FOOTER ── */
+        footer {
+            background: var(--bg); border-top: 1px solid var(--border);
+            padding: 40px 24px 28px; text-align: center;
+            color: var(--text-tertiary); font-size: 13px;
+        }
+        footer a { color: #4f8cff; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .navLinks { display: none; }
+            .hero { padding: 36px 24px; }
+            .hero h1 { font-size: 2rem; }
+            .toc-grid, .info-grid, .rights-grid { grid-template-columns: 1fr; }
+            .section { padding: 22px 18px; }
+            .page { padding: 100px 16px 60px; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.7rem; }
+            .hero { padding: 28px 18px; }
+            .pp-footer { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a class="navLogo" href="index.html">🐉 DracoVerse</a>
+    <div class="navLinks">
+        <a class="navLink" href="blogs.html">Blogs</a>
+        <a class="navLink" href="news.html">News</a>
+        <a class="navLink" href="community.html">Community</a>
+        <a class="navLink" href="about.html">About</a>
+    </div>
+    <a class="navCta" href="home.html">Explore →</a>
+</nav>
+
+<div class="page">
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="badge">🛡️ Official Policy</div>
+        <h1>Privacy &amp; Policy</h1>
+        <p>DracoVerse is committed to protecting your privacy. This document explains what data we collect, how we use it, and your rights as a user of DracoBlog, DracoDaily, and DracoCommunity.</p>
+        <div class="hero-meta">
+            <div class="hero-meta-item"><strong>June 2026</strong>Last updated</div>
+            <div class="hero-meta-item"><strong>v1.0</strong>Policy version</div>
+            <div class="hero-meta-item"><strong>All services</strong>Scope</div>
+        </div>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <div class="toc">
+        <div class="toc-title">📋 Table of Contents</div>
+        <div class="toc-grid">
+            <a class="toc-link" href="#s-collect"><span class="toc-ico">🗄️</span> Data we collect</a>
+            <a class="toc-link" href="#s-use"><span class="toc-ico">⚙️</span> How we use your data</a>
+            <a class="toc-link" href="#s-share"><span class="toc-ico">🔗</span> Data sharing</a>
+            <a class="toc-link" href="#s-retention"><span class="toc-ico">🕐</span> Data retention</a>
+            <a class="toc-link" href="#s-rights"><span class="toc-ico">✅</span> Your rights</a>
+            <a class="toc-link" href="#s-cookies"><span class="toc-ico">🍪</span> Cookies &amp; storage</a>
+            <a class="toc-link" href="#s-security"><span class="toc-ico">🔒</span> Security</a>
+            <a class="toc-link" href="#s-changes"><span class="toc-ico">📝</span> Policy changes</a>
+            <a class="toc-link" href="#s-contact"><span class="toc-ico">📬</span> Contact us</a>
+        </div>
+    </div>
+
+    <!-- 1. DATA WE COLLECT -->
+    <div class="section" id="s-collect">
+        <div class="section-header">
+            <div class="section-icon icon-blue">🗄️</div>
+            <div>
+                <div class="section-title">Data we collect</div>
+                <div class="section-sub">Information gathered when you use DracoVerse</div>
+            </div>
+        </div>
+        <p>When you create an account or interact with any DracoVerse service, we may collect the following types of information:</p>
+        <div class="pill-row">
+            <span class="pill">👤 Username</span>
+            <span class="pill">💬 Messages &amp; comments</span>
+            <span class="pill">📝 Blog posts</span>
+            <span class="pill">👍 Votes &amp; reactions</span>
+            <span class="pill">🖼️ Uploaded images</span>
+            <span class="pill">💻 Browser &amp; device type</span>
+            <span class="pill">🕐 Usage timestamps</span>
+            <span class="pill">📧 Email (newsletter only)</span>
+        </div>
+        <div class="highlight">
+            We do <strong>not</strong> collect passwords in plain text. Admin authentication is handled locally and never stored on our servers. Guest usernames are session-scoped and stored only in your browser's local storage.
+        </div>
+        <p>We only collect what is strictly necessary to provide you with a functioning community experience. You are never required to provide real personal details — a pseudonymous username is sufficient.</p>
+    </div>
+
+    <!-- 2. HOW WE USE YOUR DATA -->
+    <div class="section" id="s-use">
+        <div class="section-header">
+            <div class="section-icon icon-purple">⚙️</div>
+            <div>
+                <div class="section-title">How we use your data</div>
+                <div class="section-sub">Purposes for which your information is processed</div>
+            </div>
+        </div>
+        <p>Your data is used solely to provide, improve, and personalise DracoVerse services. Specific uses include:</p>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="ic-label">🐉 Community features</div>
+                <div class="ic-val">Displaying your username, avatar, and profile across DracoBlog, DracoDaily, and DracoCommunity so other members can engage with your content.</div>
+            </div>
+            <div class="info-card">
+                <div class="ic-label">📊 Analytics</div>
+                <div class="ic-val">Aggregated, anonymised data to understand which content resonates most, fix bugs, and improve performance over time.</div>
+            </div>
+            <div class="info-card">
+                <div class="ic-label">📬 Newsletter</div>
+                <div class="ic-val">If you subscribe, we use your email to send periodic updates about new content and community highlights. You can unsubscribe anytime.</div>
+            </div>
+            <div class="info-card">
+                <div class="ic-label">🛡️ Safety &amp; moderation</div>
+                <div class="ic-val">Admin tools use message history and usernames to enforce community guidelines, apply timeouts, and remove harmful content.</div>
+            </div>
+        </div>
+        <div class="highlight" style="margin-top:16px;">
+            We <strong>never sell</strong> your personal data to third parties for advertising or marketing purposes.
+        </div>
+    </div>
+
+    <!-- 3. DATA SHARING -->
+    <div class="section" id="s-share">
+        <div class="section-header">
+            <div class="section-icon icon-green">🔗</div>
+            <div>
+                <div class="section-title">Data sharing</div>
+                <div class="section-sub">Third-party services we rely on</div>
+            </div>
+        </div>
+        <p>DracoVerse uses a small number of trusted third-party services to operate. Your data may be processed by these providers under their respective privacy policies:</p>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="ic-label">🔥 Firebase / Firestore (Google)</div>
+                <div class="ic-val">Stores blog posts, messages, votes, comments, and poll data in real time. Data is encrypted at rest and in transit.</div>
+            </div>
+            <div class="info-card">
+                <div class="ic-label">📈 Google Analytics</div>
+                <div class="ic-val">Anonymised page-view and engagement metrics. No personally identifiable information is shared.</div>
+            </div>
+            <div class="info-card">
+                <div class="ic-label">📢 Google AdSense</div>
+                <div class="ic-val">May display contextual ads and collect cookie data in accordance with Google's privacy policy.</div>
+            </div>
+            <div class="info-card">
+                <div class="ic-label">🖼️ Microlink API</div>
+                <div class="ic-val">Fetches open-graph preview images for news article links. Only the URL of the article is shared.</div>
+            </div>
+        </div>
+        <p style="margin-top:14px;">We do not share your data with any other parties. We will never sell, rent, or trade your personal information.</p>
+    </div>
+
+    <!-- 4. DATA RETENTION -->
+    <div class="section" id="s-retention">
+        <div class="section-header">
+            <div class="section-icon icon-amber">🕐</div>
+            <div>
+                <div class="section-title">Data retention</div>
+                <div class="section-sub">How long we keep your information</div>
+            </div>
+        </div>
+        <p>Content you post — blog posts, comments, community messages — is stored in Firestore until you or an admin deletes it. Username and profile preferences saved in your browser's local storage persist until you clear your browser data.</p>
+        <p>Newsletter email addresses are retained only while you remain subscribed. You may unsubscribe at any time and your address will be removed promptly.</p>
+        <div class="highlight amber">
+            ⚠️ Deleted messages and blogs are removed from our Firestore database immediately and <strong>cannot be recovered</strong>. Please be certain before deleting content.
+        </div>
+        <p>Uploaded images are stored as base64 data within Firestore documents. Deleting the associated message or blog post also removes the image data.</p>
+    </div>
+
+    <!-- 5. YOUR RIGHTS -->
+    <div class="section" id="s-rights">
+        <div class="section-header">
+            <div class="section-icon icon-blue">✅</div>
+            <div>
+                <div class="section-title">Your rights</div>
+                <div class="section-sub">Control over your personal information</div>
+            </div>
+        </div>
+        <p>Depending on your location, you may have the following rights regarding your personal data. We are committed to honouring these regardless of legal obligation.</p>
+        <div class="rights-grid">
+            <div class="right-item"><span class="ri-ico">👁️</span><span>Access the data we hold about you and request a summary of what information is stored.</span></div>
+            <div class="right-item"><span class="ri-ico">✏️</span><span>Correct inaccurate or outdated information by editing your profile or contacting us.</span></div>
+            <div class="right-item"><span class="ri-ico">🗑️</span><span>Request deletion of your account, messages, or blog posts at any time.</span></div>
+            <div class="right-item"><span class="ri-ico">📤</span><span>Export your content (posts, comments) in a portable format upon request.</span></div>
+            <div class="right-item"><span class="ri-ico">🚫</span><span>Object to certain data processing activities, including analytics tracking.</span></div>
+            <div class="right-item"><span class="ri-ico">🔕</span><span>Opt out of the newsletter at any time using the unsubscribe option in any email.</span></div>
+        </div>
+        <p style="margin-top:14px;">To exercise any of these rights, contact us using the details in the Contact section below. We aim to respond within 7 days.</p>
+    </div>
+
+    <!-- 6. COOKIES -->
+    <div class="section" id="s-cookies">
+        <div class="section-header">
+            <div class="section-icon icon-amber">🍪</div>
+            <div>
+                <div class="section-title">Cookies &amp; local storage</div>
+                <div class="section-sub">How we use browser storage</div>
+            </div>
+        </div>
+        <p>DracoVerse primarily uses <strong>browser local storage</strong> rather than traditional cookies to remember your session. This data never leaves your device unless you post content to the community.</p>
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="ic-label">💾 Local storage (our site)</div>
+                <div class="ic-val">Stores your username, avatar, gradient preference, notification settings, bookmarks, and channel unread counts.</div>
+            </div>
+            <div class="info-card">
+                <div class="ic-label">🍪 Third-party cookies</div>
+                <div class="ic-val">Google Analytics and Google AdSense may set cookies in your browser. These are subject to Google's own privacy policy.</div>
+            </div>
+        </div>
+        <p style="margin-top:14px;">You can clear local storage at any time through your browser settings. To opt out of Google Analytics, visit <strong>tools.google.com/dlpage/gaoptout</strong>. To manage ad personalisation, visit <strong>adssettings.google.com</strong>.</p>
+        <div class="highlight green">
+            ✅ We do not use tracking cookies for advertising purposes on our own platform.
+        </div>
+    </div>
+
+    <!-- 7. SECURITY -->
+    <div class="section" id="s-security">
+        <div class="section-header">
+            <div class="section-icon icon-green">🔒</div>
+            <div>
+                <div class="section-title">Security</div>
+                <div class="section-sub">How we protect your information</div>
+            </div>
+        </div>
+        <p>All data is stored in Google Firebase Firestore, which provides industry-standard encryption at rest (AES-256) and in transit (TLS). We apply input sanitisation across all user-generated content to prevent cross-site scripting (XSS) attacks.</p>
+        <p>Admin features are protected by a server-verified password. No user can impersonate the admin role or access restricted moderation tools without the correct credentials.</p>
+        <div class="highlight">
+            While we take reasonable steps to safeguard your data, no online service can guarantee absolute security. We encourage you to use a unique username and avoid sharing sensitive personal information in public messages or blog posts.
+        </div>
+        <p>In the event of a data breach that affects your personal information, we will notify affected users as promptly as possible.</p>
+    </div>
+
+    <!-- 8. POLICY CHANGES -->
+    <div class="section" id="s-changes">
+        <div class="section-header">
+            <div class="section-icon icon-purple">📝</div>
+            <div>
+                <div class="section-title">Policy changes</div>
+                <div class="section-sub">How we handle updates to this document</div>
+            </div>
+        </div>
+        <p>We may update this Privacy Policy from time to time to reflect changes in our services or legal requirements. When we do, we will update the "Last updated" date at the top of this page.</p>
+        <p>Significant changes will be announced in the <strong>#announcements</strong> channel of DracoCommunity. Continued use of DracoVerse after any changes constitutes your acceptance of the revised policy.</p>
+        <div class="highlight amber">
+            ⚠️ We recommend checking this page periodically to stay informed about how we protect your information.
+        </div>
+    </div>
+
+    <!-- 9. CONTACT -->
+    <div class="section" id="s-contact">
+        <div class="section-header">
+            <div class="section-icon icon-red">📬</div>
+            <div>
+                <div class="section-title">Contact us</div>
+                <div class="section-sub">Questions or requests about your privacy</div>
+            </div>
+        </div>
+        <p>If you have any questions about this policy, wish to exercise your data rights, or want to report a privacy concern, you can reach Abhinav (creator of DracoVerse) through the community or blog platforms:</p>
+        <div class="contact-row">
+            <div class="contact-chip"><span class="chip-ico">💬</span> DracoCommunity — #general channel</div>
+            <div class="contact-chip"><span class="chip-ico">📝</span> DracoBlog — create a post or comment</div>
+            <div class="contact-chip"><span class="chip-ico">📢</span> DracoCommunity — #announcements</div>
+        </div>
+        <p style="margin-top:16px;">We aim to respond to all privacy enquiries within <strong>7 business days</strong>.</p>
+    </div>
+
+    <!-- FOOTER BAR -->
+    <div class="pp-footer">
+        <span class="brand">🐉 DracoVerse</span>
+        <span>Built by Abhinav with ❤️ and lots of ☕</span>
+        <span>Privacy Policy v1.0 · June 2026</span>
+    </div>
+
+</div>
+
+<!-- PAGE FOOTER -->
+<footer>
+    <p style="margin-bottom:10px;">© 2026 DracoVerse — by Abhinav 🐉</p>
+    <p>
+        <a href="index.html">Home</a> ·
+        <a href="blogs.html">Blogs</a> ·
+        <a href="news.html">News</a> ·
+        <a href="community.html">Community</a> ·
+        <a href="about.html">About</a>
+    </p>
+</footer>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

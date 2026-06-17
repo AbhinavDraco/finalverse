@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+      <link rel="icon" type="image/png" sizes="32x32" href="rag.jpg">
+    <link rel="icon" type="image/png" sizes="16x16" href="rag.jpg">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GG7CQ1TL2G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GG7CQ1TL2G');
+</script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1307099726971871"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DracoVerse Authentication</title>
+
+<style>
+    /* Import Google Font for a more refined look */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    /* Global styles */
+    :root {
+        --primary-color: #ff4500;
+        --secondary-color: #ff7a00;
+        --dark-bg-start: #090909;
+        --dark-bg-mid: #121212;
+        --dark-bg-end: #1b1b1b;
+        --glass-bg: rgba(255, 255, 255, 0.08);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --text-color: white;
+        --placeholder-color: #bbb;
+        --light-gray: #ddd;
+        --google-text: #333;
+        --shadow-light: rgba(0, 0, 0, 0.45);
+        --shadow-dark: rgba(0, 0, 0, 0.7);
+    }
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Poppins', sans-serif; /* Using imported font */
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body{
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:
+            radial-gradient(circle at top left, var(--primary-color) 0%, transparent 25%),
+            radial-gradient(circle at bottom right, #8b0000 0%, transparent 30%),
+            linear-gradient(135deg, var(--dark-bg-start), var(--dark-bg-mid), var(--dark-bg-end));
+        color:var(--text-color);
+        overflow:hidden; /* Prevent scrollbar if subtle animations cause overflow */
+    }
+
+    /* Custom Scrollbar (for aesthetic - might not apply to all browsers) */
+    body::-webkit-scrollbar {
+        width: 8px;
+    }
+    body::-webkit-scrollbar-track {
+        background: var(--dark-bg-mid);
+    }
+    body::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 4px;
+    }
+    body::-webkit-scrollbar-thumb:hover {
+        background: var(--secondary-color);
+    }
+
+    /* Auth Container / Card Styling */
+    .auth-container{
+        width:420px;
+        max-width: 90%; /* Responsive max width */
+        padding:40px;
+        border-radius:24px;
+        background:var(--glass-bg);
+        backdrop-filter:blur(18px);
+        border:1px solid var(--glass-border);
+        box-shadow:0 25px 50px var(--shadow-dark), 0 0 15px rgba(255,255,255,0.05) inset; /* Enhanced shadow */
+        text-align:center;
+        position:relative; /* For animations */
+        animation: fadeInScale 0.8s ease-out forwards;
+        perspective: 1000px; /* For potential 3D effects */
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+
+    #indexAuthModal.active ~ .auth-container {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    /* Headings and Subtitles */
+    h1{
+        text-align:center;
+        margin-bottom:15px;
+        font-size:2.2em;
+        font-weight:700;
+        letter-spacing: 0.5px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .subtitle{
+        margin-bottom:30px; /* Increased margin */
+        opacity:.85;
+        font-size:0.95em;
+        line-height:1.4;
+        color:var(--placeholder-color);
+    }
+
+    /* Input Fields */
+    input{
+        width:100%;
+        padding:15px; /* Slightly more padding */
+        margin:12px 0; /* Slightly more margin */
+        border:1px solid var(--glass-border);
+        border-radius:12px; /* Slightly more rounded */
+        background:rgba(255,255,255,.07); /* Slightly less opaque */
+        color:var(--text-color);
+        font-size:1em;
+        outline:none;
+        transition:border-color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) inset; /* Subtle inner shadow */
+    }
+
+    input:focus{
+        border-color:var(--primary-color);
+        box-shadow: 0 0 0 2px var(--primary-color), 0 2px 10px rgba(0,0,0,0.3) inset; /* Focus glow */
+        background: rgba(255,255,255,0.1);
+    }
+
+    input::placeholder{
+        color:var(--placeholder-color);
+        opacity: 0.7;
+    }
+
+    /* Password Toggle */
+    .password-wrapper{
+        position:relative;
+        width:100%;
+        margin-bottom: 5px; /* Adjust spacing */
+    }
+
+    .toggle-password{
+        position:absolute;
+        right:18px; /* Adjusted position */
+        top:50%;
+        transform:translateY(-50%);
+        cursor:pointer;
+        user-select:none;
+        color:var(--placeholder-color);
+        font-size:0.85em;
+        font-weight:600;
+        transition:color 0.3s ease;
+        padding: 5px 0; /* Make clickable area larger */
+    }
+
+    .toggle-password:hover{
+        color:var(--text-color);
+        text-shadow: 0 0 5px var(--secondary-color);
+    }
+
+    /* Buttons */
+    button{
+        width:100%;
+        padding:15px; /* Slightly more padding */
+        border:none;
+        border-radius:12px; /* Slightly more rounded */
+        cursor:pointer;
+        font-weight:600; /* Medium bold */
+        margin-top:15px; /* More margin */
+        font-size:1.05em; /* Slightly larger font */
+        transition:transform .3s ease, background-color .3s ease, box-shadow 0.3s ease;
+        outline:none;
+        letter-spacing: 0.5px;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.3); /* Button shadow */
+    }
+
+    button:hover{
+        transform:translateY(-3px); /* More pronounced lift */
+        box-shadow: 0 12px 20px rgba(0,0,0,0.4);
+    }
+
+    button:active {
+        transform: translateY(-1px); /* Slight press effect */
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    .primary-btn{
+        background:linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        color:var(--text-color);
+        position: relative;
+        overflow: hidden;
+    }
+    .primary-btn::before { /* Hover glow effect */
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 300%;
+        height: 300%;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        transition: all 0.6s ease-out;
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+        z-index: 0;
+    }
+    .primary-btn:hover::before {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    .primary-btn span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .google-btn{
+        background:var(--text-color);
+        color:var(--google-text);
+        border:1px solid var(--light-gray);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .google-btn:hover {
+        background: var(--light-gray);
+        color: #000;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+
+
+    /* Separator */
+    .or{
+        text-align:center;
+        margin:25px 0; /* More margin */
+        color:var(--placeholder-color);
+        font-size:0.9em;
+        position:relative;
+        opacity: 0.8;
+    }
+    .or::before, .or::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background: var(--glass-border);
+    }
+    .or::before {
+        left: 0;
+    }
+    .or::after {
+        right: 0;
+    }
+
+
+    /* Form Toggle Links */
+    .form-switch{
+        margin-top:25px; /* More margin */
+        font-size:0.9em;
+        color:var(--placeholder-color);
+    }
+
+    .form-switch a{
+        color:var(--secondary-color);
+        text-decoration:none;
+        font-weight:bold;
+        cursor:pointer;
+        transition:color 0.3s ease, text-shadow 0.3s ease;
+        padding-bottom: 2px; /* For underline effect */
+        border-bottom: 1px solid transparent;
+    }
+
+    .form-switch a:hover{
+        color:var(--text-color);
+        text-shadow: 0 0 8px var(--secondary-color);
+        border-bottom: 1px solid var(--text-color); /* Subtle underline */
+    }
+
+    /* Form Visibility Transitions */
+    .form-container {
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        transform: translateY(0);
+        opacity: 1;
+        display: block; /* Ensure it's treated as a block when not hidden */
+    }
+
+    .form-container.hidden-form {
+        opacity: 0;
+        height: 0; /* Collapse element when hidden */
+        padding: 0;
+        margin: 0;
+        overflow: hidden; /* Hide overflow content */
+        transform: translateY(20px);
+        pointer-events: none; /* Disable interaction */
+    }
+
+    /* Modal Styling */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
+    .modal-content {
+        width: 420px;
+        max-width: 90%;
+        padding: 40px;
+        border-radius: 24px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(18px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 25px 50px var(--shadow-dark), 0 0 15px rgba(255,255,255,0.05) inset;
+        animation: fadeInScale 0.8s ease-out forwards;
+    }
+
+    .modal-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .modal-title {
+        font-size: 1.5em;
+        font-weight: 700;
+        color: var(--text-color);
+    }
+
+    .modal-body {
+        width: 100%;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.9em;
+        font-weight: 600;
+        color: var(--text-color);
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 15px;
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        background: rgba(255,255,255,.07);
+        color: var(--text-color);
+        font-size: 1em;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2) inset;
+    }
+
+    .form-input:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px var(--primary-color), 0 2px 10px rgba(0,0,0,0.3) inset;
+        background: rgba(255,255,255,0.1);
+    }
+
+    .form-input::placeholder {
+        color: var(--placeholder-color);
+        opacity: 0.7;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+        color: var(--text-color);
+        font-size: 1.05em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 20px rgba(0,0,0,0.4);
+    }
+
+    .btn-primary:active {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeInScale {
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    /* Responsive Design Adjustments */
+    @media (max-width: 600px) {
+        .auth-container {
+            padding: 30px 20px; /* Reduce padding on smaller screens */
+            border-radius: 18px;
+            box-shadow: 0 15px 30px var(--shadow-dark);
+        }
+
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 0.85em;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 0.95em;
+        }
+
+        button {
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 0.95em;
+        }
+
+        .or {
+            margin: 20px 0;
+            font-size: 0.8em;
+        }
+
+        .or::before, .or::after {
+            width: 35%; /* Adjust line length */
+        }
+
+        .form-switch {
+            font-size: 0.85em;
+            margin-top: 20px;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .auth-container {
+            padding: 25px 15px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            font-size: 1.6em;
+        }
+
+        .subtitle {
+            font-size: 0.8em;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 0.9em;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 0.9em;
+        }
+
+        .or::before, .or::after {
+            width: 30%; /* Further adjust line length */
+        }
+    }
+</style>
+<div class="modal" id="indexAuthModal">
+  <div class="modal-content" style="max-width:400px;">
+    <div class="modal-header">
+      <div class="modal-title">🗞️ The Democratic India</div>
+    </div>
+    <div class="modal-body">
+      <div style="text-align:center;margin-bottom:20px;">
+        <div style="font-size:48px;margin-bottom:10px;">🗞️</div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:5px;">Welcome to TDI</div>
+        <div style="color:var(--text-secondary);font-size:13px;">Enter your credentials to continue</div>
+      </div>
+      <div id="indexAuthError" style="color:var(--danger);font-size:13px;margin-bottom:15px;display:none;"></div>
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-input" id="indexUsername" placeholder="Enter username" maxlength="20" onkeyup="checkIndexAdminUser()">
+      </div>
+      <div class="form-group" id="indexPasswordGroup" style="display:none;">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" id="indexPassword" placeholder="Enter password" maxlength="50" onkeypress="if(event.key==='Enter') indexAuthenticate()">
+      </div>
+      <button class="btn-primary" onclick="indexAuthenticate()" style="margin-top:10px;">Continue</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function checkIndexAdminUser() {
+  const username = document.getElementById('indexUsername').value.trim();
+  const passwordGroup = document.getElementById('indexPasswordGroup');
+  if (username === 'abhi67' || username === 'zekken') {
+    passwordGroup.style.display = 'block';
+  } else {
+    passwordGroup.style.display = 'none';
+  }
+}
+
+function indexAuthenticate() {
+  const username = document.getElementById('indexUsername').value.trim();
+  const password = document.getElementById('indexPassword').value;
+  const authError = document.getElementById('indexAuthError');
+  
+  authError.style.display = 'none';
+
+  if (!username || username.length < 3) {
+    authError.textContent = '❌ Username must be at least 3 characters';
+    authError.style.display = 'block';
+    return;
+  }
+
+  let role = 'user';
+  if (username === 'abhi67') {
+    if (password !== 'admin67') {
+      authError.textContent = '❌ Incorrect password for admin';
+      authError.style.display = 'block';
+      document.getElementById('indexPassword').value = '';
+      return;
+    }
+    role = 'admin';
+  } else if (username === 'zekken') {
+    if (password !== 'sush67') {
+      authError.textContent = '❌ Incorrect password for manager';
+      authError.style.display = 'block';
+      document.getElementById('indexPassword').value = '';
+      return;
+    }
+    role = 'manager';
+  }
+
+  // Save user info to localStorage
+  localStorage.setItem('tdi_user', JSON.stringify({
+    username,
+    role,
+    loginTime: Date.now()
+  }));
+
+  document.getElementById('indexAuthModal').classList.remove('active');
+  document.body.style.overflow = '';
+  
+  // Redirect to home after successful admin authentication
+  window.location.href = "home.html";
+}
+
+function showIndexAuthModal() {
+  document.getElementById('indexAuthModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('indexUsername').value = '';
+  document.getElementById('indexPassword').value = '';
+  document.getElementById('indexPasswordGroup').style.display = 'none';
+  document.getElementById('indexAuthError').style.display = 'none';
+}
+
+function initIndexAuth() {
+  const savedUser = localStorage.getItem('tdi_user');
+  if (savedUser) {
+    try {
+      const user = JSON.parse(savedUser);
+      document.getElementById('indexAuthModal').classList.remove('active');
+      document.body.style.overflow = '';
+    } catch (e) {
+      showIndexAuthModal();
+    }
+  }
+}
+
+// Check auth on page load
+window.addEventListener('load', initIndexAuth);
+</script>
+</head>
+<body>
+
+<div class="auth-container">
+    <h1 id="formTitle">Login</h1>
+    <p class="subtitle" id="formSubtitle">Welcome back! Please login to your account.</p>
+
+    <!-- Login Form -->
+    <div id="loginForm" class="form-container">
+        <input type="email" id="loginEmail" placeholder="Email">
+        <div class="password-wrapper">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <span class="toggle-password" onclick="togglePasswordVisibility('loginPassword')">Show</span>
+        </div>
+
+        <button class="primary-btn" onclick="emailLogin()">
+            Login
+        </button>
+
+        <div class="or">OR</div>
+
+        <button class="google-btn" onclick="googleLogin()">
+            Continue with Google
+        </button>
+
+        <p class="form-switch">Don't have an account? <a onclick="toggleForm('signup')">Sign Up</a></p>
+    </div>
+
+    <!-- Sign Up Form (initially hidden) -->
+    <div id="signupForm" class="form-container hidden-form">
+        <input type="email" id="signupEmail" placeholder="Email">
+        <div class="password-wrapper">
+            <input type="password" id="signupPassword" placeholder="Password">
+            <span class="toggle-password" onclick="togglePasswordVisibility('signupPassword')">Show</span>
+        </div>
+        <div class="password-wrapper">
+            <input type="password" id="confirmPassword" placeholder="Confirm Password">
+            <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">Show</span>
+        </div>
+
+        <button class="primary-btn" onclick="emailSignUp()">
+            Sign Up
+        </button>
+
+        <div class="or">OR</div>
+
+        <button class="google-btn" onclick="googleLogin()">
+            Continue with Google
+        </button>
+
+        <p class="form-switch">Already have an account? <a onclick="toggleForm('login')">Login</a></p>
+    </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    FacebookAuthProvider,
+    signInWithPopup,
+    sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDr0o2BwNFBXoloJjCpT95lD3iDwSVTVh0",
+    authDomain: "login-9b3fa.firebaseapp.com",
+    projectId: "login-9b3fa",
+    appId: "1:448949531390:web:b9db9806ad1c3a7a126baf",
+    measurementId: "G-GG7CQ1TL2G"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Function to toggle between Login and Sign Up forms
+window.toggleForm = (formType) => {
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const formTitle = document.getElementById("formTitle");
+    const formSubtitle = document.getElementById("formSubtitle");
+
+    if (formType === 'signup') {
+        loginForm.classList.add('hidden-form');
+        signupForm.classList.remove('hidden-form');
+        formTitle.textContent = "Sign Up";
+        formSubtitle.textContent = "Create your new account to get started.";
+    } else { // formType === 'login'
+        signupForm.classList.add('hidden-form');
+        loginForm.classList.remove('hidden-form');
+        formTitle.textContent = "Login";
+        formSubtitle.textContent = "Welcome back! Please login to your account.";
+    }
+};
+
+// Function to toggle password visibility
+window.togglePasswordVisibility = (fieldId) => {
+    const passwordField = document.getElementById(fieldId);
+    const toggleSpan = passwordField.nextElementSibling;
+
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        toggleSpan.textContent = "Hide";
+    } else {
+        passwordField.type = "password";
+        toggleSpan.textContent = "Show";
+    }
+};
+
+// Email validation function
+const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+};
+
+// Email Login Function - WITH EMAIL VERIFICATION CHECK
+window.emailLogin = async () => {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value;
+
+    // ===== CLIENT-SIDE VALIDATION =====
+    if (!email) {
+        alert("❌ Please enter your email address.");
+        return;
+    }
+
+    if (!validateEmail(email)) {
+        alert("❌ Please enter a valid email address.");
+        return;
+    }
+
+    if (!password) {
+        alert("❌ Please enter your password.");
+        return;
+    }
+
+    if (password.length < 8) {
+        alert("❌ Password should be at least 8 characters.");
+        return;
+    }
+    // ===== END CLIENT-SIDE VALIDATION =====
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // ⚠️ CHECK IF EMAIL IS VERIFIED ⚠️
+        if (!user.emailVerified) {
+            alert("❌ Email Not Verified!\n\nPlease verify your email first.\n\nCheck your inbox for the verification link.\n\nCan't find it? Check your spam folder.");
+            
+            // Option to resend verification email
+            const resend = confirm("\n📧 Would you like to resend the verification email?");
+            if (resend) {
+                try {
+                    await sendEmailVerification(user);
+                    alert("✅ Verification email resent to " + email + "\n\nPlease check your inbox.");
+                } catch (err) {
+                    alert("❌ Error resending email: " + err.message);
+                }
+            }
+            return;
+        }
+
+        // ✅ EMAIL IS VERIFIED - SHOW ADMIN MODAL
+        alert("✅ Login successful!");
+        showIndexAuthModal();
+
+    } catch (err) {
+        let errorMessage = "❌ An error occurred during login.";
+        
+        if (err.code === "auth/invalid-credential") {
+            errorMessage = "❌ Invalid email or password. Please check your credentials.";
+        } else if (err.code === "auth/user-not-found") {
+            errorMessage = "❌ No account found with this email.\n\nPlease sign up first if you don't have an account.";
+        } else if (err.code === "auth/wrong-password") {
+            errorMessage = "❌ Incorrect password. Please try again.";
+        } else if (err.code === "auth/invalid-email") {
+            errorMessage = "❌ Please enter a valid email address.";
+        } else if (err.code === "auth/too-many-requests") {
+            errorMessage = "❌ Too many login attempts. Please try again later.";
+        } else {
+            errorMessage = "❌ " + err.message;
+        }
+        
+        alert(errorMessage);
+        console.error("Login Error:", err);
+    }
+};
+
+// Email Sign Up Function - WITH EMAIL VERIFICATION REQUIRED
+window.emailSignUp = async () => {
+    const email = document.getElementById("signupEmail").value.trim();
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    // ===== CLIENT-SIDE VALIDATION =====
+    if (!email) {
+        alert("❌ Please enter an email address.");
+        return;
+    }
+
+    if (!validateEmail(email)) {
+        alert("❌ Please enter a valid email address.");
+        return;
+    }
+
+    if (!password) {
+        alert("❌ Please enter a password.");
+        return;
+    }
+
+    // Enhanced password strength check
+    if (password.length < 8) {
+        alert("❌ Password must be at least 8 characters long.");
+        return;
+    }
+
+    // Check for password strength (must contain uppercase, lowercase, number)
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+
+    if (!hasUpperCase || !hasLowerCase || !hasNumber) {
+        alert("❌ Password must contain:\n- At least 1 uppercase letter (A-Z)\n- At least 1 lowercase letter (a-z)\n- At least 1 number (0-9)");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert("❌ Passwords do not match!");
+        return;
+    }
+    // ===== END CLIENT-SIDE VALIDATION =====
+
+    try {
+        // Create the user account
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Send verification email to the provided email address
+        await sendEmailVerification(user);
+
+        alert("✅ Account created! \n\n📧 A verification email has been sent to:\n" + email + "\n\n⚠️ IMPORTANT: You must verify your email to login!\n\nPlease check your email and click the verification link.\n\n(Check your spam folder if you don't see it in 5 minutes)");
+        
+        // Clear the signup form
+        document.getElementById("signupEmail").value = "";
+        document.getElementById("signupPassword").value = "";
+        document.getElementById("confirmPassword").value = "";
+
+        // Redirect to login after 3 seconds
+        setTimeout(() => {
+            toggleForm('login');
+        }, 3000);
+
+    } catch (err) {
+        let errorMessage = "❌ An error occurred during sign up.";
+        
+        if (err.code === "auth/email-already-in-use") {
+            errorMessage = "❌ This email is already registered. Please login instead.";
+        } else if (err.code === "auth/weak-password") {
+            errorMessage = "❌ Password is too weak. Use uppercase, lowercase, numbers & 8+ characters.";
+        } else if (err.code === "auth/invalid-email") {
+            errorMessage = "❌ Please enter a valid email address.";
+        } else if (err.code === "auth/operation-not-allowed") {
+            errorMessage = "❌ Email/password authentication is not enabled. Contact support.";
+        } else {
+            errorMessage = "❌ " + err.message;
+        }
+        
+        alert(errorMessage);
+        console.error("Sign Up Error:", err);
+    }
+};
+
+// Google Login Function
+window.googleLogin = async () => {
+    try {
+        const provider = new GoogleAuthProvider();
+        await signInWithPopup(auth, provider);
+        alert("✅ Logged in with Google successfully!");
+        showIndexAuthModal();
+    } catch (err) {
+        alert("❌ Google Login Error: " + err.message);
+        console.error("Google Login Error:", err);
+    }
+};
+
+// Facebook Login Function
+window.facebookLogin = async () => {
+    try {
+        const provider = new FacebookAuthProvider();
+        await signInWithPopup(auth, provider);
+        alert("✅ Logged in with Facebook successfully!");
+        showIndexAuthModal();
+    } catch (err) {
+        alert("❌ Facebook Login Error: " + err.message);
+        console.error("Facebook Login Error:", err);
+    }
+};
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
