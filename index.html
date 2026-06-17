@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     
       <link rel="icon" type="image/png" sizes="32x32" href="rag.jpg">
     <link rel="icon" type="image/png" sizes="16x16" href="rag.jpg">
@@ -242,6 +241,19 @@
         box-shadow: 0 6px 12px rgba(0,0,0,0.3);
     }
 
+    /* Guest Button - NEW */
+    .guest-btn {
+        background: transparent;
+        color: var(--placeholder-color);
+        border: 1px dashed rgba(255, 255, 255, 0.3);
+        box-shadow: none;
+    }
+    .guest-btn:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text-color);
+        border-color: rgba(255, 255, 255, 0.5);
+        box-shadow: none;
+    }
 
     /* Separator */
     .or{
@@ -633,6 +645,10 @@ window.addEventListener('load', initIndexAuth);
             Continue with Google
         </button>
 
+        <button class="guest-btn" onclick="guestLogin()">
+            👤 Continue as Guest
+        </button>
+
         <p class="form-switch">Don't have an account? <a onclick="toggleForm('signup')">Sign Up</a></p>
     </div>
 
@@ -656,6 +672,10 @@ window.addEventListener('load', initIndexAuth);
 
         <button class="google-btn" onclick="googleLogin()">
             Continue with Google
+        </button>
+
+        <button class="guest-btn" onclick="guestLogin()">
+            👤 Continue as Guest
         </button>
 
         <p class="form-switch">Already have an account? <a onclick="toggleForm('login')">Login</a></p>
@@ -908,6 +928,16 @@ window.facebookLogin = async () => {
         alert("❌ Facebook Login Error: " + err.message);
         console.error("Facebook Login Error:", err);
     }
+};
+
+// Guest Login Function - NEW
+window.guestLogin = () => {
+    localStorage.setItem('tdi_user', JSON.stringify({
+        username: 'guest',
+        role: 'guest',
+        loginTime: Date.now()
+    }));
+    window.location.href = "home.html";
 };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
