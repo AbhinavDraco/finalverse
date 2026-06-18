@@ -69,11 +69,36 @@
             margin: 0 auto;
         }
 
-        /* ======================== SIDEBAR ======================== */
+        /* ======================== SIDEBAR — FIXED WITH OWN SCROLL ======================== */
         .sidebar {
-            height: fit-content;
             position: sticky;
-            top: 20px;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-inner {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 4px;
+            padding-bottom: 20px;
+        }
+
+        .sidebar-inner::-webkit-scrollbar { width: 6px; }
+        .sidebar-inner::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-inner::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        .sidebar-inner::-webkit-scrollbar-thumb:hover { background: var(--accent-light); }
+
+        .sidebar-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 16px;
+            cursor: pointer;
+            padding-top: 20px;
+            flex-shrink: 0;
         }
 
         .sidebar-section {
@@ -359,6 +384,52 @@
             gap: 4px;
         }
 
+        /* ======================== BLOGGER RANK BADGE ======================== */
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: default;
+            flex-shrink: 0;
+        }
+
+        .rank-badge.active-blogger {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: #10b981;
+        }
+
+        .rank-badge.silver-blogger {
+            background: rgba(148, 163, 184, 0.15);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            color: #94a3b8;
+        }
+
+        .rank-badge.golden-blogger {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            color: #f59e0b;
+        }
+
+        .rank-badge.diamond-blogger {
+            background: rgba(129, 140, 248, 0.15);
+            border: 1px solid rgba(129, 140, 248, 0.6);
+            color: #818cf8;
+            box-shadow: 0 0 8px rgba(129, 140, 248, 0.3);
+            animation: diamondPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes diamondPulse {
+            0%, 100% { box-shadow: 0 0 8px rgba(129, 140, 248, 0.3); }
+            50% { box-shadow: 0 0 16px rgba(129, 140, 248, 0.6); }
+        }
+
         /* ======================== RIGHT SIDEBAR ======================== */
         .right-sidebar { height: fit-content; position: sticky; top: 20px; }
 
@@ -457,6 +528,71 @@
 
         .karma-label { color: var(--text-secondary); }
         .karma-value { font-weight: 700; color: var(--accent); }
+
+        /* ======================== RANK PROGRESS BAR ======================== */
+        .rank-progress-section {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .rank-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .rank-progress-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .rank-progress-count {
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .rank-progress-bar-wrap {
+            width: 100%;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .rank-progress-bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            transition: width 0.6s ease;
+        }
+
+        .rank-progress-bar-fill.rank-none    { background: linear-gradient(90deg, #6366f1, #818cf8); }
+        .rank-progress-bar-fill.rank-active  { background: linear-gradient(90deg, #059669, #10b981); }
+        .rank-progress-bar-fill.rank-silver  { background: linear-gradient(90deg, #64748b, #94a3b8); }
+        .rank-progress-bar-fill.rank-golden  { background: linear-gradient(90deg, #d97706, #f59e0b); }
+        .rank-progress-bar-fill.rank-diamond { background: linear-gradient(90deg, #6366f1, #818cf8, #a5b4fc); background-size: 200% 100%; animation: shimmerBar 2s linear infinite; }
+
+        @keyframes shimmerBar {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .rank-progress-next {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+
+        .rank-current-display {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
 
         .btn-primary {
             width: 100%;
@@ -644,6 +780,7 @@
             color: var(--text-secondary);
             font-size: 14px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .fullscreen-post-content {
@@ -801,8 +938,6 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            max-height: 300px;
-            overflow-y: auto;
         }
 
         .community-item {
@@ -1018,39 +1153,39 @@
 </head>
 <body>
     <div class="container-fluid">
-        <!-- LEFT SIDEBAR -->
+        <!-- LEFT SIDEBAR — fixed height with own scroll -->
         <div class="sidebar">
-            <div style="font-size: 24px; font-weight: 900; color: var(--accent); margin-bottom: 30px; cursor: pointer;" onclick="goHome()">
-                🐉 DracoLogs
-            </div>
+            <div class="sidebar-logo" onclick="goHome()">🐉 DracoLogs</div>
 
-            <button class="create-post-btn" onclick="openCreatePostModal()">+ Create Post</button>
+            <div class="sidebar-inner">
+                <button class="create-post-btn" onclick="openCreatePostModal()">+ Create Post</button>
 
-            <div class="sidebar-section">
-                <div class="sidebar-header">Navigation</div>
-                <div class="sidebar-item active" onclick="switchFeed('home', this)">
-                    <span class="sidebar-item-icon">🏠</span>
-                    <span class="sidebar-item-text">Home</span>
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Navigation</div>
+                    <div class="sidebar-item active" onclick="switchFeed('home', this)">
+                        <span class="sidebar-item-icon">🏠</span>
+                        <span class="sidebar-item-text">Home</span>
+                    </div>
+                    <div class="sidebar-item" onclick="switchFeed('trending', this)">
+                        <span class="sidebar-item-icon">🔥</span>
+                        <span class="sidebar-item-text">Trending</span>
+                    </div>
+                    <div class="sidebar-item" onclick="switchFeed('recent', this)">
+                        <span class="sidebar-item-icon">⏰</span>
+                        <span class="sidebar-item-text">Recent</span>
+                    </div>
+                    <div class="sidebar-item" onclick="switchFeed('top', this)">
+                        <span class="sidebar-item-icon">⭐</span>
+                        <span class="sidebar-item-text">Top</span>
+                    </div>
                 </div>
-                <div class="sidebar-item" onclick="switchFeed('trending', this)">
-                    <span class="sidebar-item-icon">🔥</span>
-                    <span class="sidebar-item-text">Trending</span>
-                </div>
-                <div class="sidebar-item" onclick="switchFeed('recent', this)">
-                    <span class="sidebar-item-icon">⏰</span>
-                    <span class="sidebar-item-text">Recent</span>
-                </div>
-                <div class="sidebar-item" onclick="switchFeed('top', this)">
-                    <span class="sidebar-item-icon">⭐</span>
-                    <span class="sidebar-item-text">Top</span>
-                </div>
-            </div>
 
-            <div class="sidebar-section">
-                <div class="sidebar-header">Communities</div>
-                <div id="communitiesContainer" class="community-list" style="padding: 0 0 12px 0;"></div>
-                <div style="padding: 12px 20px;" id="createCommunityBtnWrapper">
-                    <button class="create-post-btn" style="font-size: 12px; padding: 8px;" onclick="openCreateCommunityModal()">+ Create Community</button>
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Communities</div>
+                    <div id="communitiesContainer" class="community-list" style="padding: 0 12px 12px 12px;"></div>
+                    <div style="padding: 12px 20px;" id="createCommunityBtnWrapper">
+                        <button class="create-post-btn" style="font-size: 12px; padding: 8px;" onclick="openCreateCommunityModal()">+ Create Community</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1088,9 +1223,29 @@
                 <div class="user-avatar-large" id="userAvatarDisplay">A</div>
                 <div class="user-name" id="userDisplay">Loading...</div>
                 <div class="user-karma">Community Draco</div>
+
+                <!-- Rank badge display -->
+                <div class="rank-current-display" id="rankBadgeDisplay"></div>
+
                 <div class="karma-item">
                     <span class="karma-label">Post Score</span>
                     <span class="karma-value" id="postKarma">0</span>
+                </div>
+                <div class="karma-item">
+                    <span class="karma-label">Posts Made</span>
+                    <span class="karma-value" id="postCountDisplay">0</span>
+                </div>
+
+                <!-- Rank progress bar -->
+                <div class="rank-progress-section" id="rankProgressSection">
+                    <div class="rank-progress-header">
+                        <span class="rank-progress-label" id="rankProgressLabel">Rank Progress</span>
+                        <span class="rank-progress-count" id="rankProgressCount"></span>
+                    </div>
+                    <div class="rank-progress-bar-wrap">
+                        <div class="rank-progress-bar-fill rank-none" id="rankProgressFill" style="width: 0%;"></div>
+                    </div>
+                    <div class="rank-progress-next" id="rankProgressNext"></div>
                 </div>
             </div>
         </div>
@@ -1251,13 +1406,87 @@ let allCommunities = [];
 let currentFeed = 'home';
 let currentSort = 'newest';
 let currentOpenPostId = null;
-// Track which post was opened so we can count view on close
-let viewCountPendingPostId = null;
 
 const ADMIN_USERNAME = "abhi67";
 const MANAGER_USERNAME = "zekken";
 const ADMIN_PASSWORD = "admin67";
 const MANAGER_PASSWORD = "sush67";
+
+// ==================== RANK SYSTEM ====================
+const RANKS = [
+    { key: 'none',    min: 0,   max: 9,   label: null,              emoji: null,  cssClass: null,               color: '#818890' },
+    { key: 'active',  min: 10,  max: 49,  label: 'Active Blogger',  emoji: '✍️',  cssClass: 'active-blogger',   color: '#10b981' },
+    { key: 'silver',  min: 50,  max: 99,  label: 'Silver Blogger',  emoji: '🥈',  cssClass: 'silver-blogger',   color: '#94a3b8' },
+    { key: 'golden',  min: 100, max: 499, label: 'Golden Blogger',  emoji: '🥇',  cssClass: 'golden-blogger',   color: '#f59e0b' },
+    { key: 'diamond', min: 500, max: Infinity, label: 'Diamond Blogger', emoji: '💎', cssClass: 'diamond-blogger', color: '#818cf8' },
+];
+
+function getRankForCount(count) {
+    for (let i = RANKS.length - 1; i >= 0; i--) {
+        if (count >= RANKS[i].min) return RANKS[i];
+    }
+    return RANKS[0];
+}
+
+function getRankBadgeHTML(rank) {
+    if (!rank || rank.key === 'none') return '';
+    return `<span class="rank-badge ${rank.cssClass}" title="${rank.label}">${rank.emoji} ${rank.label}</span>`;
+}
+
+function updateRankUI(postCount) {
+    const rank = getRankForCount(postCount);
+    const nextRank = RANKS[RANKS.indexOf(rank) + 1] || null;
+
+    // Badge in user card
+    const badgeEl = document.getElementById('rankBadgeDisplay');
+    if (badgeEl) {
+        badgeEl.innerHTML = rank.key !== 'none' ? getRankBadgeHTML(rank) : '';
+    }
+
+    // Post count display
+    const countEl = document.getElementById('postCountDisplay');
+    if (countEl) countEl.textContent = postCount;
+
+    // Post score (upvotes earned by this user across all their posts)
+    const userPosts = allPosts.filter(p => p.author === currentUser?.username);
+    const totalScore = userPosts.reduce((acc, p) => acc + ((p.upvotes?.length || 0) - (p.downvotes?.length || 0)), 0);
+    const karmaEl = document.getElementById('postKarma');
+    if (karmaEl) karmaEl.textContent = totalScore;
+
+    // Progress bar
+    const progressSection = document.getElementById('rankProgressSection');
+    const progressLabel = document.getElementById('rankProgressLabel');
+    const progressCount = document.getElementById('rankProgressCount');
+    const progressFill = document.getElementById('rankProgressFill');
+    const progressNext = document.getElementById('rankProgressNext');
+
+    if (!progressSection) return;
+
+    if (rank.key === 'diamond') {
+        // Max rank — show full bar
+        progressLabel.textContent = '💎 Diamond Blogger';
+        progressCount.textContent = `${postCount} posts`;
+        progressCount.style.color = '#818cf8';
+        progressFill.style.width = '100%';
+        progressFill.className = 'rank-progress-bar-fill rank-diamond';
+        progressNext.textContent = 'Maximum rank achieved!';
+    } else {
+        const rangeStart = rank.min;
+        const rangeEnd = nextRank ? nextRank.min : rank.min + 1;
+        const progress = Math.min(((postCount - rangeStart) / (rangeEnd - rangeStart)) * 100, 100);
+
+        const labelText = rank.key === 'none' ? 'Progress to Active Blogger' : `Progress to ${nextRank.label}`;
+        progressLabel.textContent = labelText;
+        progressCount.textContent = `${postCount} / ${rangeEnd}`;
+        progressCount.style.color = rank.key === 'none' ? '#818cf8' : rank.color;
+
+        progressFill.style.width = progress + '%';
+        progressFill.className = `rank-progress-bar-fill rank-${rank.key}`;
+
+        const remaining = rangeEnd - postCount;
+        progressNext.textContent = remaining > 0 ? `${remaining} more post${remaining > 1 ? 's' : ''} to unlock ${nextRank.label} ${nextRank.emoji}` : '';
+    }
+}
 
 // ==================== URL / TITLE MANAGEMENT ====================
 function slugify(text) {
@@ -1284,7 +1513,6 @@ function resetURL() {
     document.title = 'DracoLogs - Advanced Community Platform';
 }
 
-// Handle browser back/forward navigation
 window.addEventListener('popstate', function(e) {
     if (e.state && e.state.postSlug) {
         const slug = e.state.postSlug;
@@ -1293,7 +1521,6 @@ window.addEventListener('popstate', function(e) {
             openFullscreenPostInternal(post.id, false);
         }
     } else {
-        // Count view when navigating away via browser back
         if (currentOpenPostId) {
             recordViewOnClose(currentOpenPostId);
         }
@@ -1304,17 +1531,15 @@ window.addEventListener('popstate', function(e) {
 });
 
 // ==================== VIEW COUNTING ====================
-// Returns a localStorage key scoped to the current user + post
 function viewedKey(postId) {
     const user = currentUser ? currentUser.username : 'guest';
     return 'viewed_' + user + '_' + postId;
 }
 
-// Called when a post is actually closed — increments view once per user
 async function recordViewOnClose(postId) {
     if (!postId) return;
     const key = viewedKey(postId);
-    if (localStorage.getItem(key)) return; // already counted for this user
+    if (localStorage.getItem(key)) return;
 
     localStorage.setItem(key, '1');
 
@@ -1326,7 +1551,6 @@ async function recordViewOnClose(postId) {
 
     try {
         await updateDoc(doc(db, 'posts', postId), { views: newViews });
-        // Refresh feed silently so view count updates in the card
         loadFeed();
     } catch (error) {
         console.error('Error updating view count:', error);
@@ -1359,7 +1583,7 @@ function checkIndexAuth() {
     return false;
 }
 
-// ==================== AUTH - FALLBACK ====================
+// ==================== AUTH ====================
 window.checkAdminUsername = function() {
     const username = document.getElementById('authUsername').value.trim();
     const passwordGroup = document.getElementById('passwordGroup');
@@ -1460,9 +1684,12 @@ function updateUserDisplay() {
         displayName += ' ⭐';
     }
     document.getElementById('userDisplay').textContent = displayName;
+
+    // Update rank based on posts authored by this user in allPosts
+    const userPostCount = allPosts.filter(p => p.author === currentUser.username).length;
+    updateRankUI(userPostCount);
 }
 
-// Show/hide "Create Community" button based on role
 function updateCreateCommunityButton() {
     const wrapper = document.getElementById('createCommunityBtnWrapper');
     if (!wrapper) return;
@@ -1584,7 +1811,7 @@ function renderCommunities() {
     const isPrivileged = currentUser && (currentUser.role === 'admin' || currentUser.role === 'manager');
 
     if (allCommunities.length === 0) {
-        container.innerHTML = '<div style="padding: 12px 20px; font-size: 12px; color: var(--text-secondary);">No communities yet</div>';
+        container.innerHTML = '<div style="padding: 4px 0; font-size: 12px; color: var(--text-secondary);">No communities yet</div>';
         return;
     }
 
@@ -1712,7 +1939,7 @@ window.submitPost = async function() {
         closeModal('createPostModal');
 
         loadFeed();
-        updateUserDisplay();
+        updateUserDisplay(); // Re-renders rank with new post count
         showToast('Post created successfully! 🚀');
     } catch (error) {
         console.error('Error:', error);
@@ -1856,6 +2083,12 @@ function renderComments(comments) {
 }
 
 // ==================== FULLSCREEN POST ====================
+function getAuthorRankBadgeHTML(authorUsername) {
+    const authorPostCount = allPosts.filter(p => p.author === authorUsername).length;
+    const rank = getRankForCount(authorPostCount);
+    return getRankBadgeHTML(rank);
+}
+
 function openFullscreenPostInternal(postId, pushState) {
     const post = allPosts.find(p => p.id === postId);
     if (!post) return;
@@ -1876,10 +2109,13 @@ function openFullscreenPostInternal(postId, pushState) {
     const isAdmin = currentUser?.role === 'admin';
     const isManager = currentUser?.role === 'manager';
 
+    const authorBadge = getAuthorRankBadgeHTML(post.author);
+
     document.getElementById('fullscreenPostTitle').textContent = post.title;
     document.getElementById('fullscreenPostMeta').innerHTML = `
         <span>• ${timeAgo(post.createdAt)}</span>
         <span>• by ${post.author}</span>
+        ${authorBadge ? authorBadge : ''}
         ${post.sharedToCommunity ? '<span>• 📚 Shared</span>' : ''}
     `;
     document.getElementById('fullscreenPostContent').textContent = post.content;
@@ -1910,7 +2146,6 @@ window.openFullscreenPost = function(postId) {
 };
 
 window.closeFullscreenPost = function() {
-    // Count view on close
     if (currentOpenPostId) {
         recordViewOnClose(currentOpenPostId);
     }
@@ -1951,6 +2186,11 @@ async function loadInitialData() {
         });
         loadCommunities();
         loadFeed();
+        // Update rank UI now that allPosts is loaded
+        if (currentUser) {
+            const userPostCount = allPosts.filter(p => p.author === currentUser.username).length;
+            updateRankUI(userPostCount);
+        }
     } catch (error) {
         console.error('Error loading data:', error);
     }
@@ -1959,30 +2199,24 @@ async function loadInitialData() {
 function loadFeed() {
     let posts = [...allPosts];
 
-    // Apply feed-type sorting first
     if (currentFeed === 'trending') {
-        // Most net upvotes (upvotes - downvotes)
         posts.sort((a, b) => {
             const scoreA = (a.upvotes?.length || 0) - (a.downvotes?.length || 0);
             const scoreB = (b.upvotes?.length || 0) - (b.downvotes?.length || 0);
             return scoreB - scoreA;
         });
     } else if (currentFeed === 'recent') {
-        // Newest first
         posts.sort((a, b) => b.createdAt - a.createdAt);
     } else if (currentFeed === 'top') {
-        // Most raw upvotes
         posts.sort((a, b) => {
             const scoreA = (a.upvotes?.length || 0);
             const scoreB = (b.upvotes?.length || 0);
             return scoreB - scoreA;
         });
     } else {
-        // home: default newest
         posts.sort((a, b) => b.createdAt - a.createdAt);
     }
 
-    // Then apply the dropdown sort on top (overrides feed sort)
     switch(currentSort) {
         case 'trending':
             posts.sort((a, b) => {
@@ -1999,9 +2233,8 @@ function loadFeed() {
             });
             break;
         default:
-            // 'newest' — only override if feed wasn't already setting an order
             if (currentFeed === 'trending' || currentFeed === 'top') {
-                // keep feed sort; dropdown "newest" doesn't make sense to override trending/top
+                // keep feed sort
             } else {
                 posts.sort((a, b) => b.createdAt - a.createdAt);
             }
@@ -2009,6 +2242,12 @@ function loadFeed() {
 
     renderFeed(posts);
     updateTrending();
+
+    // Also refresh rank in case post counts changed
+    if (currentUser) {
+        const userPostCount = allPosts.filter(p => p.author === currentUser.username).length;
+        updateRankUI(userPostCount);
+    }
 }
 
 function renderFeed(posts) {
@@ -2028,6 +2267,11 @@ function renderFeed(posts) {
         const isAdmin = currentUser?.role === 'admin';
         const isManager = currentUser?.role === 'manager';
 
+        // Rank badge for post author
+        const authorPostCount = allPosts.filter(p => p.author === post.author).length;
+        const authorRank = getRankForCount(authorPostCount);
+        const authorBadgeHTML = getRankBadgeHTML(authorRank);
+
         return `
             <div class="post" onclick="openFullscreenPost('${post.id}')">
                 <div class="post-voting" onclick="event.stopPropagation()">
@@ -2039,6 +2283,7 @@ function renderFeed(posts) {
                     <div class="post-header">
                         <span class="post-meta">• ${timeAgo(post.createdAt)}</span>
                         <span class="post-meta">• by ${post.author}</span>
+                        ${authorBadgeHTML ? authorBadgeHTML : ''}
                         ${post.sharedToCommunity ? '<span class="shared-badge">📚 Shared</span>' : ''}
                     </div>
                     <div class="post-title">${post.title}</div>
@@ -2185,25 +2430,20 @@ window.isCurrentUserGuest = function() {
 
 // ==================== INTERCEPT MUTATION FUNCTIONS ====================
 
-// A. Insert this at the very top line inside your window.vote function block:
 window.vote = async function(postId, type) {
     if (window.isCurrentUserGuest()) {
         window.triggerAuthRedirectPopup("upvote or downvote blogs");
         return;
     }
-    // ... your remaining vote database logic code stays exactly as it was ...
 };
 
-// B. Insert this at the very top line inside your window.addComment function block:
 window.addComment = async function(postId) {
     if (window.isCurrentUserGuest()) {
         window.triggerAuthRedirectPopup("add comments to public feeds");
         return;
     }
-    // ... your remaining comment posting database updates continue below ...
 };
 
-// C. Intercept the Create Post Button Click Listener
 document.addEventListener("DOMContentLoaded", () => {
     const createBtn = document.querySelector(".create-post-btn");
     if (createBtn) {
@@ -2213,7 +2453,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 e.preventDefault();
                 window.triggerAuthRedirectPopup("publish blog posts to the server");
             }
-        }, { capture: true }); // Captures event early before open modal hooks trigger
+        }, { capture: true });
     }
 });
 </script>
