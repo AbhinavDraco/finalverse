@@ -542,7 +542,7 @@
 function checkIndexAdminUser() {
   const username = document.getElementById('indexUsername').value.trim();
   const passwordGroup = document.getElementById('indexPasswordGroup');
-  if (username === 'abhi67' || username === 'zekken') {
+  if (username === 'abhi67' || username === 'Zekken') {
     passwordGroup.style.display = 'block';
   } else {
     passwordGroup.style.display = 'none';
@@ -571,7 +571,7 @@ function indexAuthenticate() {
       return;
     }
     role = 'admin';
-  } else if (username === 'zekken') {
+  } else if (username === 'Zekken') {
     if (password !== 'sush67') {
       authError.textContent = '❌ Incorrect password for manager';
       authError.style.display = 'block';
