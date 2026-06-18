@@ -430,8 +430,27 @@
             50% { box-shadow: 0 0 16px rgba(129, 140, 248, 0.6); }
         }
 
-        /* ======================== RIGHT SIDEBAR ======================== */
-        .right-sidebar { height: fit-content; position: sticky; top: 20px; }
+        /* ======================== RIGHT SIDEBAR — STICKY WITH OWN SCROLL ======================== */
+        .right-sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .right-sidebar-inner {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 20px;
+            padding-top: 20px;
+        }
+
+        .right-sidebar-inner::-webkit-scrollbar { width: 6px; }
+        .right-sidebar-inner::-webkit-scrollbar-track { background: transparent; }
+        .right-sidebar-inner::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        .right-sidebar-inner::-webkit-scrollbar-thumb:hover { background: var(--accent-light); }
 
         .card {
             background: var(--card-bg);
@@ -992,7 +1011,7 @@
             background: rgba(239, 68, 68, 0.15);
         }
 
-        /* ======================== COMMUNITY VIEW MODAL ======================== */
+        /* ======================== COMMUNITY VIEW MODAL (kept intact, just not used for click) ======================== */
         .community-modal {
             display: none;
             position: fixed;
@@ -1128,6 +1147,59 @@
             color: var(--text-secondary);
         }
 
+        /* ======================== COMMUNITY FEED BANNER (inline, above posts) ======================== */
+        .community-feed-banner {
+            background: linear-gradient(135deg, #818cf8, #6366f1);
+            border-radius: 8px;
+            padding: 24px 28px 20px;
+            margin-bottom: 20px;
+            position: relative;
+            animation: slideUp 0.25s ease;
+        }
+
+        .community-feed-banner-icon {
+            font-size: 36px;
+            margin-bottom: 6px;
+        }
+
+        .community-feed-banner-name {
+            font-size: 22px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 4px;
+        }
+
+        .community-feed-banner-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 14px;
+        }
+
+        .community-feed-banner-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .community-feed-stat {
+            text-align: center;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            padding: 8px 16px;
+        }
+
+        .community-feed-stat-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .community-feed-stat-label {
+            font-size: 10px;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         @media (max-width: 1200px) {
             .container-fluid { grid-template-columns: 1fr 320px; }
             .sidebar { display: none; }
@@ -1135,7 +1207,8 @@
 
         @media (max-width: 768px) {
             .container-fluid { grid-template-columns: 1fr; padding: 12px; gap: 12px; }
-            .right-sidebar { position: static; }
+            .right-sidebar { position: static; height: auto; }
+            .right-sidebar-inner { overflow-y: visible; }
             .post { flex-direction: column; }
             .post-voting { flex-direction: row; padding: 8px 16px; border-bottom: 1px solid var(--border); }
             .feed-header { flex-direction: column; align-items: flex-start; }
@@ -1162,19 +1235,19 @@
 
                 <div class="sidebar-section">
                     <div class="sidebar-header">Navigation</div>
-                    <div class="sidebar-item active" onclick="switchFeed('home', this)">
+                    <div class="sidebar-item active" id="nav-home" onclick="switchFeed('home', this)">
                         <span class="sidebar-item-icon">🏠</span>
                         <span class="sidebar-item-text">Home</span>
                     </div>
-                    <div class="sidebar-item" onclick="switchFeed('trending', this)">
+                    <div class="sidebar-item" id="nav-trending" onclick="switchFeed('trending', this)">
                         <span class="sidebar-item-icon">🔥</span>
                         <span class="sidebar-item-text">Trending</span>
                     </div>
-                    <div class="sidebar-item" onclick="switchFeed('recent', this)">
+                    <div class="sidebar-item" id="nav-recent" onclick="switchFeed('recent', this)">
                         <span class="sidebar-item-icon">⏰</span>
                         <span class="sidebar-item-text">Recent</span>
                     </div>
-                    <div class="sidebar-item" onclick="switchFeed('top', this)">
+                    <div class="sidebar-item" id="nav-top" onclick="switchFeed('top', this)">
                         <span class="sidebar-item-icon">⭐</span>
                         <span class="sidebar-item-text">Top</span>
                     </div>
@@ -1203,49 +1276,54 @@
                 </div>
             </div>
 
+            <!-- Community banner shown when a community feed is active -->
+            <div id="communityFeedBanner" style="display:none;"></div>
+
             <div id="feedContainer"></div>
         </div>
 
-        <!-- RIGHT SIDEBAR -->
+        <!-- RIGHT SIDEBAR — sticky with own scroll -->
         <div class="right-sidebar">
-            <div class="card">
-                <div style="position: relative;">
-                    <input type="text" class="search-box" placeholder="🔍 Search posts..." id="searchInput" onkeyup="searchPosts()">
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-title">📊 Trending</div>
-                <div id="trendingContainer"></div>
-            </div>
-
-            <div class="card user-card">
-                <div class="user-avatar-large" id="userAvatarDisplay">A</div>
-                <div class="user-name" id="userDisplay">Loading...</div>
-                <div class="user-karma">Community Draco</div>
-
-                <!-- Rank badge display -->
-                <div class="rank-current-display" id="rankBadgeDisplay"></div>
-
-                <div class="karma-item">
-                    <span class="karma-label">Post Score</span>
-                    <span class="karma-value" id="postKarma">0</span>
-                </div>
-                <div class="karma-item">
-                    <span class="karma-label">Posts Made</span>
-                    <span class="karma-value" id="postCountDisplay">0</span>
-                </div>
-
-                <!-- Rank progress bar -->
-                <div class="rank-progress-section" id="rankProgressSection">
-                    <div class="rank-progress-header">
-                        <span class="rank-progress-label" id="rankProgressLabel">Rank Progress</span>
-                        <span class="rank-progress-count" id="rankProgressCount"></span>
+            <div class="right-sidebar-inner">
+                <div class="card">
+                    <div style="position: relative;">
+                        <input type="text" class="search-box" placeholder="🔍 Search posts..." id="searchInput" onkeyup="searchPosts()">
                     </div>
-                    <div class="rank-progress-bar-wrap">
-                        <div class="rank-progress-bar-fill rank-none" id="rankProgressFill" style="width: 0%;"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">📊 Trending</div>
+                    <div id="trendingContainer"></div>
+                </div>
+
+                <div class="card user-card">
+                    <div class="user-avatar-large" id="userAvatarDisplay">A</div>
+                    <div class="user-name" id="userDisplay">Loading...</div>
+                    <div class="user-karma">Community Draco</div>
+
+                    <!-- Rank badge display -->
+                    <div class="rank-current-display" id="rankBadgeDisplay"></div>
+
+                    <div class="karma-item">
+                        <span class="karma-label">Post Score</span>
+                        <span class="karma-value" id="postKarma">0</span>
                     </div>
-                    <div class="rank-progress-next" id="rankProgressNext"></div>
+                    <div class="karma-item">
+                        <span class="karma-label">Posts Made</span>
+                        <span class="karma-value" id="postCountDisplay">0</span>
+                    </div>
+
+                    <!-- Rank progress bar -->
+                    <div class="rank-progress-section" id="rankProgressSection">
+                        <div class="rank-progress-header">
+                            <span class="rank-progress-label" id="rankProgressLabel">Rank Progress</span>
+                            <span class="rank-progress-count" id="rankProgressCount"></span>
+                        </div>
+                        <div class="rank-progress-bar-wrap">
+                            <div class="rank-progress-bar-fill rank-none" id="rankProgressFill" style="width: 0%;"></div>
+                        </div>
+                        <div class="rank-progress-next" id="rankProgressNext"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1309,7 +1387,7 @@
         </div>
     </div>
 
-    <!-- COMMUNITY VIEW MODAL -->
+    <!-- COMMUNITY VIEW MODAL (kept intact, not removed) -->
     <div class="community-modal" id="communityViewModal" onclick="if(event.target === this) closeCommunityModal()">
         <div class="community-modal-container" onclick="event.stopPropagation()">
             <div class="community-modal-banner">
@@ -1406,9 +1484,10 @@ let allCommunities = [];
 let currentFeed = 'home';
 let currentSort = 'newest';
 let currentOpenPostId = null;
+let currentCommunityId = null; // NEW: tracks which community feed is active
 
 const ADMIN_USERNAME = "abhi67";
-const MANAGER_USERNAME = "zekken";
+const MANAGER_USERNAME = "Zekken";
 const ADMIN_PASSWORD = "admin67";
 const MANAGER_PASSWORD = "sush67";
 
@@ -1437,23 +1516,19 @@ function updateRankUI(postCount) {
     const rank = getRankForCount(postCount);
     const nextRank = RANKS[RANKS.indexOf(rank) + 1] || null;
 
-    // Badge in user card
     const badgeEl = document.getElementById('rankBadgeDisplay');
     if (badgeEl) {
         badgeEl.innerHTML = rank.key !== 'none' ? getRankBadgeHTML(rank) : '';
     }
 
-    // Post count display
     const countEl = document.getElementById('postCountDisplay');
     if (countEl) countEl.textContent = postCount;
 
-    // Post score (upvotes earned by this user across all their posts)
     const userPosts = allPosts.filter(p => p.author === currentUser?.username);
     const totalScore = userPosts.reduce((acc, p) => acc + ((p.upvotes?.length || 0) - (p.downvotes?.length || 0)), 0);
     const karmaEl = document.getElementById('postKarma');
     if (karmaEl) karmaEl.textContent = totalScore;
 
-    // Progress bar
     const progressSection = document.getElementById('rankProgressSection');
     const progressLabel = document.getElementById('rankProgressLabel');
     const progressCount = document.getElementById('rankProgressCount');
@@ -1463,7 +1538,6 @@ function updateRankUI(postCount) {
     if (!progressSection) return;
 
     if (rank.key === 'diamond') {
-        // Max rank — show full bar
         progressLabel.textContent = '💎 Diamond Blogger';
         progressCount.textContent = `${postCount} posts`;
         progressCount.style.color = '#818cf8';
@@ -1685,7 +1759,6 @@ function updateUserDisplay() {
     }
     document.getElementById('userDisplay').textContent = displayName;
 
-    // Update rank based on posts authored by this user in allPosts
     const userPostCount = allPosts.filter(p => p.author === currentUser.username).length;
     updateRankUI(userPostCount);
 }
@@ -1782,6 +1855,12 @@ window.deleteCommunity = async function(communityId, event) {
     try {
         await deleteDoc(doc(db, 'communities', communityId));
         allCommunities = allCommunities.filter(c => c.id !== communityId);
+
+        // If we were viewing this community's feed, go back to home
+        if (currentFeed === 'community' && currentCommunityId === communityId) {
+            switchFeed('home', document.getElementById('nav-home'));
+        }
+
         renderCommunities();
         loadCommunitySelect();
         showToast(`Community "${comm.name}" deleted`);
@@ -1816,7 +1895,10 @@ function renderCommunities() {
     }
 
     container.innerHTML = allCommunities.map(comm => `
-        <div class="community-item" title="${comm.description}" onclick="openCommunityModal('${comm.id}')">
+        <div class="community-item ${currentFeed === 'community' && currentCommunityId === comm.id ? 'active' : ''}" 
+             id="comm-item-${comm.id}"
+             title="${comm.description}" 
+             onclick="switchToCommunityFeed('${comm.id}')">
             <span class="community-item-name">🏘️ ${comm.name}</span>
             ${isPrivileged ? `<button class="community-delete-btn" title="Delete community" onclick="deleteCommunity('${comm.id}', event)">🗑️</button>` : ''}
         </div>
@@ -1837,7 +1919,60 @@ function loadCommunitySelect() {
     });
 }
 
-// ==================== COMMUNITY VIEW MODAL ====================
+// ==================== COMMUNITY FEED (INLINE — NEW) ====================
+window.switchToCommunityFeed = function(communityId) {
+    const comm = allCommunities.find(c => c.id === communityId);
+    if (!comm) return;
+
+    currentFeed = 'community';
+    currentCommunityId = communityId;
+
+    // Deactivate nav items
+    document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+
+    // Activate the community item in the sidebar
+    const commItem = document.getElementById(`comm-item-${communityId}`);
+    if (commItem) commItem.classList.add('active');
+
+    // Update feed header title
+    document.getElementById('feedTitle').textContent = '🏘️ ' + comm.name;
+
+    // Show community banner above feed
+    const communityPosts = allPosts.filter(p => p.communityId === communityId);
+    const totalVotes = communityPosts.reduce((acc, p) => acc + (p.upvotes?.length || 0), 0);
+
+    const banner = document.getElementById('communityFeedBanner');
+    banner.style.display = 'block';
+    banner.innerHTML = `
+        <div class="community-feed-banner">
+            <div class="community-feed-banner-icon">🏘️</div>
+            <div class="community-feed-banner-name">${comm.name}</div>
+            <div class="community-feed-banner-desc">${comm.description}</div>
+            <div class="community-feed-banner-stats">
+                <div class="community-feed-stat">
+                    <div class="community-feed-stat-value">${communityPosts.length}</div>
+                    <div class="community-feed-stat-label">Posts</div>
+                </div>
+                <div class="community-feed-stat">
+                    <div class="community-feed-stat-value">${totalVotes}</div>
+                    <div class="community-feed-stat-label">Upvotes</div>
+                </div>
+                <div class="community-feed-stat">
+                    <div class="community-feed-stat-value">${comm.members ? comm.members.length : 1}</div>
+                    <div class="community-feed-stat-label">Members</div>
+                </div>
+                <div class="community-feed-stat">
+                    <div class="community-feed-stat-value" style="font-size:13px;">${comm.creator}</div>
+                    <div class="community-feed-stat-label">Creator</div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    loadFeed();
+};
+
+// ==================== COMMUNITY VIEW MODAL (kept intact) ====================
 window.openCommunityModal = function(communityId) {
     const comm = allCommunities.find(c => c.id === communityId);
     if (!comm) return;
@@ -1939,7 +2074,7 @@ window.submitPost = async function() {
         closeModal('createPostModal');
 
         loadFeed();
-        updateUserDisplay(); // Re-renders rank with new post count
+        updateUserDisplay();
         showToast('Post created successfully! 🚀');
     } catch (error) {
         console.error('Error:', error);
@@ -2157,7 +2292,15 @@ window.closeFullscreenPost = function() {
 // ==================== FEED ====================
 window.switchFeed = function(feed, element) {
     currentFeed = feed;
+    currentCommunityId = null;
+
+    // Hide community banner when switching to a regular feed
+    document.getElementById('communityFeedBanner').style.display = 'none';
+
     document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+    // Also deactivate community items
+    document.querySelectorAll('.community-item').forEach(item => item.classList.remove('active'));
+
     if (element) {
         element.closest('.sidebar-item').classList.add('active');
     }
@@ -2186,7 +2329,6 @@ async function loadInitialData() {
         });
         loadCommunities();
         loadFeed();
-        // Update rank UI now that allPosts is loaded
         if (currentUser) {
             const userPostCount = allPosts.filter(p => p.author === currentUser.username).length;
             updateRankUI(userPostCount);
@@ -2198,6 +2340,11 @@ async function loadInitialData() {
 
 function loadFeed() {
     let posts = [...allPosts];
+
+    // Filter by community if in community feed
+    if (currentFeed === 'community' && currentCommunityId) {
+        posts = posts.filter(p => p.communityId === currentCommunityId);
+    }
 
     if (currentFeed === 'trending') {
         posts.sort((a, b) => {
@@ -2243,7 +2390,6 @@ function loadFeed() {
     renderFeed(posts);
     updateTrending();
 
-    // Also refresh rank in case post counts changed
     if (currentUser) {
         const userPostCount = allPosts.filter(p => p.author === currentUser.username).length;
         updateRankUI(userPostCount);
@@ -2254,7 +2400,10 @@ function renderFeed(posts) {
     const container = document.getElementById('feedContainer');
     
     if (posts.length === 0) {
-        container.innerHTML = '<div class="no-content">No posts found. Be the first to post!</div>';
+        const msg = currentFeed === 'community'
+            ? 'No posts in this community yet. Be the first to post!'
+            : 'No posts found. Be the first to post!';
+        container.innerHTML = `<div class="no-content">${msg}</div>`;
         return;
     }
 
@@ -2267,7 +2416,6 @@ function renderFeed(posts) {
         const isAdmin = currentUser?.role === 'admin';
         const isManager = currentUser?.role === 'manager';
 
-        // Rank badge for post author
         const authorPostCount = allPosts.filter(p => p.author === post.author).length;
         const authorRank = getRankForCount(authorPostCount);
         const authorBadgeHTML = getRankBadgeHTML(authorRank);
@@ -2348,10 +2496,14 @@ function updateTrending() {
 // ==================== SEARCH ====================
 window.searchPosts = function() {
     const term = document.getElementById('searchInput').value.toLowerCase();
-    const filtered = allPosts.filter(p => 
+    let filtered = allPosts.filter(p => 
         p.title.toLowerCase().includes(term) || 
         p.content.toLowerCase().includes(term)
     );
+    // Also respect community filter if active
+    if (currentFeed === 'community' && currentCommunityId) {
+        filtered = filtered.filter(p => p.communityId === currentCommunityId);
+    }
     renderFeed(filtered);
 };
 
