@@ -345,6 +345,93 @@
             margin-bottom: 10px;
         }
 
+        /* ======================== IMAGE CAROUSEL (multi-image posts) ======================== */
+        .image-carousel {
+            position: relative;
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--secondary);
+        }
+
+        .fullscreen-post-image-carousel {
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+
+        .image-carousel img {
+            margin-bottom: 0 !important;
+            width: 100%;
+            display: block;
+            user-select: none;
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background var(--transition), transform var(--transition);
+            z-index: 2;
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(129, 140, 255, 0.85);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .carousel-arrow-left { left: 10px; }
+        .carousel-arrow-right { right: 10px; }
+
+        .carousel-counter {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 2;
+        }
+
+        .carousel-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.55);
+            transition: all var(--transition);
+        }
+
+        .carousel-dot.active {
+            background: #fff;
+            width: 18px;
+            border-radius: 4px;
+        }
+
         .post-footer {
             display: flex;
             gap: 12px;
@@ -508,6 +595,27 @@
 
         .user-card {
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .user-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 32px rgba(129, 140, 255, 0.18);
+        }
+
+        .user-card-banner {
+            height: 70px;
+            margin: -20px -20px 0 -20px;
+            background: linear-gradient(135deg, #6366f1, #818cf8, #a5b4fc);
+            background-size: 200% 200%;
+            animation: bannerShift 6s ease infinite;
+        }
+
+        @keyframes bannerShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .user-avatar-large {
@@ -515,18 +623,31 @@
             height: 80px;
             background: linear-gradient(135deg, #818cf8, #6366f1);
             border-radius: 50%;
-            margin: 0 auto 15px;
+            margin: -40px auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 32px;
             font-weight: 800;
+            border: 4px solid var(--card-bg);
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.5);
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+
+        .user-avatar-large:hover {
+            transform: scale(1.08) rotate(-3deg);
         }
 
         .user-name {
             font-size: 16px;
             font-weight: 700;
             margin-bottom: 5px;
+            background: linear-gradient(135deg, #ffffff, #c7d2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .user-karma {
@@ -535,12 +656,27 @@
             margin-bottom: 15px;
         }
 
+        .user-member-since {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: -10px;
+            margin-bottom: 15px;
+            opacity: 0.8;
+            letter-spacing: 0.3px;
+        }
+
         .karma-item {
             display: flex;
             justify-content: space-between;
             font-size: 12px;
-            padding: 8px 0;
+            padding: 8px 6px;
             border-bottom: 1px solid var(--border);
+            border-radius: 4px;
+            transition: background var(--transition);
+        }
+
+        .karma-item:hover {
+            background: rgba(129, 140, 255, 0.07);
         }
 
         .karma-item:last-child { border-bottom: none; }
@@ -1226,7 +1362,6 @@
 </head>
 <body>
     <div class="container-fluid">
-        <!-- LEFT SIDEBAR — fixed height with own scroll -->
         <div class="sidebar">
             <div class="sidebar-logo" onclick="goHome()">🐉 DracoLogs</div>
 
@@ -1263,7 +1398,6 @@
             </div>
         </div>
 
-        <!-- MAIN FEED -->
         <div class="main-feed">
             <div class="feed-header">
                 <div class="feed-title" id="feedTitle">Home</div>
@@ -1276,13 +1410,11 @@
                 </div>
             </div>
 
-            <!-- Community banner shown when a community feed is active -->
             <div id="communityFeedBanner" style="display:none;"></div>
 
             <div id="feedContainer"></div>
         </div>
 
-        <!-- RIGHT SIDEBAR — sticky with own scroll -->
         <div class="right-sidebar">
             <div class="right-sidebar-inner">
                 <div class="card">
@@ -1297,11 +1429,12 @@
                 </div>
 
                 <div class="card user-card">
+                    <div class="user-card-banner"></div>
                     <div class="user-avatar-large" id="userAvatarDisplay">A</div>
                     <div class="user-name" id="userDisplay">Loading...</div>
                     <div class="user-karma">Community Draco</div>
+                    <div class="user-member-since" id="userMemberSince"></div>
 
-                    <!-- Rank badge display -->
                     <div class="rank-current-display" id="rankBadgeDisplay"></div>
 
                     <div class="karma-item">
@@ -1313,7 +1446,6 @@
                         <span class="karma-value" id="postCountDisplay">0</span>
                     </div>
 
-                    <!-- Rank progress bar -->
                     <div class="rank-progress-section" id="rankProgressSection">
                         <div class="rank-progress-header">
                             <span class="rank-progress-label" id="rankProgressLabel">Rank Progress</span>
@@ -1329,7 +1461,6 @@
         </div>
     </div>
 
-    <!-- CREATE POST MODAL -->
     <div class="modal" id="createPostModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1346,8 +1477,12 @@
                     <textarea class="form-textarea" id="postContent" placeholder="Share your thoughts..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Image URL (Optional)</label>
-                    <input type="url" class="form-input" id="postImage" placeholder="https://example.com/image.jpg">
+                    <label class="form-label">Images (Optional) — add multiple for a swipeable gallery</label>
+                    <div style="display:flex; gap:8px;">
+                        <input type="url" class="form-input" id="postImageInput" placeholder="https://example.com/image.jpg" style="flex:1;" onkeypress="if(event.key==='Enter'){event.preventDefault(); addPostImage();}">
+                        <button type="button" class="btn-primary" style="width:auto; margin-top:0; padding:10px 18px; white-space:nowrap;" onclick="addPostImage()">+ Add</button>
+                    </div>
+                    <div id="postImagePreviewList" style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;"></div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Community</label>
@@ -1366,7 +1501,6 @@
         </div>
     </div>
 
-    <!-- CREATE COMMUNITY MODAL -->
     <div class="modal" id="createCommunityModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1387,7 +1521,6 @@
         </div>
     </div>
 
-    <!-- COMMUNITY VIEW MODAL (kept intact, not removed) -->
     <div class="community-modal" id="communityViewModal" onclick="if(event.target === this) closeCommunityModal()">
         <div class="community-modal-container" onclick="event.stopPropagation()">
             <div class="community-modal-banner">
@@ -1404,7 +1537,6 @@
         </div>
     </div>
 
-    <!-- FULLSCREEN POST MODAL -->
     <div class="fullscreen-post-modal" id="fullscreenPostModal" onclick="if(event.target === this) closeFullscreenPost()">
         <div class="fullscreen-post-container" onclick="event.stopPropagation()">
             <div class="fullscreen-post-header">
@@ -1416,7 +1548,7 @@
             </div>
 
             <div class="fullscreen-post-content" id="fullscreenPostContent"></div>
-            <img id="fullscreenPostImage" class="fullscreen-post-image" style="display: none;">
+            <div id="fullscreenPostImageContainer"></div>
 
             <div class="fullscreen-post-voting" id="fullscreenPostVoting"></div>
 
@@ -1431,7 +1563,6 @@
         </div>
     </div>
 
-    <!-- AUTH MODAL -->
     <div class="modal active" id="authModal">
         <div class="modal-content" style="max-width: 400px;">
             <div class="modal-header">
@@ -1485,6 +1616,7 @@ let currentFeed = 'home';
 let currentSort = 'newest';
 let currentOpenPostId = null;
 let currentCommunityId = null; // NEW: tracks which community feed is active
+let pendingPostImages = []; // NEW: holds image URLs staged for the post being created
 
 const ADMIN_USERNAME = "abhi67";
 const MANAGER_USERNAME = "Zekken";
@@ -1759,6 +1891,13 @@ function updateUserDisplay() {
     }
     document.getElementById('userDisplay').textContent = displayName;
 
+    const memberSinceEl = document.getElementById('userMemberSince');
+    if (memberSinceEl) {
+        const joinTimestamp = currentUser.joinDate || Date.now();
+        const joinDateObj = new Date(joinTimestamp);
+        memberSinceEl.textContent = '🕐 Joined ' + joinDateObj.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    }
+
     const userPostCount = allPosts.filter(p => p.author === currentUser.username).length;
     updateRankUI(userPostCount);
 }
@@ -1776,7 +1915,97 @@ window.openCreatePostModal = function() {
         return;
     }
     loadCommunitySelect();
+    pendingPostImages = [];
+    renderPendingPostImages();
     document.getElementById('createPostModal').classList.add('active');
+};
+
+// ==================== MULTI-IMAGE UPLOADER ====================
+window.addPostImage = function() {
+    const input = document.getElementById('postImageInput');
+    const url = input.value.trim();
+    if (!url) {
+        showToast('Enter an image URL first', 'error');
+        return;
+    }
+    pendingPostImages.push(url);
+    input.value = '';
+    renderPendingPostImages();
+};
+
+window.removePendingPostImage = function(index) {
+    pendingPostImages.splice(index, 1);
+    renderPendingPostImages();
+};
+
+function renderPendingPostImages() {
+    const container = document.getElementById('postImagePreviewList');
+    if (!container) return;
+    if (pendingPostImages.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+    container.innerHTML = pendingPostImages.map((url, i) => `
+        <div style="position:relative; width:70px; height:70px;">
+            <img src="${url}" style="width:100%; height:100%; object-fit:cover; border-radius:6px; border:1px solid var(--border);" onerror="this.style.opacity='0.25'">
+            <button type="button" onclick="removePendingPostImage(${i})" title="Remove" style="position:absolute; top:-6px; right:-6px; width:20px; height:20px; border-radius:50%; background:var(--danger); color:white; border:none; cursor:pointer; font-size:11px; line-height:1;">✕</button>
+            ${i === 0 ? `<span style="position:absolute; bottom:2px; left:2px; background:rgba(0,0,0,0.65); color:white; font-size:9px; padding:1px 5px; border-radius:4px;">cover</span>` : ''}
+        </div>
+    `).join('');
+}
+
+// ==================== IMAGE CAROUSEL (Instagram-style multi-image posts) ====================
+function getPostImages(post) {
+    if (post.images && Array.isArray(post.images) && post.images.length > 0) {
+        return post.images;
+    }
+    if (post.image && post.image !== '') {
+        return [post.image];
+    }
+    return [];
+}
+
+function renderImageCarousel(post, idPrefix, imgClass) {
+    const images = getPostImages(post);
+    if (images.length === 0) return '';
+
+    if (images.length === 1) {
+        return `<img src="${images[0]}" alt="Post image" class="${imgClass}" onerror="this.style.display='none'">`;
+    }
+
+    const carouselId = idPrefix + '-' + post.id;
+    const imagesJSON = JSON.stringify(images).replace(/"/g, '&quot;');
+
+    return `
+        <div class="image-carousel ${imgClass}-carousel" id="carousel-${carouselId}" data-images="${imagesJSON}" data-index="0">
+            <img src="${images[0]}" alt="Post image" class="${imgClass}" id="carousel-img-${carouselId}" onerror="this.style.display='none'">
+            <button type="button" class="carousel-arrow carousel-arrow-left" onclick="event.stopPropagation(); navigateCarousel('${carouselId}', -1)">❮</button>
+            <button type="button" class="carousel-arrow carousel-arrow-right" onclick="event.stopPropagation(); navigateCarousel('${carouselId}', 1)">❯</button>
+            <div class="carousel-counter" id="counter-${carouselId}">1 / ${images.length}</div>
+            <div class="carousel-dots">${images.map((_, i) => `<span class="carousel-dot${i === 0 ? ' active' : ''}" id="dot-${carouselId}-${i}"></span>`).join('')}</div>
+        </div>
+    `;
+}
+
+window.navigateCarousel = function(carouselId, direction) {
+    const container = document.getElementById('carousel-' + carouselId);
+    if (!container) return;
+
+    const images = JSON.parse(container.getAttribute('data-images').replace(/&quot;/g, '"'));
+    let index = parseInt(container.getAttribute('data-index'), 10) || 0;
+    index = (index + direction + images.length) % images.length;
+    container.setAttribute('data-index', index);
+
+    const img = document.getElementById('carousel-img-' + carouselId);
+    if (img) img.src = images[index];
+
+    const counter = document.getElementById('counter-' + carouselId);
+    if (counter) counter.textContent = (index + 1) + ' / ' + images.length;
+
+    images.forEach((_, i) => {
+        const dot = document.getElementById('dot-' + carouselId + '-' + i);
+        if (dot) dot.classList.toggle('active', i === index);
+    });
 };
 
 window.openCreateCommunityModal = function() {
@@ -2027,7 +2256,7 @@ window.closeCommunityModal = function() {
 window.submitPost = async function() {
     const title = document.getElementById('postTitle').value.trim();
     const content = document.getElementById('postContent').value.trim();
-    const image = document.getElementById('postImage').value.trim();
+    const images = [...pendingPostImages];
     const communityId = document.getElementById('postCommunity').value;
     const shareToCommuntiy = document.getElementById('shareToCommuntiy').checked;
 
@@ -2045,7 +2274,8 @@ window.submitPost = async function() {
         const newPost = {
             title: title || '',
             content: content || '',
-            image: image || '',
+            image: images[0] || '',
+            images: images,
             author: currentUser.username,
             communityId: communityId || 'general',
             createdAt: Date.now(),
@@ -2070,7 +2300,8 @@ window.submitPost = async function() {
 
         document.getElementById('postTitle').value = '';
         document.getElementById('postContent').value = '';
-        document.getElementById('postImage').value = '';
+        pendingPostImages = [];
+        renderPendingPostImages();
         closeModal('createPostModal');
 
         loadFeed();
@@ -2104,6 +2335,11 @@ async function sharePostToCommunity(post) {
 
 // ==================== VOTING ====================
 window.upvotePost = async function(postId) {
+    if (window.isCurrentUserGuest && window.isCurrentUserGuest()) {
+        window.triggerAuthRedirectPopup("upvote blogs");
+        return;
+    }
+
     const post = allPosts.find(p => p.id === postId);
     if (!post) return;
 
@@ -2134,6 +2370,11 @@ window.upvotePost = async function(postId) {
 };
 
 window.downvotePost = async function(postId) {
+    if (window.isCurrentUserGuest && window.isCurrentUserGuest()) {
+        window.triggerAuthRedirectPopup("downvote blogs");
+        return;
+    }
+
     const post = allPosts.find(p => p.id === postId);
     if (!post) return;
 
@@ -2255,14 +2496,8 @@ function openFullscreenPostInternal(postId, pushState) {
     `;
     document.getElementById('fullscreenPostContent').textContent = post.content;
 
-    const imgElement = document.getElementById('fullscreenPostImage');
-    if (post.image && post.image !== '') {
-        imgElement.src = post.image;
-        imgElement.style.display = 'block';
-        imgElement.onerror = function() { this.style.display = 'none'; };
-    } else {
-        imgElement.style.display = 'none';
-    }
+    const imgContainer = document.getElementById('fullscreenPostImageContainer');
+    imgContainer.innerHTML = renderImageCarousel(post, 'fullscreen', 'fullscreen-post-image');
 
     document.getElementById('fullscreenPostVoting').innerHTML = `
         <button class="fullscreen-vote-btn ${hasUpvoted ? 'upvoted' : ''}" onclick="upvotePost('${post.id}')">▲ ${upvotes} Upvote</button>
@@ -2436,7 +2671,7 @@ function renderFeed(posts) {
                     </div>
                     <div class="post-title">${post.title}</div>
                     <div class="post-description">${post.content}</div>
-                    ${post.image && post.image !== '' ? `<img src="${post.image}" alt="Post image" class="post-image" onerror="this.style.display='none'">` : ''}
+                    ${renderImageCarousel(post, 'feed', 'post-image')}
                     <div class="post-footer" onclick="event.stopPropagation()">
                         <button class="post-action">👁️ ${post.views || 0} Views</button>
                         <button class="post-action">💬 ${(post.comments && post.comments.length) || 0} Comments</button>
@@ -2556,7 +2791,8 @@ window.triggerAuthRedirectPopup = function(actionMessage) {
 
     const modalHtml = `
         <div id="forcedGuestAuthModal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100000; display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif;">
-            <div style="background: #1a1a1b; border: 1px solid #343536; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <div style="background: #1a1a1b; border: 1px solid #343536; padding: 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;">
+                <button id="modalCloseBtn" title="Close" style="position: absolute; top: 12px; right: 12px; background: none; border: none; color: #818890; font-size: 22px; cursor: pointer; line-height: 1; transition: color 0.2s;">✕</button>
                 <div style="font-size: 40px; margin-bottom: 15px;">🔒</div>
                 <h3 style="color: #fff; margin-bottom: 10px; font-weight: 700;">Authentication Required</h3>
                 <p style="color: #818890; font-size: 14px; margin-bottom: 25px;">You must be logged into a verified profile to ${actionMessage}.</p>
@@ -2572,12 +2808,21 @@ window.triggerAuthRedirectPopup = function(actionMessage) {
         localStorage.setItem('guest_upgrade_prompt', 'true');
         window.location.href = "index.html";
     });
+    document.getElementById('modalCloseBtn').addEventListener('click', () => {
+        const m = document.getElementById('forcedGuestAuthModal');
+        if (m) m.remove();
+    });
+    document.getElementById('forcedGuestAuthModal').addEventListener('click', (e) => {
+        if (e.target.id === 'forcedGuestAuthModal') {
+            e.target.remove();
+        }
+    });
 };
 
 window.isCurrentUserGuest = function() {
     const tdiUser = JSON.parse(localStorage.getItem('tdi_user') || '{}');
     const dracoUser = JSON.parse(localStorage.getItem('dracoUser') || '{}');
-    return (tdiUser.role === 'guest' || dracoUser.role === 'guest' || (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'guest'));
+    return (tdiUser.role === 'guest' || dracoUser.role === 'guest' || (typeof currentUser !== 'undefined' && currentUser && currentUser.role === 'guest') || (typeof currentUser !== 'undefined' && currentUser && currentUser.username && currentUser.username.startsWith('Guest_')) || (dracoUser.username && dracoUser.username.startsWith('Guest_')));
 };
 
 // ==================== INTERCEPT MUTATION FUNCTIONS ====================
@@ -2608,6 +2853,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { capture: true });
     }
 });
+
 </script>
     <script defer src="/_vercel/insights/script.js"></script>
 </body>
