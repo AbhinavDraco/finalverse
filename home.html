@@ -129,7 +129,7 @@ img {
 /* ============================================================
    4. INTERACTIVE ACCELERATION & ANIMATIONS
    ============================================================ */
-.btn, .navCta, .navLink, .tab, .arrowBtn, .miniStat, .hFeat, .blogCard, .newsCard,
+.btn, .navCta, .navLink, .tab, .arrowBtn, .miniStat, .hFeat, .blogCard, .Card,
 .featureCard, .likeBtn, .pollOption, #backTop, .modalClose, .modalBtn, .nlBtn,
 .searchInput, .searchResultItem, .statItem, .bookmarkBtn, .themeToggle, .cmdkBtn {
   transition: transform .45s var(--ease-smooth), box-shadow .45s var(--ease-smooth),
@@ -139,7 +139,7 @@ img {
   backface-visibility: hidden;
 }
 
-.blogCard:hover, .newsCard:hover { transform: translateY(-10px) scale(1.012); }
+.blogCard:hover, .Card:hover { transform: translateY(-10px) scale(1.012); }
 .featureCard:hover { transform: translateY(-8px) scale(1.01); }
 .miniStat:hover { transform: translateY(-4px) scale(1.02); }
 .btn:hover, .navCta:hover { transform: translateY(-3px) scale(1.015); }
@@ -149,7 +149,7 @@ img {
 .likeBtn:hover { transform: scale(1.18) rotate(-6deg); }
 
 .btn:active, .navCta:active, .tab:active, .arrowBtn:active, .likeBtn:active,
-.pollOption:active, .hFeat:active, .featureCard:active, .blogCard:active, .newsCard:active {
+.pollOption:active, .hFeat:active, .featureCard:active, .blogCard:active, .Card:active {
   transform: scale(0.97) !important;
   transition: transform .12s var(--ease-smooth);
 }
@@ -454,8 +454,8 @@ body.dark .cmdkResult:hover { background: #1a2540; }
     grid-template-columns: 1fr;
   }
 
-  /* Horizontal content swipe panels for news/blog sections on touchscreens */
-  .blogCard, .newsCard {
+  /* Horizontal content swipe panels for /blog sections on touchscreens */
+  .blogCard, .Card {
     min-width: 82vw;
     max-width: 82vw;
   }
@@ -483,7 +483,7 @@ body.dark .cmdkResult:hover { background: #1a2540; }
   .searchInput { font-size: 14px; padding-left: 44px; }
   .searchIco { left: 14px; }
 
-  .blogCard, .newsCard { min-width: 90vw; max-width: 90vw; }
+  .blogCard, .Card { min-width: 90vw; max-width: 90vw; }
   .featureCard { padding: 20px; }
   .modalBox { padding: 20px; }
   .toast { max-width: 92vw; }
@@ -499,7 +499,7 @@ body.dark .cmdkResult:hover { background: #1a2540; }
 
 /* ── TOUCH INTERACTIVE SAFE AREA (HOVER FIX) ── */
 @media (hover: none) {
-  .blogCard:hover, .newsCard:hover, .featureCard:hover, .miniStat:hover {
+  .blogCard:hover, .Card:hover, .featureCard:hover, .miniStat:hover {
     transform: none !important; /* Stop hover translations sticky glitches on finger scroll touchscreens */
   }
   .btn, .tab, .arrowBtn, .pollOption, .navLink, .themeToggle, .cmdkBtn {
@@ -629,7 +629,7 @@ nav {
 @media (hover: none) {
 
   .blogCard:hover,
-  .newsCard:hover,
+  .Card:hover,
   .featureCard:hover,
   .miniStat:hover {
     transform: none;
@@ -694,7 +694,7 @@ body::-webkit-scrollbar{width:6px;}
 body::-webkit-scrollbar-thumb{background:var(--gradient);border-radius:3px;}
 
 /* Smoother, GPU-accelerated hover transforms across interactive elements */
-.btn,.navCta,.navLink,.tab,.arrowBtn,.miniStat,.hFeat,.blogCard,.newsCard,
+.btn,.navCta,.navLink,.tab,.arrowBtn,.miniStat,.hFeat,.blogCard,.Card,
 .featureCard,.likeBtn,.pollOption,#backTop,.modalClose,.modalBtn,.nlBtn,
 .searchInput,.searchResultItem,.statItem,.bookmarkBtn,.themeToggle,.cmdkBtn{
   transition: transform .45s var(--ease-smooth), box-shadow .45s var(--ease-smooth),
@@ -703,7 +703,7 @@ body::-webkit-scrollbar-thumb{background:var(--gradient);border-radius:3px;}
   will-change: transform;
   backface-visibility:hidden;
 }
-.blogCard:hover,.newsCard:hover{transform:translateY(-10px) scale(1.012);}
+.blogCard:hover,.Card:hover{transform:translateY(-10px) scale(1.012);}
 .featureCard:hover{transform:translateY(-8px) scale(1.01);}
 .miniStat:hover{transform:translateY(-4px) scale(1.02);}
 .btn:hover,.navCta:hover{transform:translateY(-3px) scale(1.015);}
@@ -714,7 +714,7 @@ body::-webkit-scrollbar-thumb{background:var(--gradient);border-radius:3px;}
 
 /* Smooth tap feedback */
 .btn:active,.navCta:active,.tab:active,.arrowBtn:active,.likeBtn:active,
-.pollOption:active,.hFeat:active,.featureCard:active,.blogCard:active,.newsCard:active{
+.pollOption:active,.hFeat:active,.featureCard:active,.blogCard:active,.Card:active{
   transform:scale(0.97) !important;
   transition: transform .12s var(--ease-smooth);
 }
@@ -1141,8 +1141,8 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .authorAvatar{width:24px;height:24px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;}
 .blogLikes{font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:4px;}
 
-/* ── NEWS CARD ── */
-.newsCard{
+/* ──  CARD ── */
+.Card{
   min-width:310px;max-width:310px;
   background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
   border-radius:20px;overflow:hidden;transition:0.35s;
@@ -1150,20 +1150,20 @@ body.dark .cmdkResult:hover{background:#1a2540;}
   backdrop-filter:blur(10px);
   animation:cardPop .5s var(--ease-smooth) both;
 }
-.newsCard:hover{transform:translateY(-6px);border-color:rgba(79,140,255,0.4);box-shadow:0 16px 38px rgba(0,0,0,0.4);}
-.newsThumb{
+.Card:hover{transform:translateY(-6px);border-color:rgba(79,140,255,0.4);box-shadow:0 16px 38px rgba(0,0,0,0.4);}
+.Thumb{
   width:100%;height:165px;overflow:hidden;
   background:linear-gradient(135deg,#4f8cff33,#7c4dff33);
   display:flex;align-items:center;justify-content:center;font-size:46px;
 }
-.newsThumb img{width:100%;height:100%;object-fit:cover;transition:0.5s;opacity:0;}
-.newsThumb img.loaded{opacity:1;transition:opacity .6s var(--ease-smooth), transform .5s;}
-.newsCard:hover .newsThumb img{transform:scale(1.06);}
-.newsBody{padding:16px;}
-.newsSource{font-size:10px;font-weight:700;color:var(--blue);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:5px;}
-.newsTitle{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:white;line-height:1.4;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.newsDesc{font-size:11px;color:rgba(255,255,255,0.45);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px;}
-.newsDate{font-size:10px;color:rgba(255,255,255,0.28);}
+.Thumb img{width:100%;height:100%;object-fit:cover;transition:0.5s;opacity:0;}
+.Thumb img.loaded{opacity:1;transition:opacity .6s var(--ease-smooth), transform .5s;}
+.Card:hover .Thumb img{transform:scale(1.06);}
+.Body{padding:16px;}
+.Source{font-size:10px;font-weight:700;color:var(--blue);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:7px;display:flex;align-items:center;gap:5px;}
+.Title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:white;line-height:1.4;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.Desc{font-size:11px;color:rgba(255,255,255,0.45);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px;}
+.Date{font-size:10px;color:rgba(255,255,255,0.28);}
 
 /* ── DAILY POLL ── */
 .pollWrap{
@@ -1241,7 +1241,7 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .modalBtn{width:100%;padding:13px;background:var(--gradient);color:white;border:none;border-radius:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:0.3s;}
 .modalBtn:hover{box-shadow:0 8px 22px rgba(79,140,255,0.33);}
 
-/* ── NEWSLETTER ── */
+/* ── LETTER ── */
 .nlForm{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
 .nlInput{flex:1;min-width:200px;padding:13px 18px;border-radius:13px;border:2px solid rgba(255,255,255,0.13);background:rgba(255,255,255,0.07);color:white;font-family:'Inter',sans-serif;font-size:14px;}
 .nlInput:focus{outline:none;border-color:var(--blue);}
@@ -1376,7 +1376,7 @@ body.dark #readingDrawer{background:#101830;color:#e8edff;}
   .navLinks{display:none;}
   .navMobileMenu{display:flex;}
   .sectionTitle{font-size:2.2rem;}
-  .blogCard,.newsCard{min-width:275px;max-width:275px;}
+  .blogCard,.Card{min-width:275px;max-width:275px;}
   .skeleton{min-width:275px;max-width:275px;}
   #readingDrawer{width:88vw;}
   .cmdkBtn .kbdHint{display:none;}
@@ -1394,11 +1394,11 @@ body.dark .hFeatDesc,
 body.dark .blogDesc,
 body.dark .featureDesc,
 body.dark .miniStatLbl,
-body.dark .newsDesc,
+body.dark .Desc,
 body.dark .statLbl,
 body.dark .blogAuthor,
 body.dark .readTime,
-body.dark .newsDate,
+body.dark .Date,
 body.dark .pollMeta,
 body.dark .footerBrand p,
 body.dark .footerCol a,
@@ -1411,7 +1411,7 @@ body.dark .navLink {
 body.dark .blogTitle,
 body.dark .hFeatTitle,
 body.dark .miniStatNum,
-body.dark .newsTitle,
+body.dark .Title,
 body.dark .statNum,
 body.dark .heroTitle,
 body.dark .heroBy,
@@ -1542,7 +1542,7 @@ body.dark #hh {
   <a class="navLogo" href="index.html">🐉 DracoVerse</a>
   <div class="navLinks">
     <a class="navLink" href="blogs.html" target="_blank">Blogs</a>
-    <a class="navLink" href="news.html" target="_blank">News</a>
+    <a class="navLink" href="aiverse.html" target="_blank">Ai Tools</a>
     <a class="navLink" href="community.html" target="_blank">Community</a>
     <a class="navLink" onclick="scrollSec('pollAnchor')">Daily Poll</a>
     <a href="policy.html" id="hh" target="_blank" class="navLink">Privacy & Policy</a>
@@ -1565,7 +1565,7 @@ body.dark #hh {
 <div id="sectionDots">
   <div class="sdot" data-target="blogsAnchor" title="Blogs"></div>
   <div class="sdot" data-target="pollAnchor" title="Poll"></div>
-  <div class="sdot" data-target="newsAnchor" title="News"></div>
+  <div class="sdot" data-target="Anchor" title=""></div>
 </div>
 
 <!-- HERO -->
@@ -1588,11 +1588,11 @@ body.dark #hh {
         <h1 class="heroTitle">DracoVerse</h1>
         <span class="heroBy">~ by Abhinav</span>
         <p class="heroDesc">
-          Your gateway to curated <strong>blogs</strong>, live <strong>news</strong>, and a growing <strong>community</strong> of thinkers — all in one stunning verse.
+          Your gateway to curated <strong>blogs</strong>, live <strong>Ai Tools</strong>, and a growing <strong>community</strong> of thinkers — all in one stunning verse.
         </p>
         <div class="heroCtas">
           <a class="btn btnPrimary" href="blogs.html" target="_blank">📚 Explore Blogs</a>
-          <a class="btn btnOutline" href="news.html" target="_blank">📰 Read News</a>
+          <a class="btn btnOutline" href="aiverse.html" target="_blank">🤖 Explore Ai Tools</a>
         </div>
       </div>
 
@@ -1600,7 +1600,7 @@ body.dark #hh {
       <div class="cardRight">
         <div class="miniStatRow">
           <div class="miniStat"><span class="miniStatNum" id="msBlog">0</span><div class="miniStatLbl">Blog Posts</div></div>
-          <div class="miniStat"><span class="miniStatNum" id="msNews">0+</span><div class="miniStatLbl">News Today</div></div>
+          <div class="miniStat"><span class="miniStatNum" id="ms">0+</span><div class="miniStatLbl"> Today</div></div>
           <div class="miniStat"><span class="miniStatNum">2.1K</span><div class="miniStatLbl">Members</div></div>
           <div class="miniStat"><span class="miniStatNum">24/7</span><div class="miniStatLbl">Live Feed</div></div>
         </div>
@@ -1613,11 +1613,11 @@ body.dark #hh {
             </div>
             <span class="hFeatArrow">→</span>
           </a>
-          <a class="hFeat" href="news.html" target="_blank">
+          <a class="hFeat" href="aiverse.html" target="_blank">
             <div class="hFeatIcon">📰</div>
             <div class="hFeatText">
-              <div class="hFeatTitle">DracoDaily News</div>
-              <div class="hFeatDesc">Real-time global news feed</div>
+              <div class="hFeatTitle">DracoDaily </div>
+              <div class="hFeatDesc">Real-time global  feed</div>
             </div>
             <span class="hFeatArrow">→</span>
           </a>
@@ -1650,7 +1650,7 @@ body.dark #hh {
     <span class="tickerItem"><span class="tickerDot"></span>DracoVerse by Abhinav</span>
     <span class="tickerItem"><span class="tickerDot"></span>Stay curious, stay ahead</span>
     <span class="tickerItem"><span class="tickerDot"></span>Machine Learning breakthroughs 2024</span>
-    <span class="tickerItem"><span class="tickerDot"></span>Real-time news. Real opinions.</span>
+    <span class="tickerItem"><span class="tickerDot"></span>Real-time . Real opinions.</span>
     <span class="tickerItem"><span class="tickerDot"></span>AI is reshaping everything</span>
     <span class="tickerItem"><span class="tickerDot"></span>Web3 on the rise</span>
     <span class="tickerItem"><span class="tickerDot"></span>New posts every day</span>
@@ -1658,7 +1658,7 @@ body.dark #hh {
     <span class="tickerItem"><span class="tickerDot"></span>DracoVerse by Abhinav</span>
     <span class="tickerItem"><span class="tickerDot"></span>Stay curious, stay ahead</span>
     <span class="tickerItem"><span class="tickerDot"></span>Machine Learning breakthroughs 2024</span>
-    <span class="tickerItem"><span class="tickerDot"></span>Real-time news. Real opinions.</span>
+    <span class="tickerItem"><span class="tickerDot"></span>Real-time . Real opinions.</span>
   </div>
 </div>
 
@@ -1666,7 +1666,7 @@ body.dark #hh {
 <div class="statsBand">
   <div class="statsGrid">
     <div class="statItem reveal"><span class="statNum" id="statBlogsN">0</span><div class="statLbl">Blog Posts</div></div>
-    <div class="statItem reveal"><span class="statNum" id="statNewsN">10K+</span><div class="statLbl">News Articles</div></div>
+    <div class="statItem reveal"><span class="statNum" id="statN">10K+</span><div class="statLbl"> Articles</div></div>
     <div class="statItem reveal"><span class="statNum">2.1K+</span><div class="statLbl">Community Members</div></div>
     <div class="statItem reveal"><span class="statNum">98%</span><div class="statLbl">Reader Satisfaction</div></div>
     <div class="statItem reveal"><span class="statNum">24/7</span><div class="statLbl">Live Updates</div></div>
@@ -1748,10 +1748,10 @@ body.dark #hh {
       </a>
     </div>
     <div class="featureRow reveal" style="margin-top:22px;">
-      <a class="featureCard featureCardDark" href="news.html" target="_blank">
+      <a class="featureCard featureCardDark" href="aiverse.html" target="_blank">
         <div class="featureIcon">📡</div>
-        <div class="featureTitle">Real-Time News</div>
-        <div class="featureDesc">Live news from around the globe. Technology, science, business — all in one dark feed.</div>
+        <div class="featureTitle">Real-Time </div>
+        <div class="featureDesc">Live  from around the globe. Technology, science, business — all in one dark feed.</div>
         <div class="featureArrow">Read Now →</div>
       </a>
       <div class="featureCard featureCardWarm" onclick="openModal('aboutModal')" style="cursor:pointer;">
@@ -1764,17 +1764,17 @@ body.dark #hh {
   </div>
 </section>
 
-<!-- NEWS -->
-<section class="section sectionDark" id="newsAnchor">
+<!--  -->
+<section class="section sectionDark" id="Anchor">
   <div style="max-width:1200px;margin:auto;">
     <div class="sectionHead reveal">
       <div class="sectionLabel">📰 Live Feed</div>
-      <h2 class="sectionTitle">Latest News</h2>
+      <h2 class="sectionTitle">Latest </h2>
       <p class="sectionSub">Real stories. Real-time. From the world's top sources.</p>
     </div>
-    <div class="tabRow reveal" id="newsTabs">
+    <div class="tabRow reveal" id="Tabs">
       <button class="tab active" data-nendpoint="topstories" data-nfilter="">🔥 Top</button>
-      <button class="tab" data-nendpoint="newstories" data-nfilter="">🆕 New</button>
+      <button class="tab" data-nendpoint="tories" data-nfilter="">🆕 New</button>
       <button class="tab" data-nendpoint="beststories" data-nfilter="">⭐ Best</button>
       <button class="tab" data-nendpoint="topstories" data-nfilter="ai">🤖 AI</button>
       <button class="tab" data-nendpoint="topstories" data-nfilter="startup">🚀 Startup</button>
@@ -1782,25 +1782,25 @@ body.dark #hh {
       <button class="tab" data-nendpoint="showstories" data-nfilter="">💡 Show HN</button>
     </div>
     <div class="scrollArrows reveal">
-      <button class="arrowBtn" onclick="scrollRow('newsRow',-1)">←</button>
-      <button class="arrowBtn" onclick="scrollRow('newsRow',1)">→</button>
+      <button class="arrowBtn" onclick="scrollRow('Row',-1)">←</button>
+      <button class="arrowBtn" onclick="scrollRow('Row',1)">→</button>
     </div>
-    <div class="hScrollRow reveal" id="newsRow"><div class="loader" style="border-top-color:#4f8cff;"></div></div>
+    <div class="hScrollRow reveal" id="Row"><div class="loader" style="border-top-color:#4f8cff;"></div></div>
     <div style="text-align:center;margin-top:32px;" class="reveal">
-      <a class="btn btnPrimary" href="news.html" target="_blank">Open Full News →</a>
+      <a class="btn btnPrimary" href=".html" target="_blank">Open Full  →</a>
     </div>
   </div>
 </section>
 
-<!-- NEWSLETTER -->
+<!-- LETTER -->
 <section class="section sectionDark" style="padding-top:0;">
   <div style="max-width:580px;margin:auto;text-align:center;" class="reveal">
-    <div class="sectionLabel">📬 Newsletter</div>
+    <div class="sectionLabel">📬 Ai tools</div>
     <h2 class="sectionTitle" style="margin:14px 0 10px;">Never Miss a Beat</h2>
-    <p class="sectionSub">Get the best blogs and news straight to your inbox.</p>
+    <p class="sectionSub">Get the best blogs and ai tools straight to your inbox.</p>
     <div class="nlForm">
       <input class="nlInput" id="nlEmail" type="email" placeholder="your@email.com"/>
-      <button class="nlBtn" onclick="subscribeNewsletter()">Subscribe →</button>
+      <button class="nlBtn" onclick="subscribeletter()">Subscribe →</button>
     </div>
   </div>
 </section>
@@ -1812,12 +1812,12 @@ body.dark #hh {
   <div class="footerGrid">
     <div class="footerBrand">
       <a class="navLogo" href="index.html" style="text-decoration:none;">🐉 DracoVerse</a>
-      <p>A passion project by Abhinav. Bringing blogs, news and community together in one beautiful verse.</p>
+      <p>A passion project by Abhinav. Bringing blogs, AiTools and community together in one beautiful verse.</p>
     </div>
     <div class="footerCol">
       <h4>Explore</h4>
       <a href="blogs.html" target="_blank">Blogs</a>
-      <a href="news.html" target="_blank">News</a>
+      <a href="aiverse.html" target="_blank">AI Tools</a>
       <a href="community.html" target="_blank">Community</a>
       <a onclick="scrollSec('pollAnchor')">Daily Poll</a>
     </div>
@@ -1827,13 +1827,13 @@ body.dark #hh {
       <!-- ✅ CHANGED: now opens policy.html instead of the modal -->
       <a href="policy.html" target="_blank">🛡️ Privacy Policy</a>
       <a onclick="openModal('aboutModal')">Terms</a>
-      <a onclick="scrollSec('pollAnchor')">Newsletter</a>
+      <a onclick="scrollSec('pollAnchor')">letter</a>
     </div>
     <div class="footerCol">
       <h4>Connect</h4>
       <a href="community.html" target="_blank">Community Chat</a>
       <a href="blogs.html" target="_blank">Write a Blog</a>
-      <a href="news.html" target="_blank">Read News</a>
+      <a href="aiverse.html" target="_blank">Know About AI Tools</a>
       <a onclick="openModal('aboutModal')">Contact</a>
     </div>
   </div>
@@ -1856,14 +1856,14 @@ body.dark #hh {
       <h2 class="modalTitle">🐉 About DracoVerse</h2>
       <button class="modalClose" onclick="closeModal('aboutModal')">✕</button>
     </div>
-    <p class="modalText"><strong>DracoVerse</strong> is a passion project by <strong>Abhinav</strong> — a unified platform combining curated blogs, real-time news, daily polls and community chat.</p>
+    <p class="modalText"><strong>DracoVerse</strong> is a passion project by <strong>Abhinav</strong> — a unified platform combining curated blogs, real-time , daily polls and community chat.</p>
     <p class="modalText">
       📚 <a href="blogs.html" target="_blank" style="color:var(--blue);">DracoBlog Pro</a> — Write and discover blogs<br>
-      📰 <a href="news.html" target="_blank" style="color:var(--blue);">DracoDaily</a> — Real-time global news<br>
+      📰 <a href="aiverse.html" target="_blank" style="color:var(--blue);">AI Tools</a> — Learn about latest AI tools<br>
       💬 <a href="community.html" target="_blank" style="color:var(--blue);">DracoCommunity</a> — Live chat & polls<br>
       🗳️ Daily Poll — Community opinions every day
     </p>
-    <p class="modalText" style="font-size:12px;color:#94a3b8;">Powered by Firebase, Hacker News API, Microlink & passion.</p>
+    <p class="modalText" style="font-size:12px;color:#94a3b8;">Powered by Firebase, Ai Tools, Microlink & passion.</p>
     <!-- ✅ ADDED: Privacy Policy button inside the About modal -->
     <a href="policy.html" target="_blank" style="display:block;text-align:center;padding:10px;margin-bottom:10px;background:rgba(79,140,255,0.08);border:1px solid rgba(79,140,255,0.2);border-radius:10px;color:#4f8cff;font-size:13px;font-weight:600;text-decoration:none;transition:0.2s;" onmouseover="this.style.background='rgba(79,140,255,0.15)'" onmouseout="this.style.background='rgba(79,140,255,0.08)'">🛡️ Read our Privacy Policy</a>
     <button class="modalBtn" onclick="closeModal('aboutModal')">Awesome, let's explore!</button>
@@ -1893,7 +1893,7 @@ body.dark #hh {
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <a class="btn btnPrimary" href="blogs.html" target="_blank" onclick="closeModal('mobileNav')">📚 Blogs</a>
-      <a class="btn btnPrimary" href="news.html" target="_blank" onclick="closeModal('mobileNav')">📰 News</a>
+      <a class="btn btnPrimary" href=".html" target="_blank" onclick="closeModal('mobileNav')">🤖 Ai Tools</a>
       <a class="btn btnOutline" href="community.html" target="_blank" onclick="closeModal('mobileNav')">💬 Community</a>
       <button class="btn btnDark" onclick="closeModal('mobileNav');openModal('aboutModal')">🐉 About</button>
       <button class="btn btnOutline" onclick="closeModal('mobileNav');toggleReadingDrawer()" style="justify-content:center;">🔖 Reading List</button>
@@ -1907,7 +1907,7 @@ body.dark #hh {
 <!-- ── NEW: COMMAND PALETTE ── -->
 <div id="cmdkPalette" onclick="if(event.target===this)closeCmdk()">
   <div class="cmdkBox">
-    <input id="cmdkInput" placeholder="Search blogs, news, sections… try 'dark mode' or 'poll'" autocomplete="off"/>
+    <input id="cmdkInput" placeholder="Search blogs, Ai Tools, sections… try 'dark mode' or 'poll'" autocomplete="off"/>
     <div class="cmdkResults" id="cmdkResults"></div>
   </div>
 </div>
@@ -2022,8 +2022,8 @@ document.getElementById("blogTabs").addEventListener("click",function(e){
   renderBlogs(document.getElementById("blogSearch").value.trim());
 });
 
-// ── HACKER NEWS API ─────────────────────────────────
-const HN_BASE = "https://hacker-news.firebaseio.com/v0";
+// ── HACKER  API ─────────────────────────────────
+const HN_BASE = "https://hacker-.firebaseio.com/v0";
 const HN_IMG_CACHE_KEY = "dv_hn_img_v1";
 let hnImgCache = {};
 try { hnImgCache = JSON.parse(localStorage.getItem(HN_IMG_CACHE_KEY)||"{}"); } catch(e){}
@@ -2033,8 +2033,8 @@ let currentHnEndpoint = "topstories";
 let currentHnFilter   = "";
 
 function hnDomain(url){
-  if(!url) return "Hacker News";
-  try{ return new URL(url).hostname.replace("www.",""); }catch(e){ return "Hacker News"; }
+  if(!url) return "Hacker ";
+  try{ return new URL(url).hostname.replace("www.",""); }catch(e){ return "Hacker "; }
 }
 
 async function loadHnImage(url, imgEl){
@@ -2058,37 +2058,37 @@ function buildHnCard(story){
   const date = story.time ? new Date(story.time*1000).toLocaleDateString("en-IN",{year:"numeric",month:"short",day:"numeric"}) : "";
   const domain = hnDomain(story.url);
   const card = document.createElement("div");
-  card.className = "newsCard";
+  card.className = "Card";
   if(story.url) card.addEventListener("click",()=>window.open(story.url,"_blank"));
   card.innerHTML = `
-    <div class="newsThumb" style="display:none;position:relative;">
+    <div class="Thumb" style="display:none;position:relative;">
       <img style="display:none;width:100%;height:100%;object-fit:cover;" alt=""/>
     </div>
-    <div class="newsBody" style="padding:18px;">
-      <div class="newsSource" style="display:flex;align-items:center;justify-content:space-between;">
+    <div class="Body" style="padding:18px;">
+      <div class="Source" style="display:flex;align-items:center;justify-content:space-between;">
         <span>🔶 ${san(domain)}</span>
         <span style="color:rgba(255,255,255,0.35);font-size:10px;">⬆️ ${story.score||0} pts</span>
       </div>
-      <div class="newsTitle">${san(story.title||"Untitled")}</div>
-      <div class="newsDesc" style="color:rgba(255,255,255,0.4);font-size:11px;margin-top:6px;">
+      <div class="Title">${san(story.title||"Untitled")}</div>
+      <div class="Desc" style="color:rgba(255,255,255,0.4);font-size:11px;margin-top:6px;">
         ${story.descendants!=null?`💬 ${story.descendants} comments · `:""}${date}
       </div>
     </div>`;
   if(story.url){
-    const thumbEl = card.querySelector(".newsThumb");
+    const thumbEl = card.querySelector(".Thumb");
     const imgEl   = card.querySelector("img");
     loadHnImage(story.url, imgEl).then(()=>{ if(imgEl.src) thumbEl.style.display="block"; });
   }
   return card;
 }
 
-async function loadNews(){
-  const row = document.getElementById("newsRow");
+async function load(){
+  const row = document.getElementById("Row");
   row.innerHTML = '<div class="loader" style="border-top-color:#4f8cff;margin:38px 20px;flex-shrink:0;"></div>';
   try{
     const ids = await(await fetch(`${HN_BASE}/${currentHnEndpoint}.json`)).json();
     if(!Array.isArray(ids)||!ids.length){ row.innerHTML='<div style="color:rgba(255,255,255,0.4);padding:40px;">No stories found</div>'; return; }
-    document.getElementById("msNews").textContent = ids.length+"+";
+    document.getElementById("ms").textContent = ids.length+"+";
     let batch = ids.slice(0,40);
     const stories = await Promise.all(batch.map(id=>fetch(`${HN_BASE}/item/${id}.json`).then(r=>r.json()).catch(()=>null)));
     let filtered = stories.filter(s => s && s.title && s.type!=="comment");
@@ -2106,28 +2106,28 @@ async function loadNews(){
   }
 }
 
-document.getElementById("newsTabs").addEventListener("click",function(e){
+document.getElementById("Tabs").addEventListener("click",function(e){
   if(!e.target.classList.contains("tab")) return;
   this.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   e.target.classList.add("active");
   currentHnEndpoint = e.target.dataset.nendpoint || "topstories";
   currentHnFilter   = e.target.dataset.nfilter   || "";
-  loadNews();
+  load();
 });
 
 loadBlogs();
-loadNews();
+load();
 </script>
 
 <!-- POLL + UTILS + NEW FEATURES -->
 <script>
 const POLLS=[
   {q:"What tech trend will dominate 2025?",opts:["Generative AI","Quantum Computing","AR/VR Headsets","Autonomous Vehicles"]},
-  {q:"Which do you prefer for reading?",opts:["Long-form articles","Short news snippets","Video summaries","Podcasts"]},
+  {q:"Which do you prefer for reading?",opts:["Long-form articles","Short  snippets","Video summaries","Podcasts"]},
   {q:"What's the biggest threat to tech today?",opts:["Data Privacy","AI Misuse","Cybercrime","Misinformation"]},
   {q:"Best coding language to learn in 2025?",opts:["Python","Rust","TypeScript","Go"]},
-  {q:"How do you stay updated with news?",opts:["News apps","Social media","RSS feeds","Word of mouth"]},
-  {q:"What kind of content do you read most?",opts:["Tech blogs","World news","Science articles","Business analysis"]},
+  {q:"How do you stay updated with ?",opts:[" apps","Social media","RSS feeds","Word of mouth"]},
+  {q:"What kind of content do you read most?",opts:["Tech blogs","World ","Science articles","Business analysis"]},
   {q:"Which AI tool changed your workflow most?",opts:["ChatGPT","GitHub Copilot","Midjourney","Gemini"]},
 ];
 const todayPoll=POLLS[new Date().getDate()%POLLS.length];
@@ -2217,7 +2217,7 @@ window.toast=function(msg,icon="✅"){
   s.appendChild(t);
   setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},3000);
 };
-window.subscribeNewsletter=function(){
+window.subscribeletter=function(){
   const v=document.getElementById("nlEmail")?.value?.trim();
   if(!v||!v.includes("@")){toast("Enter a valid email","❗");return;}
   document.getElementById("nlEmail").value="";
@@ -2325,11 +2325,11 @@ const CMDK_STATIC=[
   {icon:'🏠',label:'Go to Top',action:()=>window.scrollTo({top:0,behavior:'smooth'})},
   {icon:'📚',label:'Jump to Blogs',action:()=>scrollSec('blogsAnchor')},
   {icon:'🗳️',label:'Jump to Daily Poll',action:()=>scrollSec('pollAnchor')},
-  {icon:'📰',label:'Jump to News',action:()=>scrollSec('newsAnchor')},
+  {icon:'📰',label:'Jump to ',action:()=>scrollSec('Anchor')},
   {icon:'🔖',label:'Open Reading List',action:()=>toggleReadingDrawer()},
   {icon:'🌙',label:'Toggle Dark / Light Mode',action:()=>toggleTheme()},
   {icon:'📚',label:'Open Blogs Page',action:()=>window.open('blogs.html','_blank')},
-  {icon:'📰',label:'Open News Page',action:()=>window.open('news.html','_blank')},
+  {icon:'📰',label:'Open  Page',action:()=>window.open('.html','_blank')},
   {icon:'💬',label:'Open Community',action:()=>window.open('community.html','_blank')},
   {icon:'🛡️',label:'Open Privacy Policy',action:()=>window.open('policy.html','_blank')},
 ];
