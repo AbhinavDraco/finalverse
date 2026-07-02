@@ -406,7 +406,7 @@ body.dark .cmdkResult:hover { background: #1a2540; }
 /* ── MINI LAPTOPS / LANDSCAPE TABLETS (<= 1024px) ── */
 @media (max-width: 1024px) {
   .glassCard {
-    grid-template-columns: 1fr; /* Switch to vertical stacked layout safely */
+    grid-template-columns: 1fr;
     min-height: auto;
     border-radius: 32px;
   }
@@ -435,7 +435,7 @@ body.dark .cmdkResult:hover { background: #1a2540; }
     width: calc(100% - 20px);
     padding: 10px 16px;
   }
-  .navLinks { display: none; } /* Hide raw nav links on smaller devices for standard mobile behavior */
+  .navLinks { display: none; }
   .navMobileMenu { display: block; }
 
   .hero { padding-top: 100px; padding-bottom: 40px; }
@@ -454,7 +454,6 @@ body.dark .cmdkResult:hover { background: #1a2540; }
     grid-template-columns: 1fr;
   }
 
-  /* Horizontal content swipe panels for /blog sections on touchscreens */
   .blogCard, .Card {
     min-width: 82vw;
     max-width: 82vw;
@@ -468,7 +467,7 @@ body.dark .cmdkResult:hover { background: #1a2540; }
 
 /* ── FOLDABLES & COMPACT MOBILE (<= 720px) ── */
 @media (max-width: 720px) {
-  .blobWrap { display: none; } /* Turn off high blur layers on medium devices to enhance scroll FPS */
+  .blobWrap { display: none; }
   .glassCard { border-radius: 24px; }
 }
 
@@ -500,10 +499,10 @@ body.dark .cmdkResult:hover { background: #1a2540; }
 /* ── TOUCH INTERACTIVE SAFE AREA (HOVER FIX) ── */
 @media (hover: none) {
   .blogCard:hover, .Card:hover, .featureCard:hover, .miniStat:hover {
-    transform: none !important; /* Stop hover translations sticky glitches on finger scroll touchscreens */
+    transform: none !important;
   }
   .btn, .tab, .arrowBtn, .pollOption, .navLink, .themeToggle, .cmdkBtn {
-    min-height: 44px; /* Perfectly aligned to standard Apple & Google minimum hit target systems */
+    min-height: 44px;
   }
 }
 
@@ -518,7 +517,6 @@ body.dark .cmdkResult:hover { background: #1a2540; }
 <style>
   /* ===== DracoVerse Hero Card Fix ===== */
 
-  
 .glassCard{
     width:min(1250px, 100%);
     max-width:100%;
@@ -572,14 +570,12 @@ body.dark .cmdkResult:hover { background: #1a2540; }
    UNIVERSAL RESPONSIVE IMPROVEMENTS
    ========================================= */
 
-/* Prevent horizontal overflow everywhere */
 html,
 body {
   width: 100%;
   overflow-x: hidden;
 }
 
-/* Fluid containers */
 .glassCard,
 .heroInner,
 .statsGrid,
@@ -591,7 +587,6 @@ body {
   margin-inline: auto;
 }
 
-/* Better scaling typography */
 .heroTitle {
   font-size: clamp(2.4rem, 7vw, 5rem);
 }
@@ -605,7 +600,6 @@ body {
   font-size: clamp(0.9rem, 2vw, 1.05rem);
 }
 
-/* Flexible images */
 img {
   max-width: 100%;
   height: auto;
@@ -664,21 +658,16 @@ nav {
   --text-dark:#0f1419;
   --text-light:#ffffff;
 
-  /* page background tokens (used by theme toggle) */
   --page-bg-1:#ffffff;
   --page-bg-2:#f8fafb;
   --page-bg-3:#f0f2f7;
   --page-bg-4:#0f1419;
   --text-main:#0f1419;
 
-  /* smooth global easing */
   --ease-smooth: cubic-bezier(.16,1,.3,1);
   --ease-snap: cubic-bezier(.34,1.56,.64,1);
 }
 
-/* ============================================================
-   GLOBAL BUTTER-SMOOTH MOTION LAYER
-   ============================================================ */
 *{
   transition-timing-function: var(--ease-smooth);
 }
@@ -693,7 +682,6 @@ body{
 body::-webkit-scrollbar{width:6px;}
 body::-webkit-scrollbar-thumb{background:var(--gradient);border-radius:3px;}
 
-/* Smoother, GPU-accelerated hover transforms across interactive elements */
 .btn,.navCta,.navLink,.tab,.arrowBtn,.miniStat,.hFeat,.blogCard,.Card,
 .featureCard,.likeBtn,.pollOption,#backTop,.modalClose,.modalBtn,.nlBtn,
 .searchInput,.searchResultItem,.statItem,.bookmarkBtn,.themeToggle,.cmdkBtn{
@@ -712,14 +700,12 @@ body::-webkit-scrollbar-thumb{background:var(--gradient);border-radius:3px;}
 #backTop:hover{transform:translateY(-3px) scale(1.08);}
 .likeBtn:hover{transform:scale(1.18) rotate(-6deg);}
 
-/* Smooth tap feedback */
 .btn:active,.navCta:active,.tab:active,.arrowBtn:active,.likeBtn:active,
 .pollOption:active,.hFeat:active,.featureCard:active,.blogCard:active,.Card:active{
   transform:scale(0.97) !important;
   transition: transform .12s var(--ease-smooth);
 }
 
-/* ── BG ── */
 .heroBg{
   position:fixed;inset:0;z-index:-2;
   background:
@@ -729,7 +715,6 @@ body::-webkit-scrollbar-thumb{background:var(--gradient);border-radius:3px;}
   transition: background .6s var(--ease-smooth);
 }
 
-/* ── NAV ── */
 nav{
   position:fixed;top:14px;left:50%;transform:translateX(-50%);
   z-index:900;width:calc(100% - 32px);max-width:1200px;
@@ -746,7 +731,6 @@ nav.scrolled{
 }
 nav.scrolled .navLink{color:#aab4cc;}
 nav.scrolled .navLink:hover{color:white;background:rgba(255,255,255,0.07);}
-nav.scrolled .navLogo{/* stays gradient */}
 .navLogo{
   font-family:'Syne',sans-serif;font-size:1.35rem;font-weight:800;
   background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;
@@ -768,7 +752,6 @@ nav.scrolled .navLogo{/* stays gradient */}
 .navMobileMenu{display:none;background:none;border:none;cursor:pointer;font-size:22px;color:#334155;}
 nav.scrolled .navMobileMenu{color:white;}
 
-/* ── NEW: theme toggle + command palette button ── */
 .navTools{display:flex;align-items:center;gap:8px;}
 .themeToggle,.cmdkBtn{
   width:38px;height:38px;border-radius:12px;border:1.5px solid rgba(79,140,255,0.2);
@@ -780,7 +763,6 @@ nav.scrolled .themeToggle,nav.scrolled .cmdkBtn{border-color:rgba(255,255,255,0.
 .themeToggle:hover,.cmdkBtn:hover{background:var(--gradient);color:white;border-color:transparent;transform:translateY(-2px);}
 .kbdHint{font-size:10px;opacity:0.6;border:1px solid currentColor;border-radius:5px;padding:1px 5px;}
 
-/* ── DARK MODE ── */
 body.dark{--text-main:#e8edff;color:var(--text-main);}
 body.dark .sectionWhite{background:#0a0e1f;}
 body.dark .sectionLight{background:#0c1326;}
@@ -808,14 +790,12 @@ body.dark #cmdkPalette .cmdkBox{background:#101830;color:#e8edff;}
 body.dark #cmdkInput{background:#0a0e1f;color:#e8edff;}
 body.dark .cmdkResult:hover{background:#1a2540;}
 
-/* ── HERO ── */
 .hero{
   min-height:100vh;display:flex;align-items:center;justify-content:center;
   padding:110px 24px 70px;position:relative;
 }
 .heroInner{width:100%;max-width:1100px;position:relative;}
 
-/* Orbiting blobs behind card */
 .blobWrap{
   position:absolute;inset:-60px;z-index:-1;pointer-events:none;overflow:hidden;
   border-radius:60px;
@@ -830,7 +810,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
   66%{transform:translate(-20px,30px) scale(0.96);}
 }
 
-/* The card itself - FIXED FOR RESPONSIVENESS */
 .glassCard{
   background:linear-gradient(135deg,rgba(255,255,255,0.88) 0%,rgba(240,245,255,0.82) 100%);
   backdrop-filter:blur(28px);
@@ -854,7 +833,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
-/* left column */
 .cardLeft{
   padding:64px 20px;
   display:flex;flex-direction:column;justify-content:center;
@@ -910,7 +888,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .btnDark{background:var(--dark);color:white;}
 .btnDark:hover{background:#1a2235;}
 
-/* right column */
 .cardRight{
   padding:30px 44px;
   background:linear-gradient(145deg,rgba(79,140,255,0.06),rgba(124,77,255,0.08));
@@ -976,7 +953,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 }
 @keyframes scrollPulse{0%,100%{transform:scaleY(1);opacity:0.5;}50%{transform:scaleY(1.3);opacity:1;}}
 
-/* ── TICKER ── */
 .ticker{background:var(--dark);padding:13px 0;overflow:hidden;}
 .tickerInner{
   display:flex;gap:56px;white-space:nowrap;
@@ -990,7 +966,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 }
 .tickerDot{width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;}
 
-/* ── STATS BAND ── */
 .statsBand{background:var(--dark);padding:56px 24px;}
 .statsGrid{
   max-width:1200px;margin:auto;
@@ -1010,7 +985,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 }
 .statLbl{font-size:12px;color:rgba(255,255,255,0.45);margin-top:6px;letter-spacing:1px;}
 
-/* ── SECTION BASE ── */
 .section{padding:96px 24px;position:relative;}
 .sectionLight{background:var(--offwhite);transition:background .5s var(--ease-smooth);}
 .sectionWhite{background:var(--white);transition:background .5s var(--ease-smooth);}
@@ -1033,7 +1007,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .sectionSub{font-size:0.95rem;color:#64748b;margin-top:12px;line-height:1.65;}
 .sectionDark .sectionSub{color:rgba(255,255,255,0.45);}
 
-/* ── SEARCH ── */
 .searchWrap{max-width:640px;margin:0 auto 52px;position:relative;}
 .searchInput{
   width:100%;padding:16px 22px 16px 54px;
@@ -1058,7 +1031,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .searchResultItem:hover{background:#f8faff;}
 .searchResultItem:last-child{border:none;}
 
-/* ── TABS ── */
 .tabRow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:38px;}
 .tab{
   padding:9px 20px;border:2px solid rgba(79,140,255,0.15);
@@ -1072,7 +1044,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .sectionDark .tab:hover{border-color:var(--blue);color:var(--blue);}
 .sectionDark .tab.active{background:var(--gradient);color:white;border-color:transparent;}
 
-/* ── HORIZONTAL SCROLL ── */
 .hScrollRow{
   display:flex;gap:22px;overflow-x:auto;
   padding-bottom:18px;scroll-snap-type:x mandatory;
@@ -1091,7 +1062,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .sectionDark .arrowBtn{border-color:rgba(255,255,255,0.14);color:rgba(255,255,255,0.55);}
 .sectionDark .arrowBtn:hover{background:var(--blue);border-color:var(--blue);color:white;}
 
-/* ── BLOG CARD ── */
 .blogCard{
   min-width:330px;max-width:330px;
   background:white;border:1px solid rgba(79,140,255,0.09);
@@ -1119,7 +1089,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
   box-shadow:0 2px 8px rgba(0,0,0,0.12);
 }
 .likeBtn.liked{background:rgba(255,107,107,0.9);}
-/* NEW: bookmark button */
 .bookmarkBtn{
   position:absolute;top:12px;left:12px;
   background:rgba(255,255,255,0.92);backdrop-filter:blur(8px);
@@ -1141,7 +1110,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .authorAvatar{width:24px;height:24px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:white;}
 .blogLikes{font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:4px;}
 
-/* ──  CARD ── */
 .Card{
   min-width:310px;max-width:310px;
   background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
@@ -1165,7 +1133,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .Desc{font-size:11px;color:rgba(255,255,255,0.45);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px;}
 .Date{font-size:10px;color:rgba(255,255,255,0.28);}
 
-/* ── DAILY POLL ── */
 .pollWrap{
   max-width:700px;margin:0 auto;
   background:rgba(255,255,255,0.06);
@@ -1195,7 +1162,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .pollMeta{text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,0.4);}
 .pollAlready{text-align:center;color:rgba(255,255,255,0.4);font-size:13px;margin-top:20px;}
 
-/* confetti */
 .confetti{
   position:absolute;width:8px;height:8px;border-radius:2px;
   top:-12px;opacity:0.9;pointer-events:none;
@@ -1205,7 +1171,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
   to{transform:translateY(420px) rotate(540deg);opacity:0;}
 }
 
-/* ── FEATURE CARDS ── */
 .featureRow{max-width:1200px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
 .featureCard{
   border-radius:26px;padding:38px;position:relative;overflow:hidden;
@@ -1221,7 +1186,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .featureDesc{font-size:13px;opacity:0.72;line-height:1.7;}
 .featureArrow{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-weight:700;font-size:13px;border-bottom:2px solid currentColor;padding-bottom:2px;}
 
-/* ── MODAL ── */
 .modal{
   position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);
   display:none;justify-content:center;align-items:center;z-index:2000;padding:24px;overflow-y:auto;
@@ -1241,7 +1205,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .modalBtn{width:100%;padding:13px;background:var(--gradient);color:white;border:none;border-radius:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:0.3s;}
 .modalBtn:hover{box-shadow:0 8px 22px rgba(79,140,255,0.33);}
 
-/* ── LETTER ── */
 .nlForm{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
 .nlInput{flex:1;min-width:200px;padding:13px 18px;border-radius:13px;border:2px solid rgba(255,255,255,0.13);background:rgba(255,255,255,0.07);color:white;font-family:'Inter',sans-serif;font-size:14px;}
 .nlInput:focus{outline:none;border-color:var(--blue);}
@@ -1249,7 +1212,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 .nlBtn{padding:13px 26px;background:var(--gradient);color:white;border:none;border-radius:13px;font-weight:700;cursor:pointer;transition:0.3s;font-family:'Inter',sans-serif;white-space:nowrap;}
 .nlBtn:hover{box-shadow:0 8px 22px rgba(79,140,255,0.38);}
 
-/* ── TOAST ── */
 .toastStack{position:fixed;bottom:22px;right:22px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
 .toast{
   background:white;border:1px solid rgba(79,140,255,0.14);border-radius:13px;
@@ -1261,10 +1223,8 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 @keyframes toastIn{from{opacity:0;transform:translateX(28px) scale(.95);}to{opacity:1;transform:translateX(0) scale(1);}}
 @keyframes toastOut{to{opacity:0;transform:translateX(28px) scale(.95);}}
 
-/* ── PROGRESS ── */
 #readProgress{position:fixed;top:0;left:0;height:3px;z-index:9998;background:var(--gradient);width:0%;transition:width 0.12s var(--ease-smooth);}
 
-/* ── BACK TOP ── */
 #backTop{
   position:fixed;bottom:22px;left:22px;z-index:9990;
   width:42px;height:42px;border-radius:50%;background:var(--gradient);
@@ -1275,7 +1235,6 @@ body.dark .cmdkResult:hover{background:#1a2540;}
 }
 #backTop.show{opacity:1;transform:translateY(0) scale(1);}
 
-/* ── LOADER / SKELETON ── */
 .loader{width:42px;height:42px;border-radius:50%;border:3px solid rgba(79,140,255,0.1);border-top-color:var(--blue);animation:spin 0.8s linear infinite;margin:38px auto;}
 @keyframes spin{100%{transform:rotate(360deg);}}
 
@@ -1294,11 +1253,9 @@ body.dark .skeleton, .sectionDark .skeleton{background:rgba(255,255,255,0.05);}
 }
 @keyframes shimmer{0%{background-position:100% 0;}100%{background-position:0 0;}}
 
-/* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s var(--ease-smooth),transform 0.7s var(--ease-smooth);}
 .reveal.in{opacity:1;transform:none;}
 
-/* ── FOOTER ── */
 footer{background:var(--dark);border-top:1px solid rgba(255,255,255,0.05);padding:56px 24px 36px;color:rgba(255,255,255,0.4);}
 .footerGrid{max-width:1200px;margin:0 auto 36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:36px;}
 .footerBrand .navLogo{display:block;font-size:1.5rem;margin-bottom:10px;}
@@ -1308,7 +1265,6 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,0.05);paddin
 .footerCol a:hover{color:white;transform:translateX(3px);}
 .footerBottom{max-width:1200px;margin:auto;border-top:1px solid rgba(255,255,255,0.05);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:11px;}
 
-/* ── NEW: COMMAND PALETTE ── */
 #cmdkPalette{
   position:fixed;inset:0;background:rgba(5,8,22,0.55);backdrop-filter:blur(6px);
   z-index:5000;display:none;align-items:flex-start;justify-content:center;padding:90px 20px;
@@ -1333,7 +1289,6 @@ footer{background:var(--dark);border-top:1px solid rgba(255,255,255,0.05);paddin
 .cmdkResultIcon{font-size:18px;width:28px;text-align:center;}
 .cmdkEmpty{padding:30px;text-align:center;color:#94a3b8;font-size:13px;}
 
-/* ── NEW: Reading list drawer ── */
 #readingDrawer{
   position:fixed;top:0;right:-380px;width:340px;height:100vh;z-index:4000;
   background:white;box-shadow:-10px 0 40px rgba(0,0,0,0.18);
@@ -1354,7 +1309,6 @@ body.dark #readingDrawer{background:#101830;color:#e8edff;}
 #drawerOverlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:3999;display:none;}
 #drawerOverlay.show{display:block;}
 
-/* ── NEW: scroll-spy mini progress dots ── */
 #sectionDots{
   position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:850;
   display:flex;flex-direction:column;gap:10px;
@@ -1363,7 +1317,6 @@ body.dark #readingDrawer{background:#101830;color:#e8edff;}
 .sdot.active{background:var(--gradient);transform:scale(1.4);}
 @media(max-width:900px){#sectionDots{display:none;}}
 
-/* ── RESPONSIVE ── */
 @media(max-width:1024px){
   .heroTitle{font-size:4rem;}
   .featureRow{grid-template-columns:1fr;}
@@ -1388,7 +1341,6 @@ body.dark #readingDrawer{background:#101830;color:#e8edff;}
   .pollWrap{padding:28px 20px;}
 }
 
-/* ── DARK MODE: fix dark/black text elements ── */
 body.dark .heroDesc,
 body.dark .hFeatDesc,
 body.dark .blogDesc,
@@ -1467,7 +1419,6 @@ body.dark .featureCardLight .featureArrow {
   color: #7aaaff;
 }
 
-/* ── DARK MODE: navbar dark styling ── */
 body.dark nav {
   background: rgba(10, 14, 31, 0.92);
   border-color: rgba(255, 255, 255, 0.08);
@@ -1565,7 +1516,7 @@ body.dark #hh {
 <div id="sectionDots">
   <div class="sdot" data-target="blogsAnchor" title="Blogs"></div>
   <div class="sdot" data-target="pollAnchor" title="Poll"></div>
-  <div class="sdot" data-target="Anchor" title=""></div>
+  <div class="sdot" data-target="aitoolsAnchor" title="AI Tools"></div>
 </div>
 
 <!-- HERO -->
@@ -1599,10 +1550,10 @@ body.dark #hh {
       <!-- RIGHT -->
       <div class="cardRight">
         <div class="miniStatRow">
-          <div class="miniStat"><span class="miniStatNum" id="msBlog">0</span><div class="miniStatLbl">Blog Posts</div></div>
-          <div class="miniStat"><span class="miniStatNum" id="ms">0+</span><div class="miniStatLbl"> Today</div></div>
-          <div class="miniStat"><span class="miniStatNum">2.1K</span><div class="miniStatLbl">Members</div></div>
-          <div class="miniStat"><span class="miniStatNum">24/7</span><div class="miniStatLbl">Live Feed</div></div>
+          <div class="miniStat"><span class="miniStatNum" id="msBlog">0</span><div class="miniStatLbl">Blog Posts Today</div></div>
+          <div class="miniStat"><span class="miniStatNum" id="ms">100+ </span><div class="miniStatLbl"> Ai tools</div></div>
+          <div class="miniStat"><span class="miniStatNum">200+</span><div class="miniStatLbl">Members</div></div>
+          <div class="miniStat"><span class="miniStatNum">24/7</span><div class="miniStatLbl">Live Updates</div></div>
         </div>
         <div class="heroFeatures" style="display:flex;flex-direction:column;gap:12px;">
           <a class="hFeat" href="blogs.html" target="_blank">
@@ -1614,10 +1565,10 @@ body.dark #hh {
             <span class="hFeatArrow">→</span>
           </a>
           <a class="hFeat" href="aiverse.html" target="_blank">
-            <div class="hFeatIcon">📰</div>
+            <div class="hFeatIcon">🤖</div>
             <div class="hFeatText">
-              <div class="hFeatTitle">DracoDaily </div>
-              <div class="hFeatDesc">Real-time global  feed</div>
+              <div class="hFeatTitle">Ai Verse </div>
+              <div class="hFeatDesc">Global Ai tools and resources</div>
             </div>
             <span class="hFeatArrow">→</span>
           </a>
@@ -1667,7 +1618,7 @@ body.dark #hh {
   <div class="statsGrid">
     <div class="statItem reveal"><span class="statNum" id="statBlogsN">0</span><div class="statLbl">Blog Posts</div></div>
     <div class="statItem reveal"><span class="statNum" id="statN">10K+</span><div class="statLbl"> Articles</div></div>
-    <div class="statItem reveal"><span class="statNum">2.1K+</span><div class="statLbl">Community Members</div></div>
+    <div class="statItem reveal"><span class="statNum">200+</span><div class="statLbl">Community Members</div></div>
     <div class="statItem reveal"><span class="statNum">98%</span><div class="statLbl">Reader Satisfaction</div></div>
     <div class="statItem reveal"><span class="statNum">24/7</span><div class="statLbl">Live Updates</div></div>
   </div>
@@ -1764,15 +1715,15 @@ body.dark #hh {
   </div>
 </section>
 
-<!--  -->
-<section class="section sectionDark" id="Anchor">
+<!-- AI TOOLS -->
+<section class="section sectionDark" id="aitoolsAnchor">
   <div style="max-width:1200px;margin:auto;">
     <div class="sectionHead reveal">
-      <div class="sectionLabel">📰 Live Feed</div>
-      <h2 class="sectionTitle">Latest </h2>
-      <p class="sectionSub">Real stories. Real-time. From the world's top sources.</p>
+      <div class="sectionLabel">🤖 Live Feed</div>
+      <h2 class="sectionTitle">Latest AI Tools</h2>
+      <p class="sectionSub">Real tools. Real-time. From the world's top sources.</p>
     </div>
-    <div class="tabRow reveal" id="Tabs">
+    <div class="tabRow reveal" id="aitoolsTabs">
       <button class="tab active" data-nendpoint="topstories" data-nfilter="">🔥 Top</button>
       <button class="tab" data-nendpoint="tories" data-nfilter="">🆕 New</button>
       <button class="tab" data-nendpoint="beststories" data-nfilter="">⭐ Best</button>
@@ -1782,12 +1733,12 @@ body.dark #hh {
       <button class="tab" data-nendpoint="showstories" data-nfilter="">💡 Show HN</button>
     </div>
     <div class="scrollArrows reveal">
-      <button class="arrowBtn" onclick="scrollRow('Row',-1)">←</button>
-      <button class="arrowBtn" onclick="scrollRow('Row',1)">→</button>
+      <button class="arrowBtn" onclick="scrollRow('aitoolsRow',-1)">←</button>
+      <button class="arrowBtn" onclick="scrollRow('aitoolsRow',1)">→</button>
     </div>
-    <div class="hScrollRow reveal" id="Row"><div class="loader" style="border-top-color:#4f8cff;"></div></div>
+    <div class="hScrollRow reveal" id="aitoolsRow"><div class="loader" style="border-top-color:#4f8cff;"></div></div>
     <div style="text-align:center;margin-top:32px;" class="reveal">
-      <a class="btn btnPrimary" href=".html" target="_blank">Open Full  →</a>
+      <a class="btn btnPrimary" href="aiverse.html" target="_blank">Open Full AI Tools →</a>
     </div>
   </div>
 </section>
@@ -1805,9 +1756,6 @@ body.dark #hh {
   </div>
 </section>
 
-<!-- ============================================================
-     FOOTER  —  Privacy link now points to policy.html
-     ============================================================ -->
 <footer>
   <div class="footerGrid">
     <div class="footerBrand">
@@ -1824,7 +1772,6 @@ body.dark #hh {
     <div class="footerCol">
       <h4>DracoVerse</h4>
       <a onclick="openModal('aboutModal')">About</a>
-      <!-- ✅ CHANGED: now opens policy.html instead of the modal -->
       <a href="policy.html" target="_blank">🛡️ Privacy Policy</a>
       <a onclick="openModal('aboutModal')">Terms</a>
       <a onclick="scrollSec('pollAnchor')">letter</a>
@@ -1839,7 +1786,6 @@ body.dark #hh {
   </div>
   <div class="footerBottom">
     <span>© 2024 DracoVerse — by Abhinav 🐉</span>
-    <!-- ✅ ADDED: Privacy Policy link in the bottom bar too -->
     <a href="policy.html" target="_blank" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:11px;transition:0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">🛡️ Privacy Policy</a>
     <span>Built with ❤️ and lots of ☕</span>
   </div>
@@ -1856,15 +1802,14 @@ body.dark #hh {
       <h2 class="modalTitle">🐉 About DracoVerse</h2>
       <button class="modalClose" onclick="closeModal('aboutModal')">✕</button>
     </div>
-    <p class="modalText"><strong>DracoVerse</strong> is a passion project by <strong>Abhinav</strong> — a unified platform combining curated blogs, real-time , daily polls and community chat.</p>
+    <p class="modalText"><strong>DracoVerse</strong> is a passion project by <strong>Abhinav</strong> — a unified platform combining curated blogs, real-time AI tools, daily polls and community chat.</p>
     <p class="modalText">
       📚 <a href="blogs.html" target="_blank" style="color:var(--blue);">DracoBlog Pro</a> — Write and discover blogs<br>
-      📰 <a href="aiverse.html" target="_blank" style="color:var(--blue);">AI Tools</a> — Learn about latest AI tools<br>
+      🤖 <a href="aiverse.html" target="_blank" style="color:var(--blue);">AI Tools</a> — Learn about latest AI tools<br>
       💬 <a href="community.html" target="_blank" style="color:var(--blue);">DracoCommunity</a> — Live chat & polls<br>
       🗳️ Daily Poll — Community opinions every day
     </p>
     <p class="modalText" style="font-size:12px;color:#94a3b8;">Powered by Firebase, Ai Tools, Microlink & passion.</p>
-    <!-- ✅ ADDED: Privacy Policy button inside the About modal -->
     <a href="policy.html" target="_blank" style="display:block;text-align:center;padding:10px;margin-bottom:10px;background:rgba(79,140,255,0.08);border:1px solid rgba(79,140,255,0.2);border-radius:10px;color:#4f8cff;font-size:13px;font-weight:600;text-decoration:none;transition:0.2s;" onmouseover="this.style.background='rgba(79,140,255,0.15)'" onmouseout="this.style.background='rgba(79,140,255,0.08)'">🛡️ Read our Privacy Policy</a>
     <button class="modalBtn" onclick="closeModal('aboutModal')">Awesome, let's explore!</button>
   </div>
@@ -1884,7 +1829,7 @@ body.dark #hh {
   </div>
 </div>
 
-<!-- MOBILE NAV  ✅ Privacy Policy added here too -->
+<!-- MOBILE NAV -->
 <div class="modal" id="mobileNav">
   <div class="modalBox" style="max-width:300px;">
     <div class="modalHead">
@@ -1893,18 +1838,17 @@ body.dark #hh {
     </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <a class="btn btnPrimary" href="blogs.html" target="_blank" onclick="closeModal('mobileNav')">📚 Blogs</a>
-      <a class="btn btnPrimary" href=".html" target="_blank" onclick="closeModal('mobileNav')">🤖 Ai Tools</a>
+      <a class="btn btnPrimary" href="aiverse.html" target="_blank" onclick="closeModal('mobileNav')">🤖 Ai Tools</a>
       <a class="btn btnOutline" href="community.html" target="_blank" onclick="closeModal('mobileNav')">💬 Community</a>
       <button class="btn btnDark" onclick="closeModal('mobileNav');openModal('aboutModal')">🐉 About</button>
       <button class="btn btnOutline" onclick="closeModal('mobileNav');toggleReadingDrawer()" style="justify-content:center;">🔖 Reading List</button>
       <button class="btn btnOutline" onclick="closeModal('mobileNav');toggleTheme()" style="justify-content:center;">🌙 Toggle Dark Mode</button>
-      <!-- ✅ NEW: Privacy Policy in mobile nav -->
       <a class="btn btnOutline" href="policy.html" target="_blank" onclick="closeModal('mobileNav')" style="justify-content:center;">🛡️ Privacy Policy</a>
     </div>
   </div>
 </div>
 
-<!-- ── NEW: COMMAND PALETTE ── -->
+<!-- COMMAND PALETTE -->
 <div id="cmdkPalette" onclick="if(event.target===this)closeCmdk()">
   <div class="cmdkBox">
     <input id="cmdkInput" placeholder="Search blogs, Ai Tools, sections… try 'dark mode' or 'poll'" autocomplete="off"/>
@@ -1912,7 +1856,7 @@ body.dark #hh {
   </div>
 </div>
 
-<!-- ── NEW: READING LIST DRAWER ── -->
+<!-- READING LIST DRAWER -->
 <div id="drawerOverlay" onclick="toggleReadingDrawer()"></div>
 <div id="readingDrawer">
   <div class="readingDrawerHead">
@@ -1922,10 +1866,10 @@ body.dark #hh {
   <div id="readingList"></div>
 </div>
 
-<!-- FIREBASE + BLOGS -->
+<!-- FIREBASE + BLOGS — REAL-TIME LISTENER -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getFirestore, collection, query, orderBy, getDocs, limit } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { getFirestore, collection, query, orderBy, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
 const db = getFirestore(initializeApp({
   apiKey:"AIzaSyCHkxuxZ-KWzQEoZt-XLXz1XX8ObTENQR4",
@@ -1944,16 +1888,28 @@ function initials(u){return(u||"U").substring(0,2).toUpperCase();}
 function avatarColor(u){const c=["#4f8cff","#7c4dff","#ff6b6b","#f5c542","#51cf66"];let h=0;for(let i=0;i<u.length;i++)h=u.charCodeAt(i)+((h<<5)-h);return c[Math.abs(h)%c.length];}
 function readTime(text){return Math.max(1,Math.ceil((text||"").split(" ").length/200))+" min";}
 
-async function loadBlogs(){
+// ── REAL-TIME LISTENER: fires immediately on load AND whenever any blog is added/changed ──
+function loadBlogs(){
   try{
-    const snap=await getDocs(query(collection(db,"blogs"),orderBy("createdAt","desc"),limit(20)));
-    allBlogs=[];snap.forEach(d=>allBlogs.push({id:d.id,...d.data()}));
-    allBlogs.sort((a,b)=>(b.likes?.length||0)-(a.likes?.length||0));
-    document.getElementById("statBlogsN").textContent=allBlogs.length;
-    document.getElementById("msBlog").textContent=allBlogs.length;
-    renderBlogs();
-    window.__allBlogs = allBlogs; // expose for cmdk
-  }catch(e){document.getElementById("blogRow").innerHTML='<div style="color:#94a3b8;padding:40px;">Could not load blogs</div>';}
+    onSnapshot(
+      query(collection(db,"blogs"), orderBy("createdAt","desc")),
+      (snap) => {
+        allBlogs = [];
+        snap.forEach(d => allBlogs.push({id: d.id, ...d.data()}));
+        allBlogs.sort((a,b) => (b.likes?.length||0) - (a.likes?.length||0));
+        document.getElementById("statBlogsN").textContent = allBlogs.length;
+        document.getElementById("msBlog").textContent = allBlogs.length;
+        renderBlogs();
+        window.__allBlogs = allBlogs;
+      },
+      (e) => {
+        console.error("Blog listener error:", e);
+        document.getElementById("blogRow").innerHTML='<div style="color:#94a3b8;padding:40px;">Could not load blogs</div>';
+      }
+    );
+  }catch(e){
+    document.getElementById("blogRow").innerHTML='<div style="color:#94a3b8;padding:40px;">Could not load blogs</div>';
+  }
 }
 
 function renderBlogs(filter=""){
@@ -2022,8 +1978,8 @@ document.getElementById("blogTabs").addEventListener("click",function(e){
   renderBlogs(document.getElementById("blogSearch").value.trim());
 });
 
-// ── HACKER  API ─────────────────────────────────
-const HN_BASE = "https://hacker-.firebaseio.com/v0";
+// ── AI TOOLS FEED (HACKER NEWS API) ──
+const HN_BASE = "https://hacker-news.firebaseio.com/v0";
 const HN_IMG_CACHE_KEY = "dv_hn_img_v1";
 let hnImgCache = {};
 try { hnImgCache = JSON.parse(localStorage.getItem(HN_IMG_CACHE_KEY)||"{}"); } catch(e){}
@@ -2033,8 +1989,8 @@ let currentHnEndpoint = "topstories";
 let currentHnFilter   = "";
 
 function hnDomain(url){
-  if(!url) return "Hacker ";
-  try{ return new URL(url).hostname.replace("www.",""); }catch(e){ return "Hacker "; }
+  if(!url) return "AI Tools";
+  try{ return new URL(url).hostname.replace("www.",""); }catch(e){ return "AI Tools"; }
 }
 
 async function loadHnImage(url, imgEl){
@@ -2083,7 +2039,7 @@ function buildHnCard(story){
 }
 
 async function load(){
-  const row = document.getElementById("Row");
+  const row = document.getElementById("aitoolsRow");
   row.innerHTML = '<div class="loader" style="border-top-color:#4f8cff;margin:38px 20px;flex-shrink:0;"></div>';
   try{
     const ids = await(await fetch(`${HN_BASE}/${currentHnEndpoint}.json`)).json();
@@ -2106,7 +2062,7 @@ async function load(){
   }
 }
 
-document.getElementById("Tabs").addEventListener("click",function(e){
+document.getElementById("aitoolsTabs").addEventListener("click",function(e){
   if(!e.target.classList.contains("tab")) return;
   this.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   e.target.classList.add("active");
@@ -2126,8 +2082,8 @@ const POLLS=[
   {q:"Which do you prefer for reading?",opts:["Long-form articles","Short  snippets","Video summaries","Podcasts"]},
   {q:"What's the biggest threat to tech today?",opts:["Data Privacy","AI Misuse","Cybercrime","Misinformation"]},
   {q:"Best coding language to learn in 2025?",opts:["Python","Rust","TypeScript","Go"]},
-  {q:"How do you stay updated with ?",opts:[" apps","Social media","RSS feeds","Word of mouth"]},
-  {q:"What kind of content do you read most?",opts:["Tech blogs","World ","Science articles","Business analysis"]},
+  {q:"How do you stay updated with AI tools?",opts:["Ai tools apps","Social media","RSS feeds","Word of mouth"]},
+  {q:"What kind of content do you read most?",opts:["Tech blogs","AI tools updates","Science articles","Business analysis"]},
   {q:"Which AI tool changed your workflow most?",opts:["ChatGPT","GitHub Copilot","Midjourney","Gemini"]},
 ];
 const todayPoll=POLLS[new Date().getDate()%POLLS.length];
@@ -2148,7 +2104,6 @@ function renderPoll(){
       </div>`;
     }).join("");
     document.getElementById("pollMeta").innerHTML=`✅ You voted: <strong>${todayPoll.opts[saved]}</strong> · ${total} total votes`;
-    // animate bars in next frame for smooth fill
     requestAnimationFrame(()=>{
       document.querySelectorAll("#pollOptions .pollBarFill").forEach(el=>{
         requestAnimationFrame(()=>{ el.style.width = el.dataset.pct+"%"; });
@@ -2174,7 +2129,6 @@ function renderPoll(){
 }
 renderPoll();
 
-/* ── NEW: confetti burst on poll vote ── */
 function fireConfetti(){
   const wrap=document.getElementById("pollWrap");
   const colors=["#4f8cff","#7c4dff","#ff6b6b","#f5c542","#51cf66"];
@@ -2240,9 +2194,7 @@ document.querySelectorAll(".statNum").forEach(el=>{
   }),{threshold:0.5}).observe(el);
 });
 
-/* =========================================================
-   NEW FEATURE: DARK MODE TOGGLE (persisted)
-   ========================================================= */
+/* ── DARK MODE ── */
 function applyTheme(dark){
   document.body.classList.toggle('dark',dark);
   document.getElementById('themeBtn').textContent = dark ? '☀️' : '🌙';
@@ -2270,9 +2222,7 @@ window.toggleTheme=function(){
   applyTheme(saved ? saved==='dark' : prefers);
 })();
 
-/* =========================================================
-   NEW FEATURE: READING LIST / BOOKMARKS (persisted)
-   ========================================================= */
+/* ── READING LIST ── */
 function getBookmarks(){ try{return JSON.parse(localStorage.getItem('dv_bookmarks')||'[]');}catch(e){return [];} }
 function setBookmarks(arr){ localStorage.setItem('dv_bookmarks',JSON.stringify(arr)); }
 function isBookmarked(id){ return getBookmarks().some(b=>b.id===id); }
@@ -2304,8 +2254,6 @@ function renderReadingList(){
 window.removeBookmark=function(id){
   setBookmarks(getBookmarks().filter(b=>b.id!==id));
   renderReadingList();
-  // refresh stars in blog grid if present
-  document.querySelectorAll('.bookmarkBtn.saved').forEach(b=>{});
   toast('Removed','🗑️');
 };
 window.toggleReadingDrawer=function(forceClose){
@@ -2318,18 +2266,16 @@ window.toggleReadingDrawer=function(forceClose){
 };
 renderReadingList();
 
-/* =========================================================
-   NEW FEATURE: COMMAND PALETTE (Ctrl+K / Cmd+K)
-   ========================================================= */
+/* ── COMMAND PALETTE ── */
 const CMDK_STATIC=[
   {icon:'🏠',label:'Go to Top',action:()=>window.scrollTo({top:0,behavior:'smooth'})},
   {icon:'📚',label:'Jump to Blogs',action:()=>scrollSec('blogsAnchor')},
   {icon:'🗳️',label:'Jump to Daily Poll',action:()=>scrollSec('pollAnchor')},
-  {icon:'📰',label:'Jump to ',action:()=>scrollSec('Anchor')},
+  {icon:'🤖',label:'Jump to AI Tools Feed',action:()=>scrollSec('aitoolsAnchor')},
   {icon:'🔖',label:'Open Reading List',action:()=>toggleReadingDrawer()},
   {icon:'🌙',label:'Toggle Dark / Light Mode',action:()=>toggleTheme()},
   {icon:'📚',label:'Open Blogs Page',action:()=>window.open('blogs.html','_blank')},
-  {icon:'📰',label:'Open  Page',action:()=>window.open('.html','_blank')},
+  {icon:'🤖',label:'Open AI Tools Page',action:()=>window.open('aiverse.html','_blank')},
   {icon:'💬',label:'Open Community',action:()=>window.open('community.html','_blank')},
   {icon:'🛡️',label:'Open Privacy Policy',action:()=>window.open('policy.html','_blank')},
 ];
@@ -2381,9 +2327,7 @@ document.addEventListener('keydown',e=>{
   }
 });
 
-/* =========================================================
-   NEW FEATURE: section scroll-spy dots
-   ========================================================= */
+/* ── SECTION SCROLL-SPY DOTS ── */
 const sectionDotEls=[...document.querySelectorAll('#sectionDots .sdot')];
 sectionDotEls.forEach(d=>d.addEventListener('click',()=>scrollSec(d.dataset.target)));
 function updateSectionDots(){
