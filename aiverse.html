@@ -412,6 +412,37 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .notif-footer{padding:10px 16px;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--violet2);cursor:pointer}
 .notif-footer:hover{text-decoration:underline}
 
+/* ═══════ TOOL DETAIL PAGE (route: /aiverse.html/<slug>) ═══════ */
+.detail-overlay{position:fixed;inset:0;z-index:2000;background:var(--bg);display:none;overflow-y:auto}
+.detail-overlay.open{display:block}
+.detail-topbar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 32px;background:rgba(6,6,8,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.detail-back{background:var(--bg2);border:1px solid var(--border2);color:var(--text2);padding:8px 16px;border-radius:var(--r-sm);font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:all .15s;flex-shrink:0}
+.detail-back:hover{color:var(--text);border-color:var(--border3)}
+.detail-breadcrumb{font-size:12px;color:var(--text3);text-align:right}
+.detail-breadcrumb strong{color:var(--text2)}
+.detail-body{max-width:840px;margin:0 auto;padding:32px 24px 60px}
+.detail-hero{display:flex;align-items:flex-start;gap:20px;padding-bottom:24px;border-bottom:1px solid var(--border);margin-bottom:24px;flex-wrap:wrap}
+.detail-logo{width:88px;height:88px;border-radius:18px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.detail-hero-info{flex:1;min-width:200px}
+.detail-name-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.detail-name{font-family:var(--font-display);font-size:28px;font-weight:700;letter-spacing:-.5px;color:var(--text)}
+.detail-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.detail-section{margin-bottom:24px}
+.detail-section-title{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--text);margin-bottom:10px}
+.detail-desc{font-size:14px;color:var(--text2);line-height:1.75}
+.detail-muted{font-size:13px;color:var(--text3);font-style:italic}
+.detail-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.detail-list li{font-size:13px;color:var(--text2);line-height:1.6;padding-left:18px;position:relative}
+.detail-list li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--violet2)}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px}
+@media(max-width:640px){
+  .detail-grid{grid-template-columns:1fr}
+  .detail-hero{flex-direction:column}
+  .detail-actions{width:100%}
+  .detail-topbar{flex-direction:column;align-items:flex-start;gap:8px}
+  .detail-breadcrumb{text-align:left}
+}
+
 /* ═══════ RESPONSIVE ═══════ */
 @media(max-width:1150px){
   :root{--rside-w:0px}
@@ -735,6 +766,14 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
         </select>
       </div>
       <div>
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Key Features (one per line) *</label>
+        <textarea id="toolFeatures" placeholder="e.g.&#10;Real-time collaboration&#10;Supports 20+ file formats&#10;One-click export" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;transition:all .2s;resize:vertical;min-height:70px" onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Use Cases (one per line) *</label>
+        <textarea id="toolUseCases" placeholder="e.g.&#10;Team project planning&#10;Client reporting" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;transition:all .2s;resize:vertical;min-height:60px" onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+      </div>
+      <div>
         <label style="display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Emoji (optional)</label>
         <input type="text" id="toolEmoji" placeholder="e.g., 🤖" maxlength="2" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;transition:all .2s" onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='var(--border2)'"/>
       </div>
@@ -756,6 +795,9 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   <div class="notif-list" id="notifList"></div>
   <div class="notif-footer">View all notifications →</div>
 </div>
+
+<!-- Tool detail page — SPA route: /aiverse.html/<tool-slug> -->
+<div class="detail-overlay" id="toolDetailPage"></div>
 
 <!-- Toast -->
 <div class="toast" id="toastEl"><div class="toast-bar"></div><span id="toastMsg"></span></div>
@@ -797,6 +839,41 @@ let TOOLS = [
   {id:29, emoji:'✒️', name:'Copy.ai', cat:'Writing', price:'freemium', rating:4.5, views:'5.9K', desc:'Generate marketing content, long-form blogs, cold emails, and social media posts with AI — 90+ templates.', url:'https://copy.ai', hot:false, isNew:false},
   {id:30, emoji:'📰', name:'Writesonic', cat:'Writing', price:'freemium', rating:4.5, views:'5.6K', desc:'AI writing platform for articles, SEO-optimized content, product descriptions, and full marketing campaigns.', url:'https://writesonic.com', hot:false, isNew:false},
 ];
+
+/* Extra detail-page content for each tool: shown on the /aiverse.html/<slug> page */
+const TOOL_DETAILS = {
+  1:{features:['Natural conversation with GPT-class models','Voice mode and mobile apps','Custom GPTs and plugin ecosystem','Web browsing and file uploads'],useCases:['Drafting emails and content','Coding help and debugging','Brainstorming and research'],pros:['Huge plugin/GPT ecosystem','Very polished mobile experience'],cons:['Free tier has usage limits','Can be verbose']},
+  2:{features:['Long context window for large documents','Artifacts for interactive content','Strong reasoning and coding ability','Projects for organized work'],useCases:['Analyzing long documents and contracts','Writing and coding assistance','Research synthesis'],pros:['Excellent at following complex instructions','Thoughtful, less hallucination-prone'],cons:['Fewer third-party integrations than ChatGPT','Voice mode not on every platform']},
+  3:{features:['Real-time web search with citations','Focus/collections for topic research','Pro search across multiple models','Mobile app and browser extension'],useCases:['Fact-checking and research','Quick sourced answers','Academic literature review'],pros:['Transparent sourcing','Fast, up-to-date answers'],cons:['Less suited to creative writing','Free tier query limits']},
+  4:{features:['Deep Google Workspace integration','Multimodal image and video understanding','Extensions for Gmail/Docs/Maps','Large context window'],useCases:['Summarizing Gmail and Docs','Multimodal analysis','Everyday assistant tasks'],pros:['Seamless Google ecosystem','Strong multimodal support'],cons:['Quality varies across versions','Privacy concerns for some users']},
+  5:{features:['Photorealistic and artistic image generation','Discord-based and web workflow','Style tuning with reference images','Upscaling and variations'],useCases:['Concept art and illustration','Marketing visuals','Personal creative projects'],pros:['Best-in-class image quality','Active creative community'],cons:['No free tier','Learning curve for prompting']},
+  6:{features:['Text-to-video and image-to-video generation','Green screen and motion tracking','Full video editing suite','Collaborative workspaces'],useCases:['Short-form video content','Visual effects for creators','Rapid video prototyping'],pros:['Powerful creative video tools','Frequent feature updates'],cons:['Credits system can get pricey','Limits on video length']},
+  7:{features:['AI chat with full codebase context','Multi-file code generation','Background coding agents','VS Code compatible interface'],useCases:['Building features fast','Refactoring large codebases','AI pair programming'],pros:['Deep codebase understanding','Familiar VS Code-based UI'],cons:['Paid tiers needed for heavy use','Context limits on very large repos']},
+  8:{features:['Inline code autocompletion','Chat assistant inside the IDE','Support for many languages','GitHub PR and issue integration'],useCases:['Speeding up routine coding','Learning new languages/frameworks','Writing tests and docs'],pros:['Deep GitHub integration','Wide IDE support'],cons:['Subscription required','Suggestions need review for correctness']},
+  9:{features:['Generates React/Tailwind UI from prompts','Live preview and iteration','Export straight to your codebase','Integrates with Vercel deployment'],useCases:['Rapid UI prototyping','Landing page creation','Component generation'],pros:['Very fast prototyping','Clean, modern output'],cons:['Best suited to React/Tailwind stacks','Complex UIs need manual refinement']},
+  10:{features:['Text-to-image generation','Built directly into ChatGPT','Strong prompt adherence','Inpainting and editing tools'],useCases:['Illustrations and concept art','Marketing imagery','Creative exploration'],pros:['Easy to use via ChatGPT','Good prompt understanding'],cons:['Less stylistic control than Midjourney','Usage limits on free tier']},
+  11:{features:['In-line writing and editing assistance','Summarizes pages and databases','Q&A across your workspace','Translation and tone adjustment'],useCases:['Meeting notes summarization','Drafting docs inside Notion','Organizing knowledge bases'],pros:['Seamless Notion integration','Saves context switching'],cons:['Requires a Notion subscription','Extra cost for AI features']},
+  12:{features:['AI-assisted workflow (Zap) building','5000+ app integrations','Natural language automation creation','AI actions inside Zaps'],useCases:['Automating repetitive tasks','Connecting apps without code','Syncing data between tools'],pros:['No-code automation','Massive app ecosystem'],cons:['Costs scale with usage','Complex flows can get confusing']},
+  13:{features:['Grammar and clarity checking','Tone detection and rewriting','Generative writing assistance','Works across browser and apps'],useCases:['Polishing emails and documents','Improving writing tone','Everyday content generation'],pros:['Works everywhere you write','Reliable grammar suggestions'],cons:['Premium features behind a paywall','Generative quality is basic']},
+  14:{features:['Brand voice templates','Marketing copy generation','Team collaboration tools','SEO content mode'],useCases:['Marketing campaigns at scale','Blog and ad copy','Brand-consistent content'],pros:['Built for marketing teams','Strong brand voice controls'],cons:['Pricey for individuals','No free tier']},
+  15:{features:['Extracts data from research papers','Summarizes and compares studies','Literature search assistant','Systematic review support'],useCases:['Academic literature review','Evidence synthesis','Research data extraction'],pros:['Purpose-built for researchers','Saves hours of paper reading'],cons:['Niche academic focus','Limited use outside research']},
+  16:{features:['Full song generation with vocals','Custom lyrics and styles','Instrumental generation','Downloadable tracks'],useCases:['Original music creation','Background music for content','Songwriting experimentation'],pros:['No musical skill required','Surprisingly polished output'],cons:['Generation credits limited on free tier','Ownership/copyright questions remain']},
+  17:{features:['Realistic voice cloning','29+ language support','Text-to-speech API','Dubbing studio'],useCases:['Audiobook narration','Video voiceovers','Multilingual dubbing'],pros:['Extremely natural voices','Flexible API for developers'],cons:['Cloning raises misuse concerns','Costs scale with character usage']},
+  18:{features:['Text-to-video and image-to-video','Style and motion controls','Short cinematic clip generation','Easy web interface'],useCases:['Social media video content','Quick animation prototypes','Creative experimentation'],pros:['Simple, fast interface','Good for short clips'],cons:['Limited clip length','Restrictive free tier']},
+  19:{features:['AI-generated presentations and docs','One-click design themes','Website generation from text','Real-time editing'],useCases:['Pitch decks and reports','Quick websites/landing pages','Internal presentations'],pros:['Very fast to produce polished decks','No design skill needed'],cons:['Limited custom design control','Free tier credit limits']},
+  20:{features:['Smart slide templates','Auto-adjusting layouts','Team collaboration','Presentation analytics'],useCases:['Business presentations','Team pitch decks','Sales collateral'],pros:['Layouts stay clean automatically','Good for teams'],cons:['Subscription required for full features','Less flexible than manual design tools']},
+  21:{features:['Game asset and concept art generation','Custom model training','Real-time canvas editing','Texture generation'],useCases:['Game art production','Product mockups','Concept design'],pros:['Strong for game/asset art','Generous free tier'],cons:['Interface can be complex','Quality varies by model choice']},
+  22:{features:['Accurate text rendering in images','Style presets','Magic prompt enhancement','Remixing existing images'],useCases:['Logos and posters with text','Social graphics','Typography-driven designs'],pros:['Best-in-class text accuracy','Easy to use'],cons:['Less photorealistic than some rivals','Newer, smaller community']},
+  23:{features:['140+ AI avatars','Text-to-video with voiceover','Multilingual video generation','Custom avatar creation'],useCases:['Corporate training videos','Marketing video content','Multilingual communications'],pros:['Professional avatar quality','No filming required'],cons:['Enterprise pricing','Avatars can feel less personal']},
+  24:{features:['Open-weight reasoning model','Strong coding and math performance','Free to use','Fast inference'],useCases:['Coding assistance','Math and logic problems','General-purpose chat'],pros:['Free and high-performing','Open model options available'],cons:['Data handling concerns for some users','Less polished consumer app']},
+  25:{features:['Full-stack app generation from prompts','In-browser dev environment','Built-in database and auth setup','One-click deployment'],useCases:['Rapid MVP building','Learning full-stack development','Hackathon projects'],pros:['Extremely fast idea-to-app','No local setup needed'],cons:['Complex apps need manual coding','Usage-based pricing']},
+  26:{features:['Natural language to full web app','Instant preview and iteration','Database and backend integration','One-click publishing'],useCases:['Building startup MVPs','Internal tools','Rapid prototyping'],pros:['Beginner-friendly','Fast from idea to deployed app'],cons:['Less control over code architecture','Credits-based pricing']},
+  27:{features:['Source-grounded Q&A','Auto-generated summaries','AI-generated audio podcasts','Multi-document research notebooks'],useCases:['Studying from lecture notes/papers','Research synthesis','Creating audio overviews'],pros:['Free from Google','Great for grounded, citation-based answers'],cons:['Limited to uploaded sources','Fewer creative features']},
+  28:{features:['Search across peer-reviewed papers','AI-synthesized evidence answers','Study quality indicators','Citation-backed summaries'],useCases:['Evidence-based research','Fact-checking scientific claims','Literature discovery'],pros:['Focused on scientific rigor','Clear sourcing'],cons:['Narrower scope than general search','Limited free-tier queries']},
+  29:{features:['90+ marketing templates','Long-form blog generation','Workflow automation for content','Chat-based copy assistant'],useCases:['Social media and ad copy','Email marketing content','Content workflow automation'],pros:['Large template library','Good for marketing teams'],cons:['Output often needs editing','Free tier limits']},
+  30:{features:['SEO-optimized article generation','Product description writer','Chatsonic AI chat mode','Bulk content generation'],useCases:['SEO content at scale','E-commerce descriptions','Ad and landing page copy'],pros:['Strong SEO tooling','Affordable plans'],cons:['Quality varies by template','Can require heavy editing']},
+};
+TOOLS.forEach(t => Object.assign(t, TOOL_DETAILS[t.id] || {}));
 
 const CATEGORIES = [
   {name:'AI Assistant', count:41, color:'#a78bfa'},
@@ -886,6 +963,38 @@ function catClass(c) {
 function priceClass(p){return{'free':'pill-free','freemium':'pill-freemium','paid':'pill-paid','free-trial':'pill-free-trial'}[p]}
 function priceLabel(p){return{'free':'Free','freemium':'Freemium','paid':'Paid','free-trial':'Free Trial'}[p]}
 
+function slugify(name) {
+  return (name||'').toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-+|-+$)/g,'');
+}
+function getDomain(url) {
+  try { return new URL(url).hostname.replace(/^www\./,''); } catch(e) { return null; }
+}
+/* Real tool logo with a clean fallback chain: high-res brand logo -> favicon -> emoji.
+   Uses a JS handler (not inline string concatenation) so the emoji only ever
+   appears once both image sources have genuinely failed — never alongside the logo. */
+function toolLogoHtml(tool, size) {
+  size = size || 72;
+  const domain = getDomain(tool.url);
+  const imgSize = Math.round(size * 0.72);
+  if (!domain) return `<span style="font-size:${Math.round(size*0.5)}px">${tool.emoji}</span>`;
+  const clearbitUrl = `https://logo.clearbit.com/${domain}?size=256`;
+  const faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=256`;
+  return `<img src="${clearbitUrl}" data-fallback="${faviconUrl}" data-emoji="${tool.emoji}" alt="${tool.name} logo" style="width:${imgSize}px;height:${imgSize}px;object-fit:contain;border-radius:8px" onerror="handleLogoError(this)"/>`;
+}
+function handleLogoError(img) {
+  const fallback = img.getAttribute('data-fallback');
+  if (fallback && img.src !== fallback) {
+    img.onerror = function(){ handleLogoError(img); };
+    img.src = fallback;
+    return;
+  }
+  const emoji = img.getAttribute('data-emoji') || '🤖';
+  const span = document.createElement('span');
+  span.style.fontSize = img.style.width;
+  span.textContent = emoji;
+  img.replaceWith(span);
+}
+
 /* ════ TOOLS ════ */
 function getFilteredTools() {
   let list = [...TOOLS];
@@ -922,7 +1031,7 @@ function renderTools() {
     const saved = savedSet.has(t.id);
     const inCompare = compareSet.has(t.id);
     return `
-    <div class="tool-card${t.hot && sortMode==='hot'?' featured':''}" onclick="openToolDetail('${t.name.toLowerCase().replace(/[\\s.]/g,'')}','${t.id}')">
+    <div class="tool-card${t.hot && sortMode==='hot'?' featured':''}" onclick="openToolDetail(${t.id})">
       ${t.hot && sortMode==='hot' ? '<div class="featured-badge">🔥 Hot</div>' : ''}
       <div class="tool-card-inner">
         <div class="card-top">
@@ -959,12 +1068,124 @@ function renderTools() {
   }
 }
 
-function openToolDetail(slug, id) {
+function openToolDetail(id) {
   const tool = TOOLS.find(t => t.id == id);
-  if (tool) {
-    window.location.href = `tool-detail.html?id=${id}&name=${encodeURIComponent(tool.name)}`;
-  }
+  if (!tool) return;
+  const slug = slugify(tool.name);
+  history.pushState({slug}, '', `/aiverse.html/${slug}`);
+  showDetailPage(tool);
 }
+
+function getSlugFromPath() {
+  const m = window.location.pathname.match(/aiverse\.html\/([^/?#]+)/i);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+
+function findToolBySlug(slug) {
+  return TOOLS.find(t => slugify(t.name) === slug);
+}
+
+function showDetailPage(tool) {
+  const overlay = document.getElementById('toolDetailPage');
+  overlay.innerHTML = renderDetailPageHtml(tool);
+  overlay.classList.add('open');
+  overlay.scrollTop = 0;
+  document.title = tool.name + ' — AIVerse';
+  document.body.style.overflow = 'hidden';
+}
+
+function hideDetailPage() {
+  const overlay = document.getElementById('toolDetailPage');
+  overlay.classList.remove('open');
+  overlay.innerHTML = '';
+  document.title = 'AIVerse — Discover the Best AI Tools';
+  document.body.style.overflow = '';
+}
+
+function closeDetailPage() {
+  history.pushState({}, '', '/aiverse.html');
+  hideDetailPage();
+}
+
+function renderDetailPageHtml(tool) {
+  const saved = savedSet.has(tool.id);
+  const feats = (tool.features && tool.features.length) ? tool.features : null;
+  const uses  = (tool.useCases && tool.useCases.length) ? tool.useCases : null;
+  const pros  = (tool.pros && tool.pros.length) ? tool.pros : null;
+  const cons  = (tool.cons && tool.cons.length) ? tool.cons : null;
+  return `
+    <div class="detail-topbar">
+      <button class="detail-back" onclick="closeDetailPage()">← Back to AIVerse</button>
+      <div class="detail-breadcrumb">AIVerse / ${tool.cat} / <strong>${tool.name}</strong></div>
+    </div>
+    <div class="detail-body">
+      <div class="detail-hero">
+        <div class="detail-logo">${toolLogoHtml(tool, 88)}</div>
+        <div class="detail-hero-info">
+          <div class="detail-name-row">
+            <h1 class="detail-name">${tool.name}</h1>
+            ${tool.isNew ? '<span class="tool-cat cat-new">New</span>' : ''}
+            ${tool.submitted ? '<span class="tool-cat" style="background:var(--violet-d2);color:var(--violet2)">Community Submitted</span>' : ''}
+          </div>
+          <div class="tool-cats" style="margin-bottom:10px">
+            <span class="tool-cat ${catClass(tool.cat)}">${tool.cat}</span>
+            <span class="price-pill ${priceClass(tool.price)}">${priceLabel(tool.price)}</span>
+          </div>
+          <div class="card-footer" style="margin-bottom:4px">
+            <div class="rating"><span class="star-fill">★</span><span class="rating-num">${tool.rating}</span></div>
+            <div class="views">👁 ${tool.views} views</div>
+          </div>
+        </div>
+        <div class="detail-actions">
+          <button class="totw-visit" style="width:auto;padding:12px 22px" onclick="window.open('${tool.url}','_blank','noopener')">Visit ${tool.name} →</button>
+          <button class="save-btn ${saved?'saved':''}" style="font-size:20px;border:1px solid var(--border2);border-radius:var(--r-sm);width:44px;height:44px" onclick="toggleSave(${tool.id});this.classList.toggle('saved')" title="Save">🔖</button>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-section-title">About ${tool.name}</div>
+        <p class="detail-desc">${tool.desc}</p>
+      </div>
+
+      <div class="detail-grid">
+        <div class="detail-section">
+          <div class="detail-section-title">✨ Key Features</div>
+          ${feats ? `<ul class="detail-list">${feats.map(f=>`<li>${f}</li>`).join('')}</ul>` : `<p class="detail-muted">Feature details haven't been added yet.</p>`}
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title">🎯 Use Cases</div>
+          ${uses ? `<ul class="detail-list">${uses.map(u=>`<li>${u}</li>`).join('')}</ul>` : `<p class="detail-muted">Use case details haven't been added yet.</p>`}
+        </div>
+      </div>
+
+      ${(pros || cons) ? `
+      <div class="detail-grid">
+        <div class="detail-section">
+          <div class="detail-section-title" style="color:var(--green)">👍 Pros</div>
+          <ul class="detail-list">${(pros||[]).map(p=>`<li>${p}</li>`).join('') || '<li class="detail-muted">—</li>'}</ul>
+        </div>
+        <div class="detail-section">
+          <div class="detail-section-title" style="color:var(--rose)">👎 Cons</div>
+          <ul class="detail-list">${(cons||[]).map(c=>`<li>${c}</li>`).join('') || '<li class="detail-muted">—</li>'}</ul>
+        </div>
+      </div>` : ''}
+
+      <div class="detail-section" style="text-align:center;padding:28px 0 0">
+        <button class="totw-visit" style="width:auto;padding:14px 32px;font-size:14px" onclick="window.open('${tool.url}','_blank','noopener')">🚀 Visit ${tool.name} Website →</button>
+      </div>
+    </div>
+  `;
+}
+
+function routeInit() {
+  const slug = getSlugFromPath();
+  if (slug) {
+    const tool = findToolBySlug(slug);
+    if (tool) { showDetailPage(tool); return; }
+  }
+  hideDetailPage();
+}
+window.addEventListener('popstate', routeInit);
 
 function toggleSave(id) {
   if (savedSet.has(id)) {
@@ -1076,6 +1297,8 @@ function closeSubmitModal() {
   document.getElementById('toolDesc').value = '';
   document.getElementById('toolCat').value = '';
   document.getElementById('toolPrice').value = '';
+  document.getElementById('toolFeatures').value = '';
+  document.getElementById('toolUseCases').value = '';
   document.getElementById('toolEmoji').value = '';
 }
 
@@ -1085,9 +1308,11 @@ function submitNewTool() {
   const desc = document.getElementById('toolDesc').value.trim();
   const cat = document.getElementById('toolCat').value;
   const price = document.getElementById('toolPrice').value;
+  const featuresRaw = document.getElementById('toolFeatures').value.trim();
+  const useCasesRaw = document.getElementById('toolUseCases').value.trim();
   const emoji = document.getElementById('toolEmoji').value || '🤖';
 
-  if (!name || !url || !desc || !cat || !price) {
+  if (!name || !url || !desc || !cat || !price || !featuresRaw || !useCasesRaw) {
     showToast('Please fill in all required fields','error');
     return;
   }
@@ -1096,6 +1321,23 @@ function submitNewTool() {
     showToast('URL must start with http:// or https://','error');
     return;
   }
+
+  // Prevent duplicate submissions — case/whitespace-insensitive match against existing tools
+  const normalizedName = name.toLowerCase().replace(/\s+/g,' ').trim();
+  const duplicate = TOOLS.find(t => t.name.toLowerCase().replace(/\s+/g,' ').trim() === normalizedName);
+  if (duplicate) {
+    showToast(`⚠️ "${duplicate.name}" is already listed in AIVerse — try a different name or check its existing page.`,'error');
+    return;
+  }
+  // Also guard against duplicate slugs (e.g. "Copy AI" vs "Copy.ai")
+  const newSlug = slugify(name);
+  if (TOOLS.some(t => slugify(t.name) === newSlug)) {
+    showToast('⚠️ A tool with a very similar name already exists.','error');
+    return;
+  }
+
+  const features = featuresRaw.split('\n').map(s => s.trim()).filter(Boolean);
+  const useCases = useCasesRaw.split('\n').map(s => s.trim()).filter(Boolean);
 
   const newTool = {
     id: Math.max(...TOOLS.map(t => t.id), 0) + 1,
@@ -1110,6 +1352,8 @@ function submitNewTool() {
     hot: true,
     isNew: true,
     submitted: true,
+    features: features,
+    useCases: useCases,
     timestamp: new Date().toISOString()
   };
 
@@ -1121,16 +1365,20 @@ function submitNewTool() {
   if (catItem) catItem.count++;
 
   closeSubmitModal();
-  showToast(`✅ ${name} submitted successfully! It will be reviewed within 24 hours.`,'success');
-  
+  showToast(`✅ ${name} submitted! Opening its new AIVerse page…`,'success');
+
   document.getElementById('tc-tools').textContent = TOOLS.length;
   document.getElementById('statTools').innerHTML = `${TOOLS.length} <span>tools</span>`;
   document.getElementById('toolCount').textContent = TOOLS.length;
-  
+
   renderTools();
   renderCatList();
   renderTrending();
   renderRecent();
+
+  // Take the submitter straight to the freshly generated detail page,
+  // built entirely from the info they just provided.
+  setTimeout(() => openToolDetail(newTool.id), 600);
 }
 
 /* ════ SIDEBAR ════ */
@@ -1204,7 +1452,7 @@ function renderRecent() {
   const recentTools = TOOLS.filter(t => t.isNew).slice(0, 5);
   const colors = ['#a78bfa','#06b6d4','#f59e0b','#10b981','#ec4899'];
   document.getElementById('recentList').innerHTML = recentTools.map((t,i) => `
-    <li class="recent-row" onclick="openToolDetail('${t.name.toLowerCase().replace(/[\\s.]/g,'')}','${t.id}')">
+    <li class="recent-row" onclick="openToolDetail(${t.id})">
       <span class="recent-dot" style="background:${colors[i%colors.length]}"></span>
       <span class="recent-name">${t.name}</span>
       <span class="recent-when">Just now</span>
@@ -1437,6 +1685,7 @@ renderTrending();
 renderTopRated();
 renderRecent();
 renderNotifs();
+routeInit();
 </script>
 </body>
 </html>
