@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="description" content="DracoVerse is your hub for AI tools, tech news, blogs, community discussions, quizzes, and more.">
+  <link rel="canonical" href="https://dracoverse.online/">
+  <meta property="og:title" content="DracoVerse">
+<meta property="og:description" content="Knowledge Reimagined">
+<meta property="og:image" content="https://dracoverse.online/preview.png">
+<meta property="og:url" content="https://dracoverse.online/">
+<meta name="twitter:card" content="summary_large_image">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>AIVerse — Discover the Best AI Tools</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&fam ily=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
 :root {
   --bg:        #060608;
@@ -375,6 +382,11 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .empty-cta{margin-top:4px;padding:9px 20px;background:var(--violet-d2);border:1px solid rgba(124,58,237,.25);border-radius:var(--r-sm);color:var(--violet2);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .15s}
 .empty-cta:hover{background:var(--violet);color:#fff}
 
+/* ═══════ MODAL ═══════ */
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;width:100%;max-width:500px;max-height:90vh;overflow:auto;box-shadow:var(--shadow-lg)}
+
 /* ═══════ TOAST ═══════ */
 .toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:12px 18px;border-radius:var(--r-sm);font-size:13px;transform:translateY(80px);opacity:0;transition:all .3s cubic-bezier(.34,1.56,.64,1);font-family:var(--font-body);box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:10px;max-width:300px}
 .toast.show{transform:translateY(0);opacity:1}
@@ -429,11 +441,11 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   </a>
 
   <div class="nav-label">Discover</div>
-  <a class="nav-item active" id="nav-tools" onclick="switchTab('tools-tab',event,this)"><span class="ni">⚡</span>AI Tools <span class="nav-badge">247</span></a>
+  <a class="nav-item active" id="nav-tools" onclick="switchTab('tools-tab',event,this)"><span class="ni">⚡</span>AI Tools <span class="nav-badge" id="toolCount">247</span></a>
   <a class="nav-item" id="nav-prompts" onclick="switchTab('prompts-tab',event,this)"><span class="ni">📝</span>Prompt Library<span class="nav-badge">86</span></a>
   <a class="nav-item" id="nav-guides" onclick="switchTab('guides-tab',event,this)"><span class="ni">📚</span>AI Guides<span class="nav-badge">34</span></a>
   <a class="nav-item" href="#"><span class="ni">🏆</span>Hall of Fame</a>
-  <a class="nav-item" href="#"><span class="ni">📰</span>AI </a>
+  <a class="nav-item" href="#"><span class="ni">📰</span>AI News</a>
 
   <div class="nav-sep"></div>
   <div class="nav-label">Workspace</div>
@@ -445,7 +457,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   <div class="nav-sep"></div>
   <div class="nav-label">Community</div>
   <a class="nav-item" href="#"><span class="ni">👥</span>Community</a>
-  <a class="nav-item" href="#"><span class="ni">＋</span>Submit Tool</a>
+  <a class="nav-item" href="#" onclick="openSubmitModal(event)"><span class="ni">＋</span>Submit Tool</a>
 
   <div style="flex:1;min-height:20px"></div>
 
@@ -476,7 +488,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="topbar-actions">
       <div class="icon-btn" id="compareToggleBtn" onclick="toggleCompareMode()" title="Compare tools">⊞</div>
       <div class="icon-btn" onclick="toggleNotifPanel()" title="Notifications">🔔<div class="badge-dot" id="notifDot"></div></div>
-      <button class="submit-btn" onclick="showToast('🛠 Submit form coming soon!','info')">＋ Submit Tool</button>
+      <button class="submit-btn" onclick="openSubmitModal(event)">＋ Submit Tool</button>
     </div>
   </div>
 
@@ -492,11 +504,11 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <!-- Stats bar -->
     <div class="stats-bar">
       <div class="stat-item">
-        <div class="stat-value">247 <span>tools</span></div>
+        <div class="stat-value" id="statTools">247 <span>tools</span></div>
         <div class="stat-label">Total curated</div>
       </div>
       <div class="stat-item">
-        <div class="stat-value">18 <span>new</span></div>
+        <div class="stat-value" id="statNew">18 <span>new</span></div>
         <div class="stat-label">Added this week</div>
         <div class="stat-delta">↑ +12% vs last week</div>
       </div>
@@ -668,12 +680,70 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 
 <!-- Compare modal -->
 <div class="modal-overlay" id="compareModal">
-  <div class="modal">
+  <div class="modal" style="max-width:820px">
     <div class="modal-header">
       <div class="modal-title">Tool Comparison</div>
       <button class="modal-close" onclick="closeCompareModal()">✕</button>
     </div>
     <div id="compareTableWrap"></div>
+  </div>
+</div>
+
+<!-- Submit Tool Modal -->
+<div class="modal-overlay" id="submitModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Submit a New AI Tool</div>
+      <button class="modal-close" onclick="closeSubmitModal()">✕</button>
+    </div>
+    <div style="padding:24px;display:flex;flex-direction:column;gap:16px">
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Tool Name *</label>
+        <input type="text" id="toolName" placeholder="e.g., Claude, ChatGPT" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;transition:all .2s" onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='var(--border2)'"/>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Website URL *</label>
+        <input type="url" id="toolUrl" placeholder="https://example.com" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;transition:all .2s" onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='var(--border2)'"/>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Description *</label>
+        <textarea id="toolDesc" placeholder="What does this tool do? What makes it special?" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;transition:all .2s;resize:vertical;min-height:80px" onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Category *</label>
+        <select id="toolCat" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;transition:all .2s" onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='var(--border2)'">
+          <option value="">Select a category</option>
+          <option value="AI Assistant">AI Assistant</option>
+          <option value="Writing">Writing</option>
+          <option value="Image">Image</option>
+          <option value="Video">Video</option>
+          <option value="Audio">Audio</option>
+          <option value="Code">Code</option>
+          <option value="Productivity">Productivity</option>
+          <option value="Research">Research</option>
+          <option value="Design">Design</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Pricing Model *</label>
+        <select id="toolPrice" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;transition:all .2s" onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='var(--border2)'">
+          <option value="">Select pricing</option>
+          <option value="free">Free</option>
+          <option value="freemium">Freemium</option>
+          <option value="paid">Paid</option>
+          <option value="free-trial">Free Trial</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:600;color:var(--text);margin-bottom:6px;text-transform:uppercase;letter-spacing:.3px">Emoji (optional)</label>
+        <input type="text" id="toolEmoji" placeholder="e.g., 🤖" maxlength="2" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text);font-size:13px;font-family:var(--font-body);outline:none;transition:all .2s" onfocus="this.style.borderColor='var(--violet)'" onblur="this.style.borderColor='var(--border2)'"/>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:12px">
+        <button onclick="submitNewTool()" style="flex:1;padding:12px;background:linear-gradient(90deg,var(--violet),#5b21b6);border:none;border-radius:var(--r-sm);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .2s">Submit Tool</button>
+        <button onclick="closeSubmitModal()" style="flex:1;padding:12px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all .2s">Cancel</button>
+      </div>
+      <div style="font-size:11px;color:var(--text3);text-align:center;margin-top:8px">Your submission will be reviewed within 24 hours</div>
+    </div>
   </div>
 </div>
 
@@ -691,8 +761,11 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 <div class="toast" id="toastEl"><div class="toast-bar"></div><span id="toastMsg"></span></div>
 
 <script>
+/* ════ STORAGE ════ */
+let userSubmittedTools = JSON.parse(localStorage.getItem('aiverseSubmittedTools')) || [];
+
 /* ════ DATA ════ */
-const TOOLS = [
+let TOOLS = [
   {id:1, emoji:'🤖', name:'ChatGPT', cat:'AI Assistant', price:'freemium', rating:4.9, views:'12.4K', desc:'Advanced AI chatbot for conversations, writing, coding and problem solving. The world\'s most popular AI assistant with over 100M users.', url:'https://chat.openai.com', hot:true, isNew:false},
   {id:2, emoji:'🧠', name:'Claude', cat:'AI Assistant', price:'freemium', rating:4.8, views:'8.7K', desc:'AI assistant by Anthropic focused on helpful, harmless, and honest conversations with exceptional long-context reasoning.', url:'https://claude.ai', hot:true, isNew:false},
   {id:3, emoji:'🔍', name:'Perplexity AI', cat:'Research', price:'freemium', rating:4.7, views:'6.3K', desc:'AI-powered search engine that gives accurate answers with real-time web citations and source links for every claim.', url:'https://perplexity.ai', hot:true, isNew:false},
@@ -848,9 +921,8 @@ function renderTools() {
   grid.innerHTML = list.map(t => {
     const saved = savedSet.has(t.id);
     const inCompare = compareSet.has(t.id);
-    const ratingBar = Math.round(((t.rating - 4) / 1) * 100);
     return `
-    <div class="tool-card${t.hot && sortMode==='hot'?' featured':''}" onclick="openTool('${t.url}','${t.name}')">
+    <div class="tool-card${t.hot && sortMode==='hot'?' featured':''}" onclick="openToolDetail('${t.name.toLowerCase().replace(/[\\s.]/g,'')}','${t.id}')">
       ${t.hot && sortMode==='hot' ? '<div class="featured-badge">🔥 Hot</div>' : ''}
       <div class="tool-card-inner">
         <div class="card-top">
@@ -887,9 +959,11 @@ function renderTools() {
   }
 }
 
-function openTool(url, name) {
-  window.open(url, '_blank', 'noopener');
-  showToast('Opening '+name+' →','info');
+function openToolDetail(slug, id) {
+  const tool = TOOLS.find(t => t.id == id);
+  if (tool) {
+    window.location.href = `tool-detail.html?id=${id}&name=${encodeURIComponent(tool.name)}`;
+  }
 }
 
 function toggleSave(id) {
@@ -965,12 +1039,10 @@ function openCompareModal() {
 
   const cols = tools.length;
   let html = `<div class="compare-table" style="--cols:${cols}">`;
-  // Header
   html += '<div class="ct-label"></div>';
   tools.forEach(t => {
     html += `<div class="ct-head"><div class="tool-logo" style="width:36px;height:36px;font-size:20px;margin-bottom:6px;background:var(--bg3);border-radius:8px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center">${t.emoji}</div><div class="ct-head-name">${t.name}</div><span class="tool-cat ${catClass(t.cat)}">${t.cat}</span></div>`;
   });
-  // Rows
   rows.forEach(([label, vals]) => {
     html += `<div class="ct-label">${label}</div>`;
     vals.forEach(v => {
@@ -989,6 +1061,76 @@ function openCompareModal() {
 
 function closeCompareModal() {
   document.getElementById('compareModal').classList.remove('open');
+}
+
+/* ════ SUBMIT MODAL ════ */
+function openSubmitModal(e) {
+  e.preventDefault();
+  document.getElementById('submitModal').classList.add('open');
+}
+
+function closeSubmitModal() {
+  document.getElementById('submitModal').classList.remove('open');
+  document.getElementById('toolName').value = '';
+  document.getElementById('toolUrl').value = '';
+  document.getElementById('toolDesc').value = '';
+  document.getElementById('toolCat').value = '';
+  document.getElementById('toolPrice').value = '';
+  document.getElementById('toolEmoji').value = '';
+}
+
+function submitNewTool() {
+  const name = document.getElementById('toolName').value.trim();
+  const url = document.getElementById('toolUrl').value.trim();
+  const desc = document.getElementById('toolDesc').value.trim();
+  const cat = document.getElementById('toolCat').value;
+  const price = document.getElementById('toolPrice').value;
+  const emoji = document.getElementById('toolEmoji').value || '🤖';
+
+  if (!name || !url || !desc || !cat || !price) {
+    showToast('Please fill in all required fields','error');
+    return;
+  }
+
+  if (!url.match(/^https?:\/\//)) {
+    showToast('URL must start with http:// or https://','error');
+    return;
+  }
+
+  const newTool = {
+    id: Math.max(...TOOLS.map(t => t.id), 0) + 1,
+    emoji: emoji,
+    name: name,
+    cat: cat,
+    price: price,
+    rating: 4.5,
+    views: '0',
+    desc: desc,
+    url: url,
+    hot: true,
+    isNew: true,
+    submitted: true,
+    timestamp: new Date().toISOString()
+  };
+
+  TOOLS.unshift(newTool);
+  userSubmittedTools.push(newTool);
+  localStorage.setItem('aiverseSubmittedTools', JSON.stringify(userSubmittedTools));
+
+  const catItem = CATEGORIES.find(c => c.name === cat);
+  if (catItem) catItem.count++;
+
+  closeSubmitModal();
+  showToast(`✅ ${name} submitted successfully! It will be reviewed within 24 hours.`,'success');
+  
+  document.getElementById('tc-tools').textContent = TOOLS.length;
+  document.getElementById('statTools').innerHTML = `${TOOLS.length} <span>tools</span>`;
+  document.getElementById('toolCount').textContent = TOOLS.length;
+  
+  renderTools();
+  renderCatList();
+  renderTrending();
+  renderRecent();
 }
 
 /* ════ SIDEBAR ════ */
@@ -1062,7 +1204,7 @@ function renderRecent() {
   const recentTools = TOOLS.filter(t => t.isNew).slice(0, 5);
   const colors = ['#a78bfa','#06b6d4','#f59e0b','#10b981','#ec4899'];
   document.getElementById('recentList').innerHTML = recentTools.map((t,i) => `
-    <li class="recent-row" onclick="window.open('${t.url}','_blank','noopener')">
+    <li class="recent-row" onclick="openToolDetail('${t.name.toLowerCase().replace(/[\\s.]/g,'')}','${t.id}')">
       <span class="recent-dot" style="background:${colors[i%colors.length]}"></span>
       <span class="recent-name">${t.name}</span>
       <span class="recent-when">Just now</span>
@@ -1198,6 +1340,9 @@ document.addEventListener('click', function(e) {
   }
   if (document.getElementById('compareModal').classList.contains('open') && e.target === document.getElementById('compareModal')) {
     closeCompareModal();
+  }
+  if (document.getElementById('submitModal').classList.contains('open') && e.target === document.getElementById('submitModal')) {
+    closeSubmitModal();
   }
 });
 
