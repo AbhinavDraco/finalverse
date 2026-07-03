@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="description" content="DracoVerse is your hub for AI tools, tech news, blogs, community discussions, quizzes, and more.">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>DracoVerse — AI Tools Directory, Tech Blogs, Daily Polls &amp; Community Hub</title>
+  <meta name="description" content="DracoVerse is a free knowledge hub featuring a live AI tools directory pulled from Hacker News, community-written tech &amp; science blogs, a daily opinion poll, and a real-time discussion community — all built by an independent creator, Abhinav.">
+  <meta name="keywords" content="AI tools, AI tools directory, tech blogs, tech news, daily poll, developer community, startup news, science blog, DracoVerse, Abhinav, knowledge hub, technology community">
+  <meta name="author" content="Abhinav">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#3b5bdb">
   <link rel="canonical" href="https://dracoverse.online/">
-  <meta property="og:title" content="DracoVerse">
-<meta property="og:description" content="Knowledge Reimagined">
-<meta property="og:image" content="https://dracoverse.online/preview.png">
-<meta property="og:url" content="https://dracoverse.online/">
-<meta name="twitter:card" content="summary_large_image">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DracoVerse">
+  <meta property="og:title" content="DracoVerse — AI Tools, Tech Blogs, Daily Polls &amp; Community">
+  <meta property="og:description" content="Knowledge Reimagined — a live AI tools directory, community blogs, daily polls and real-time discussion, all in one place.">
+  <meta property="og:image" content="https://dracoverse.online/preview.png">
+  <meta property="og:url" content="https://dracoverse.online/">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DracoVerse — AI Tools, Tech Blogs, Daily Polls &amp; Community">
+  <meta name="twitter:description" content="Knowledge Reimagined — a live AI tools directory, community blogs, daily polls and real-time discussion, all in one place.">
+  <meta name="twitter:image" content="https://dracoverse.online/preview.png">
+
  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-GG7CQ1TL2G"></script>
 <script>
@@ -24,9 +38,39 @@
 
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1307099726971871"
      crossorigin="anonymous"></script>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>DracoVerse — Knowledge Reimagined</title>
+
+<!-- Structured data: helps search engines understand the site (SEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "DracoVerse",
+  "alternateName": "The DracoVerse",
+  "url": "https://dracoverse.online/",
+  "description": "DracoVerse is a free knowledge hub featuring a live AI tools directory, community-written tech and science blogs, a daily opinion poll, and a real-time discussion community.",
+  "publisher": {
+    "@type": "Person",
+    "name": "Abhinav"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://dracoverse.online/blogs.html?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "DracoVerse",
+  "url": "https://dracoverse.online/",
+  "logo": "https://dracoverse.online/rag.jpg",
+  "founder": { "@type": "Person", "name": "Abhinav" },
+  "sameAs": []
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet"/>
@@ -392,6 +436,44 @@ body.dark .toast { background: #101830; color: #e8edff; border-color: rgba(79,14
 body.dark #cmdkPalette .cmdkBox { background: #101830; color: #e8edff; }
 body.dark #cmdkInput { background: #0a0e1f; color: #e8edff; }
 body.dark .cmdkResult:hover { background: #1a2540; }
+
+/* New: info cards, faq items, category cards, step cards — reuse existing dark-mode palette values already used elsewhere in this file */
+.infoCard { background: rgba(255,255,255,0.8); border: 1px solid rgba(79,140,255,0.13); border-radius: 20px; padding: 26px; box-shadow: 0 4px 16px rgba(79,140,255,0.07); }
+body.dark .infoCard { background: #101830; border-color: rgba(79,140,255,0.18); }
+.infoCardIcon { font-size: 1.8rem; margin-bottom: 12px; display: block; }
+.infoCardTitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.02rem; color: var(--dark); margin-bottom: 8px; }
+body.dark .infoCardTitle { color: #e8edff; }
+.infoCardDesc { font-size: 12.5px; color: #64748b; line-height: 1.7; }
+body.dark .infoCardDesc { color: #94a3b8; }
+
+.faqItem { background: rgba(255,255,255,0.85); border: 1px solid rgba(79,140,255,0.13); border-radius: 16px; margin-bottom: 12px; overflow: hidden; }
+body.dark .faqItem { background: #101830; border-color: rgba(79,140,255,0.18); }
+.faqQ { padding: 18px 22px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; font-size: 14px; color: var(--dark); }
+body.dark .faqQ { color: #e8edff; }
+.faqQ .faqToggle { color: var(--blue); font-size: 18px; flex-shrink: 0; transition: transform .3s var(--ease-smooth); }
+.faqItem.open .faqQ .faqToggle { transform: rotate(45deg); }
+.faqA { max-height: 0; overflow: hidden; transition: max-height .35s var(--ease-smooth); }
+.faqItem.open .faqA { max-height: 400px; }
+.faqAInner { padding: 0 22px 18px; font-size: 13px; color: #64748b; line-height: 1.75; }
+body.dark .faqAInner { color: #94a3b8; }
+
+.stepCard { text-align: center; padding: 28px 20px; }
+.stepNum { width: 48px; height: 48px; border-radius: 14px; background: var(--gradient); color: white; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; margin: 0 auto 16px; box-shadow: 0 8px 20px rgba(79,140,255,0.3); }
+.stepTitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--dark); margin-bottom: 8px; }
+body.dark .stepTitle { color: #e8edff; }
+.stepDesc { font-size: 12.5px; color: #64748b; line-height: 1.7; }
+body.dark .stepDesc { color: #94a3b8; }
+
+.catPill { background: rgba(255,255,255,0.85); border: 1px solid rgba(79,140,255,0.13); border-radius: 18px; padding: 22px; }
+body.dark .catPill { background: #101830; border-color: rgba(79,140,255,0.18); }
+.catPillTitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--dark); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+body.dark .catPillTitle { color: #e8edff; }
+.catPillDesc { font-size: 12.5px; color: #64748b; line-height: 1.7; }
+body.dark .catPillDesc { color: #94a3b8; }
+
+.longformText { font-size: 14px; color: #475569; line-height: 1.95; }
+body.dark .longformText { color: #aab4cc; }
+.longformText p { margin-bottom: 16px; }
 
 
 /* ============================================================
@@ -1503,6 +1585,7 @@ body.dark #hh {
     <a class="navLink" href="aiverse.html" target="_blank">Ai Tools</a>
     <a class="navLink" href="community.html" target="_blank">Community</a>
     <a class="navLink" onclick="scrollSec('pollAnchor')">Daily Poll</a>
+    <a class="navLink" onclick="scrollSec('faqAnchor')">FAQ</a>
     <a href="policy.html" id="hh" target="_blank" class="navLink">Privacy & Policy</a>
   </div>
   <div class="navTools">
@@ -1524,6 +1607,7 @@ body.dark #hh {
   <div class="sdot" data-target="blogsAnchor" title="Blogs"></div>
   <div class="sdot" data-target="pollAnchor" title="Poll"></div>
   <div class="sdot" data-target="aitoolsAnchor" title="AI Tools"></div>
+  <div class="sdot" data-target="faqAnchor" title="FAQ"></div>
 </div>
 
 <!-- HERO -->
@@ -1559,7 +1643,7 @@ body.dark #hh {
         <div class="miniStatRow">
           <div class="miniStat"><span class="miniStatNum" id="msBlog">0</span><div class="miniStatLbl">Blog Posts Today</div></div>
           <div class="miniStat"><span class="miniStatNum" id="ms">100+ </span><div class="miniStatLbl"> Ai tools</div></div>
-          <div class="miniStat"><span class="miniStatNum">200+</span><div class="miniStatLbl">Members</div></div>
+          <div class="miniStat"><span class="miniStatNum" id="msMembers">—</span><div class="miniStatLbl">Real Page Views</div></div>
           <div class="miniStat"><span class="miniStatNum">24/7</span><div class="miniStatLbl">Live Updates</div></div>
         </div>
         <div class="heroFeatures" style="display:flex;flex-direction:column;gap:12px;">
@@ -1620,13 +1704,13 @@ body.dark #hh {
   </div>
 </div>
 
-<!-- STATS -->
+<!-- STATS (all figures below are live/real, pulled from Firestore and the Hacker News API — no placeholder numbers) -->
 <div class="statsBand">
   <div class="statsGrid">
-    <div class="statItem reveal"><span class="statNum" id="statBlogsN">0</span><div class="statLbl">Blog Posts</div></div>
-    <div class="statItem reveal"><span class="statNum" id="statN">10K+</span><div class="statLbl"> Articles</div></div>
-    <div class="statItem reveal"><span class="statNum">200+</span><div class="statLbl">Community Members</div></div>
-    <div class="statItem reveal"><span class="statNum">98%</span><div class="statLbl">Reader Satisfaction</div></div>
+    <div class="statItem reveal"><span class="statNum" id="statBlogsN">0</span><div class="statLbl">Blog Posts (Live)</div></div>
+    <div class="statItem reveal"><span class="statNum" id="statN">0</span><div class="statLbl">AI Tool Articles Indexed</div></div>
+    <div class="statItem reveal"><span class="statNum" id="statLikes">0</span><div class="statLbl">Total Blog Likes (Live)</div></div>
+    <div class="statItem reveal"><span class="statNum" id="statMembers">—</span><div class="statLbl">Real Page Views</div></div>
     <div class="statItem reveal"><span class="statNum">24/7</span><div class="statLbl">Live Updates</div></div>
   </div>
 </div>
@@ -1663,6 +1747,47 @@ body.dark #hh {
     </div>
     <div style="text-align:center;margin-top:32px;" class="reveal">
       <a class="btn btnPrimary" href="blogs.html" target="_blank">View All Blogs →</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY DRACOVERSE — 12 feature info cards (original content for SEO/AdSense quality) -->
+<section class="section sectionLight" id="whyAnchor">
+  <div style="max-width:1200px;margin:auto;">
+    <div class="sectionHead reveal">
+      <div class="sectionLabel">✨ Why DracoVerse</div>
+      <h2 class="sectionTitle">Built For Curious Minds</h2>
+      <p class="sectionSub">Twelve reasons readers keep coming back to DracoVerse</p>
+    </div>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;">
+     <div class="infoCard"><span class="infoCardIcon">🖊️</span><div class="infoCardTitle">Community-Written Blogs</div><div class="infoCardDesc">Every blog post on DracoBlog Pro is written and published by real community members through Firebase Authentication, then stored live in Firestore.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">🗳️</span><div class="infoCardTitle">A New Poll Every Day</div><div class="infoCardDesc">A fresh community question rotates in automatically every day, and your vote is saved locally so results reflect genuine participation.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">💬</span><div class="infoCardTitle">Real-Time Community Chat</div><div class="infoCardDesc">DracoCommunity lets members discuss tech, AI and startups together in live channels, no page refresh required.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">🌗</span><div class="infoCardTitle">Full Dark &amp; Light Themes</div><div class="infoCardDesc">Switch instantly between a bright reading mode and a low-glare dark mode; your preference is remembered on every visit.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">🔖</span><div class="infoCardTitle">Personal Reading List</div><div class="infoCardDesc">Bookmark any blog with one tap and revisit it later from the dedicated Reading List drawer, saved privately on your device.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">🔎</span><div class="infoCardTitle">Command Palette Search</div><div class="infoCardDesc">Press Ctrl+K anywhere on the site to instantly jump to any section, blog post or tool without touching your mouse.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">📱</span><div class="infoCardTitle">Mobile-First Design</div><div class="infoCardDesc">Every layout — from the hero card to the blog grid — is built with fluid breakpoints so it works cleanly on phones, tablets and desktops.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">🛡️</span><div class="infoCardTitle">Transparent Privacy Policy</div><div class="infoCardDesc">We publish a full privacy policy explaining exactly what data is stored, why, and how you can control it.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">🆓</span><div class="infoCardTitle">Completely Free to Use</div><div class="infoCardDesc">Reading blogs, browsing AI tools, voting in polls and joining community chat are all free — no paywall, no subscription.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">👤</span><div class="infoCardTitle">Guest Access Available</div><div class="infoCardDesc">Don't want to create an account yet? Explore most of DracoVerse as a guest before deciding to sign up.</div></div>
+      <div class="infoCard"><span class="infoCardIcon">🧑‍💻</span><div class="infoCardTitle">Built &amp; Maintained by One Developer</div><div class="infoCardDesc">DracoVerse is an independent passion project by Abhinav, updated and maintained directly rather than by a large faceless company.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section sectionWhite" id="howAnchor">
+  <div style="max-width:1200px;margin:auto;">
+    <div class="sectionHead reveal">
+      <div class="sectionLabel">🧭 Getting Started</div>
+      <h2 class="sectionTitle">How DracoVerse Works</h2>
+      <p class="sectionSub">Four simple steps from first visit to active community member</p>
+    </div>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+      <div class="stepCard infoCard"><div class="stepNum">1</div><div class="stepTitle">Create an Account</div><div class="stepDesc">Sign up with email, continue with Google, or explore instantly as a guest — no credit card required.</div></div>
+      <div class="stepCard infoCard"><div class="stepNum">2</div><div class="stepTitle">Verify Your Email</div><div class="stepDesc">Email/password accounts confirm ownership through a verification link before unlocking full access, keeping the community authentic.</div></div>
+      <div class="stepCard infoCard"><div class="stepNum">3</div><div class="stepTitle">Explore the Hubs</div><div class="stepDesc">Browse live AI tools, read and like blog posts, and vote in the daily poll — all synced in real time.</div></div>
+      <div class="stepCard infoCard"><div class="stepNum">4</div><div class="stepTitle">Join the Conversation</div><div class="stepDesc">Head into DracoCommunity to chat with other members, publish your own blog, and bookmark what matters to you.</div></div>
     </div>
   </div>
 </section>
@@ -1750,6 +1875,55 @@ body.dark #hh {
   </div>
 </section>
 
+<!-- CONTENT CATEGORIES -->
+<section class="section sectionWhite" id="categoriesAnchor">
+  <div style="max-width:1200px;margin:auto;">
+    <div class="sectionHead reveal">
+      <div class="sectionLabel">🗂️ Categories</div>
+      <h2 class="sectionTitle">Explore by Topic</h2>
+      <p class="sectionSub">DracoBlog Pro organizes every post into one of these categories</p>
+    </div>
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+      <div class="catPill"><div class="catPillTitle">🔧 Technology</div><div class="catPillDesc">Software, hardware, programming languages, developer tools and everything shaping how we build things.</div></div>
+      <div class="catPill"><div class="catPillTitle">💼 Business</div><div class="catPillDesc">Company strategy, market trends, funding rounds and the commercial side of the tech world.</div></div>
+      <div class="catPill"><div class="catPillTitle">🔬 Science</div><div class="catPillDesc">Research breakthroughs, experiments and discoveries across physics, biology, and applied sciences.</div></div>
+      <div class="catPill"><div class="catPillTitle">🚀 Startup</div><div class="catPillDesc">Founder journeys, product launches, early-stage growth stories and lessons learned building from zero.</div></div>
+      <div class="catPill"><div class="catPillTitle">📝 General</div><div class="catPillDesc">Opinions, essays and topics that don't fit neatly into a single category but are worth reading anyway.</div></div>
+      <div class="catPill"><div class="catPillTitle">❤️ Health</div><div class="catPillDesc">Wellness, health-tech and the growing overlap between medicine and modern software.</div></div>
+      <div class="catPill"><div class="catPillTitle">🎬 Entertainment</div><div class="catPillDesc">Media, gaming, streaming and the culture surrounding technology and the internet.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / STORY LONGFORM CONTENT (unique original writing for SEO & AdSense content quality) -->
+<section class="section sectionLight" id="aboutAnchor">
+  <div style="max-width:820px;margin:auto;">
+    <div class="sectionHead reveal">
+      <div class="sectionLabel">🐉 Our Story</div>
+      <h2 class="sectionTitle">About DracoVerse</h2>
+      <p class="sectionSub">Why this project exists, and where it's headed</p>
+    </div>
+    <div class="longformText reveal">
+      <p>DracoVerse began as a simple question: why should someone need five different tabs open just to keep up with technology? One tab for the latest AI tools, another for a place to write, another to talk to like-minded people. DracoVerse was built to bring all five of those tabs into a single, cohesive place.</p>
+     <p>The Daily Poll exists for a simple reason: reading is often a one-way experience. Polls flip that around for thirty seconds a day, letting the community weigh in on a question and instantly see how their answer compares to everyone else's.</p>
+      <p>DracoVerse is maintained by a single independent developer, Abhinav, rather than a large team or company. That means updates happen directly based on real feedback, and the roadmap is shaped by what the community actually asks for — more categories, better search, deeper community tools, and beyond.</p>
+      <p>If you have feedback, a feature request, or just want to say hello, the Community hub and the Privacy &amp; Policy page both list ways to get in touch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section sectionWhite" id="faqAnchor">
+  <div style="max-width:820px;margin:auto;">
+    <div class="sectionHead reveal">
+      <div class="sectionLabel">❓ FAQ</div>
+      <h2 class="sectionTitle">Frequently Asked Questions</h2>
+      <p class="sectionSub">Everything new visitors usually want to know about DracoVerse</p>
+    </div>
+    <div id="faqList" class="reveal"></div>
+  </div>
+</section>
+
 <!-- LETTER -->
 <section class="section sectionDark" style="padding-top:0;">
   <div style="max-width:580px;margin:auto;text-align:center;" class="reveal">
@@ -1767,7 +1941,7 @@ body.dark #hh {
   <div class="footerGrid">
     <div class="footerBrand">
       <a class="navLogo" href="index.html" style="text-decoration:none;">🐉 DracoVerse</a>
-      <p>A passion project by Abhinav. Bringing blogs, AiTools and community together in one beautiful verse.</p>
+      <p>A passion project by Abhinav. Bringing blogs, AiTools and community together in one beautiful verse. DracoVerse combines a live AI tools directory, community-written blogs, a daily poll and real-time chat into one free platform.</p>
     </div>
     <div class="footerCol">
       <h4>Explore</h4>
@@ -1775,13 +1949,15 @@ body.dark #hh {
       <a href="aiverse.html" target="_blank">AI Tools</a>
       <a href="community.html" target="_blank">Community</a>
       <a onclick="scrollSec('pollAnchor')">Daily Poll</a>
+      <a onclick="scrollSec('faqAnchor')">FAQ</a>
     </div>
     <div class="footerCol">
       <h4>DracoVerse</h4>
       <a onclick="openModal('aboutModal')">About</a>
       <a href="policy.html" target="_blank">🛡️ Privacy Policy</a>
       <a onclick="openModal('aboutModal')">Terms</a>
-      <a onclick="scrollSec('pollAnchor')">letter</a>
+      <a onclick="scrollSec('aboutAnchor')">Our Story</a>
+      <a onclick="scrollSec('categoriesAnchor')">Categories</a>
     </div>
     <div class="footerCol">
       <h4>Connect</h4>
@@ -1792,7 +1968,7 @@ body.dark #hh {
     </div>
   </div>
   <div class="footerBottom">
-    <span>© 2024 DracoVerse — by Abhinav 🐉</span>
+    <span>© 2024–2026 DracoVerse — by Abhinav 🐉</span>
     <a href="policy.html" target="_blank" style="color:rgba(255,255,255,0.4);text-decoration:none;font-size:11px;transition:0.2s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">🛡️ Privacy Policy</a>
     <span>Built with ❤️ and lots of ☕</span>
   </div>
@@ -1876,7 +2052,7 @@ body.dark #hh {
 <!-- FIREBASE + BLOGS — REAL-TIME LISTENER -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getFirestore, collection, query, orderBy, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { getFirestore, collection, query, orderBy, getDocs, onSnapshot, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
 const db = getFirestore(initializeApp({
   apiKey:"AIzaSyCHkxuxZ-KWzQEoZt-XLXz1XX8ObTENQR4",
@@ -1895,6 +2071,36 @@ function initials(u){return(u||"U").substring(0,2).toUpperCase();}
 function avatarColor(u){const c=["#4f8cff","#7c4dff","#ff6b6b","#f5c542","#51cf66"];let h=0;for(let i=0;i<u.length;i++)h=u.charCodeAt(i)+((h<<5)-h);return c[Math.abs(h)%c.length];}
 function readTime(text){return Math.max(1,Math.ceil((text||"").split(" ").length/200))+" min";}
 
+// ── REAL VISIT COUNTER (honest number — no randomization) ──
+// Stored in Firestore doc stats/global, incremented once per browser session.
+// If Firestore rules don't permit this doc, the UI gracefully falls back to "—" instead of a fake number.
+async function trackAndLoadRealStats(){
+  const els = [document.getElementById("msMembers"), document.getElementById("statMembers")];
+  try{
+    const statRef = doc(db,"stats","global");
+    if(!sessionStorage.getItem("dv_session_counted")){
+      sessionStorage.setItem("dv_session_counted","1");
+      try{
+        await updateDoc(statRef,{pageViews:increment(1)});
+      }catch(e){
+        try{ await setDoc(statRef,{pageViews:1},{merge:true}); }catch(e2){}
+      }
+    }
+    const snap = await getDoc(statRef);
+    const views = snap.exists() && typeof snap.data().pageViews === "number" ? snap.data().pageViews : null;
+    els.forEach(el=>{ if(el) el.textContent = views!=null ? views.toLocaleString() : "—"; });
+  }catch(e){
+    els.forEach(el=>{ if(el) el.textContent = "—"; });
+  }
+}
+trackAndLoadRealStats();
+
+function updateLikesStat(){
+  const totalLikes = allBlogs.reduce((sum,b)=>sum+((b.likes||[]).length),0);
+  const el = document.getElementById("statLikes");
+  if(el) el.textContent = totalLikes;
+}
+
 // ── REAL-TIME LISTENER: fires immediately on load AND whenever any blog is added/changed ──
 function loadBlogs(){
   try{
@@ -1906,6 +2112,7 @@ function loadBlogs(){
         allBlogs.sort((a,b) => (b.likes?.length||0) - (a.likes?.length||0));
         document.getElementById("statBlogsN").textContent = allBlogs.length;
         document.getElementById("msBlog").textContent = allBlogs.length;
+        updateLikesStat();
         renderBlogs();
         window.__allBlogs = allBlogs;
       },
@@ -2025,7 +2232,7 @@ function buildHnCard(story){
   if(story.url) card.addEventListener("click",()=>window.open(story.url,"_blank"));
   card.innerHTML = `
     <div class="Thumb" style="display:none;position:relative;">
-      <img style="display:none;width:100%;height:100%;object-fit:cover;" alt=""/>
+      <img style="display:none;width:100%;height:100%;object-fit:cover;" alt="${san(story.title||'AI tool story thumbnail')}"/>
     </div>
     <div class="Body" style="padding:18px;">
       <div class="Source" style="display:flex;align-items:center;justify-content:space-between;">
@@ -2052,6 +2259,8 @@ async function load(){
     const ids = await(await fetch(`${HN_BASE}/${currentHnEndpoint}.json`)).json();
     if(!Array.isArray(ids)||!ids.length){ row.innerHTML='<div style="color:rgba(255,255,255,0.4);padding:40px;">No stories found</div>'; return; }
     document.getElementById("ms").textContent = ids.length+"+";
+    const statNEl = document.getElementById("statN");
+    if(statNEl) statNEl.textContent = ids.length+"+";
     let batch = ids.slice(0,40);
     const stories = await Promise.all(batch.map(id=>fetch(`${HN_BASE}/item/${id}.json`).then(r=>r.json()).catch(()=>null)));
     let filtered = stories.filter(s => s && s.title && s.type!=="comment");
@@ -2098,19 +2307,20 @@ const POLL_KEY="dracoVerse_poll_"+new Date().toDateString();
 
 function renderPoll(){
   const saved=JSON.parse(localStorage.getItem(POLL_KEY)||"null");
-  let votes=JSON.parse(localStorage.getItem(POLL_KEY+"_votes")||JSON.stringify(todayPoll.opts.map(()=>Math.floor(Math.random()*80+20))));
+  // Real votes only: starts at zero for each option instead of a random seed, so counts reflect actual clicks.
+  let votes=JSON.parse(localStorage.getItem(POLL_KEY+"_votes")||JSON.stringify(todayPoll.opts.map(()=>0)));
   const total=votes.reduce((a,b)=>a+b,0);
   document.getElementById("pollQ").textContent=todayPoll.q;
   if(saved!==null){
     document.getElementById("pollOptions").innerHTML=todayPoll.opts.map((opt,i)=>{
-      const pct=Math.round(votes[i]/total*100);
+      const pct = total>0 ? Math.round(votes[i]/total*100) : 0;
       return`<div class="pollOption result${i===saved?' chosen':''}">
         <span style="min-width:120px;">${opt}</span>
         <div class="pollBarWrap"><div class="pollBarFill" data-pct="${pct}" style="width:0%"></div></div>
         <span class="pollPct">${pct}%</span>
       </div>`;
     }).join("");
-    document.getElementById("pollMeta").innerHTML=`✅ You voted: <strong>${todayPoll.opts[saved]}</strong> · ${total} total votes`;
+    document.getElementById("pollMeta").innerHTML=`✅ You voted: <strong>${todayPoll.opts[saved]}</strong> · ${total} real vote${total===1?'':'s'} recorded on this device`;
     requestAnimationFrame(()=>{
       document.querySelectorAll("#pollOptions .pollBarFill").forEach(el=>{
         requestAnimationFrame(()=>{ el.style.width = el.dataset.pct+"%"; });
@@ -2120,7 +2330,7 @@ function renderPoll(){
     document.getElementById("pollOptions").innerHTML=todayPoll.opts.map((opt,i)=>
       `<div class="pollOption" data-idx="${i}">${opt}</div>`
     ).join("");
-    document.getElementById("pollMeta").textContent=`${total} people have already voted today`;
+    document.getElementById("pollMeta").textContent = total>0 ? `${total} real vote${total===1?'':'s'} recorded so far today` : "Be the first to vote today";
     document.getElementById("pollOptions").querySelectorAll(".pollOption").forEach(el=>{
       el.addEventListener("click",function(){
         const idx=+this.dataset.idx;
@@ -2277,8 +2487,13 @@ renderReadingList();
 const CMDK_STATIC=[
   {icon:'🏠',label:'Go to Top',action:()=>window.scrollTo({top:0,behavior:'smooth'})},
   {icon:'📚',label:'Jump to Blogs',action:()=>scrollSec('blogsAnchor')},
+  {icon:'✨',label:'Jump to Why DracoVerse',action:()=>scrollSec('whyAnchor')},
+  {icon:'🧭',label:'Jump to How It Works',action:()=>scrollSec('howAnchor')},
   {icon:'🗳️',label:'Jump to Daily Poll',action:()=>scrollSec('pollAnchor')},
   {icon:'🤖',label:'Jump to AI Tools Feed',action:()=>scrollSec('aitoolsAnchor')},
+  {icon:'🗂️',label:'Jump to Categories',action:()=>scrollSec('categoriesAnchor')},
+  {icon:'🐉',label:'Jump to About / Story',action:()=>scrollSec('aboutAnchor')},
+  {icon:'❓',label:'Jump to FAQ',action:()=>scrollSec('faqAnchor')},
   {icon:'🔖',label:'Open Reading List',action:()=>toggleReadingDrawer()},
   {icon:'🌙',label:'Toggle Dark / Light Mode',action:()=>toggleTheme()},
   {icon:'📚',label:'Open Blogs Page',action:()=>window.open('blogs.html','_blank')},
@@ -2350,6 +2565,68 @@ function updateSectionDots(){
   sectionDotEls.forEach(d=>d.classList.toggle('active',d===closest));
 }
 updateSectionDots();
+
+/* ── FAQ ACCORDION (25 real questions & answers about DracoVerse) ── */
+const FAQS=[
+  {q:"What is DracoVerse?",a:"DracoVerse is a free knowledge hub combining a live AI tools directory, community-written blogs, a daily opinion poll and real-time community chat, built and maintained by an independent developer, Abhinav."},
+  {q:"Is DracoVerse free to use?",a:"Yes. Reading blogs, browsing the AI tools feed, voting in the daily poll and using community chat are all completely free."},
+  {q:"Do I need an account to use DracoVerse?",a:"You can explore most of the site as a guest. Creating an email or Google account unlocks publishing blogs, saving a persistent profile, and full community features."},
+  {q:"Where does the AI Tools feed get its data?",a:"The AI Tools hub , including real scores, comment counts and publish dates."},
+  {q:"How often is the AI Tools feed updated?",a:"Every time you switch tabs (Top, New, Best, AI, Startup, Ask HN, Show HN) or reload the page."},
+  {q:"Who writes the blogs on DracoVerse?",a:"All blog posts are written and published by community members through the DracoBlog Pro platform, stored live in Firebase Firestore."},
+  {q:"Can I publish my own blog post?",a:"Yes — sign up or log in, then head to the Blogs hub to write and publish your own post under a category of your choice."},
+  {q:"What categories can blogs belong to?",a:"Technology, Business, Science, Startup, General, Health and Entertainment."},
+  {q:"How does the Daily Poll work?",a:"A new question is selected automatically once per day from a rotating question bank. Your vote is saved on your device so results reflect real participation, not random numbers."},
+  {q:"Can I change my poll vote after submitting it?",a:"Votes are locked for the day once submitted, similar to most daily-poll formats, to keep results meaningful."},
+  {q:"What is DracoCommunity?",a:"DracoCommunity is the real-time discussion hub of DracoVerse where members can chat about tech, AI and startups."},
+  {q:"Does DracoVerse have a dark mode?",a:"Yes — tap the moon/sun icon in the navigation bar to switch instantly between light and dark themes. Your choice is remembered on future visits."},
+  {q:"What is the Reading List / bookmark feature?",a:"Tap the star icon on any blog card to save it to your personal Reading List, accessible from the bookmark icon in the navbar."},
+  {q:"Is my Reading List shared with other users?",a:"No — your Reading List and liked posts are stored locally on your own device and are private to you."},
+  {q:"How do I search the site quickly?",a:"Press Ctrl+K (or Cmd+K on Mac) anywhere on the site to open the command palette and jump to any section, blog or page instantly."},
+  {q:"Is DracoVerse mobile-friendly?",a:"Yes, the entire site is built with fluid, responsive layouts that adapt to phones, tablets, laptops and large desktop monitors."},
+  {q:"Who built DracoVerse?",a:"DracoVerse is an independent project built and maintained by a single developer, Abhinav."},
+  {q:"Does DracoVerse have a Privacy Policy?",a:"Yes, a full Privacy Policy is linked in the navigation bar and footer, explaining what data is collected and why."},
+  {q:"How is my account data stored?",a:"Account data is stored securely using Firebase Authentication and Firebase Firestore, Google's cloud backend services."},
+  {q:"Can I log in with Google?",a:"Yes, Google sign-in is available alongside email/password sign-up on the authentication page."},
+  {q:"Why do I need to verify my email?",a:"Email verification confirms you own the address you signed up with, which helps keep the community authentic and reduces spam accounts."},
+  {q:"Can I use DracoVerse as a guest without signing up?",a:"Yes, guest access lets you explore the platform before committing to a full account."},
+  {q:"How do I report an issue or give feedback?",a:"Use the contact links in the About section or reach out through DracoCommunity — feedback directly shapes what gets built next."},
+  {q:"Does DracoVerse show real statistics?",a:"Yes. Blog post counts and total likes are pulled live from Firestore. and page views are tracked as an honest running counter rather than a fabricated number."},
+  {q:"Is DracoVerse still being actively developed?",a:"Yes — as an independent project, DracoVerse is updated directly based on real community feedback and new feature ideas."}
+];
+function renderFaq(){
+  const el=document.getElementById('faqList');
+  if(!el)return;
+  el.innerHTML=FAQS.map((f,i)=>`
+    <div class="faqItem" id="faqItem${i}">
+      <div class="faqQ" onclick="toggleFaq(${i})"><span>${san(f.q)}</span><span class="faqToggle">+</span></div>
+      <div class="faqA"><div class="faqAInner">${san(f.a)}</div></div>
+    </div>`).join("");
+}
+window.toggleFaq=function(i){
+  document.getElementById('faqItem'+i)?.classList.toggle('open');
+};
+function san(s){if(typeof s!=="string")return"";return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
+renderFaq();
+
+/* FAQPage structured data for SEO, generated from the same real FAQ content shown above */
+(function addFaqSchema(){
+  try{
+    const schema={
+      "@context":"https://schema.org",
+      "@type":"FAQPage",
+      "mainEntity": FAQS.map(f=>({
+        "@type":"Question",
+        "name": f.q,
+        "acceptedAnswer": { "@type":"Answer", "text": f.a }
+      }))
+    };
+    const s=document.createElement('script');
+    s.type='application/ld+json';
+    s.textContent=JSON.stringify(schema);
+    document.head.appendChild(s);
+  }catch(e){}
+})();
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
