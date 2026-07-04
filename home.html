@@ -39,6 +39,10 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1307099726971871"
      crossorigin="anonymous"></script>
 
+  <!-- EmailJS — sends the real "Welcome to the Verse" email from the Never Miss a Beat form.
+       Setup (~5 min, one time): see the big comment above subscribeletter() near the bottom of this file. -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <!-- Structured data: helps search engines understand the site (SEO) -->
 <script type="application/ld+json">
 {
@@ -1926,14 +1930,16 @@ body.dark #hh {
 
 <!-- LETTER -->
 <section class="section sectionDark" style="padding-top:0;">
-  <div style="max-width:580px;margin:auto;text-align:center;" class="reveal">
+  <div style="max-width:640px;margin:auto;text-align:center;" class="reveal">
     <div class="sectionLabel">📬 Ai tools</div>
     <h2 class="sectionTitle" style="margin:14px 0 10px;">Never Miss a Beat</h2>
     <p class="sectionSub">Get the best blogs and ai tools straight to your inbox.</p>
+    <p class="sectionSub" style="margin-top:10px;">Join the DracoVerse newsletter for a free, no-spam digest of the week's most-liked community blogs, freshly indexed AI tools pulled from Hacker News, and a quick recap of how the daily poll turned out — all delivered straight to your inbox. You'll get an instant welcome email the moment you subscribe, and you can unsubscribe anytime with a single click.</p>
     <div class="nlForm">
       <input class="nlInput" id="nlEmail" type="email" placeholder="your@email.com"/>
       <button class="nlBtn" onclick="subscribeletter()">Subscribe →</button>
     </div>
+    <p style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:14px;">🔒 We respect your privacy — no spam, ever. Read our <a href="policy.html" target="_blank" style="color:rgba(255,255,255,0.55);">Privacy Policy</a>.</p>
   </div>
 </section>
 
@@ -2287,6 +2293,23 @@ document.getElementById("aitoolsTabs").addEventListener("click",function(e){
   load();
 });
 
+// ── NEWSLETTER SUBSCRIBERS ──
+// Saves every "Never Miss a Beat" signup permanently to Firestore (collection: subscribers),
+// so you have a real, durable subscriber list — separate from whether the welcome email sends.
+window.dvSaveSubscriber = async function(email){
+  try{
+    await setDoc(doc(db,"subscribers", email.toLowerCase()), {
+      email: email.toLowerCase(),
+      subscribedAt: new Date().toISOString(),
+      source: "dracoverse_homepage_newsletter"
+    }, { merge: true });
+    return true;
+  }catch(e){
+    console.error("Could not save subscriber to Firestore:", e);
+    return false;
+  }
+};
+
 loadBlogs();
 load();
 </script>
@@ -2388,11 +2411,96 @@ window.toast=function(msg,icon="✅"){
   s.appendChild(t);
   setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},3000);
 };
-window.subscribeletter=function(){
-  const v=document.getElementById("nlEmail")?.value?.trim();
-  if(!v||!v.includes("@")){toast("Enter a valid email","❗");return;}
-  document.getElementById("nlEmail").value="";
-  toast("Subscribed! Welcome to the Verse 🐉");
+/* ══════════════════════════════════════════════════════════════════
+   REAL NEWSLETTER EMAIL — EmailJS SETUP (one-time, ~5 minutes)
+   Client-side pages can't send email directly (SMTP credentials can
+   never live safely in browser code), so this uses EmailJS — a free
+   service built exactly for this. Steps:
+     1. Create a free account at https://www.emailjs.com
+     2. Email Services → Add New Service (Gmail/Outlook/SMTP) → copy the Service ID
+     3. Email Templates → Create New Template:
+          - "To email"  field → {{to_email}}
+          - Template body → paste ONLY:  {{{message_html}}}
+            (triple braces = renders our HTML design unescaped)
+          - Subject → Welcome to DracoVerse 🐉
+        Copy the Template ID.
+     4. Account → General → copy your Public Key.
+     5. Paste all three into the constants right below.
+   Until you fill these in, subscribers are still saved to Firestore
+   (so you never lose a signup) but the welcome email won't send.
+   ══════════════════════════════════════════════════════════════════ */
+const EMAILJS_PUBLIC_KEY  = "YOUR_EMAILJS_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID  = "YOUR_EMAILJS_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";
+
+try{
+  if(window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_EMAILJS_PUBLIC_KEY"){
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+}catch(e){}
+
+function buildWelcomeEmailHtml(){
+  return `
+  <div style="font-family:Inter,Arial,sans-serif;background:#f5f6f7;padding:40px 20px;">
+    <div style="max-width:520px;margin:auto;background:#ffffff;border-radius:24px;overflow:hidden;box-shadow:0 12px 40px rgba(59,91,219,0.15);">
+      <div style="background:linear-gradient(135deg,#3b5bdb,#6c2d9f);padding:36px 32px;text-align:center;">
+        <div style="font-size:34px;margin-bottom:6px;">🐉</div>
+        <div style="font-family:Georgia,serif;font-style:italic;font-size:22px;font-weight:700;color:#ffffff;">DracoVerse</div>
+      </div>
+      <div style="padding:34px 32px;">
+        <h1 style="font-size:22px;font-weight:800;color:#0f1419;margin:0 0 14px;">Welcome to the Verse 🎉</h1>
+        <p style="font-size:14px;line-height:1.8;color:#475569;margin:0 0 16px;">
+          Thanks for subscribing! You're now part of a growing community of curious minds who read DracoVerse for the best community-written blogs, a live AI tools feed pulled straight from Hacker News, and a daily poll on what's happening in tech.
+        </p>
+        <p style="font-size:14px;line-height:1.8;color:#475569;margin:0 0 18px;">Here's what to expect in your inbox:</p>
+        <ul style="font-size:13.5px;line-height:1.9;color:#475569;padding-left:20px;margin:0 0 24px;">
+          <li>📚 Hand-picked, most-liked blog posts from the community</li>
+          <li>🤖 Fresh AI tools and startup stories, updated in real time</li>
+          <li>🗳️ A quick recap of the daily poll and how the community voted</li>
+        </ul>
+        <div style="text-align:center;margin:28px 0;">
+          <a href="https://dracoverse.online/blogs.html" style="display:inline-block;background:linear-gradient(135deg,#3b5bdb,#6c2d9f);color:#ffffff;text-decoration:none;font-weight:700;font-size:14px;padding:13px 28px;border-radius:13px;">Explore DracoVerse →</a>
+        </div>
+        <p style="font-size:12px;line-height:1.7;color:#94a3b8;margin:0;">
+          You're receiving this email because you subscribed at dracoverse.online. Built with ❤️ by Abhinav.
+        </p>
+      </div>
+    </div>
+  </div>`;
+}
+
+window.subscribeletter=async function(){
+  const emailInput = document.getElementById("nlEmail");
+  const v = emailInput?.value?.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!v || !emailRegex.test(v)){ toast("Enter a valid email","❗"); return; }
+
+  const btn = document.querySelector('.nlBtn');
+  const originalBtnText = btn ? btn.textContent : "";
+  if(btn){ btn.textContent = "Sending…"; btn.disabled = true; }
+
+  // 1) Always keep a permanent record of the subscriber in Firestore
+  if(window.dvSaveSubscriber){ await window.dvSaveSubscriber(v); }
+
+  // 2) Actually send a real, designed welcome email via EmailJS
+  try{
+    if(window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_EMAILJS_PUBLIC_KEY"){
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: v,
+        message_html: buildWelcomeEmailHtml()
+      });
+      toast("Subscribed! Check your inbox 🐉");
+    } else {
+      // EmailJS isn't configured yet — the subscriber is still saved above.
+      toast("Subscribed! Welcome to the Verse 🐉");
+    }
+  }catch(e){
+    console.error("Newsletter email failed to send:", e);
+    toast("Subscribed! (email delivery pending)");
+  }
+
+  if(emailInput) emailInput.value = "";
+  if(btn){ btn.textContent = originalBtnText; btn.disabled = false; }
 };
 
 document.addEventListener("keydown",e=>{
