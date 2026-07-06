@@ -1,17 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="description" content="DracoVerse is your hub for AI tools, tech news, blogs, community discussions, quizzes, and more.">
-  <link rel="canonical" href="https://dracoverse.online/">
-  <meta property="og:title" content="DracoVerse">
-<meta property="og:description" content="Knowledge Reimagined">
-<meta property="og:image" content="https://dracoverse.online/preview.png">
-<meta property="og:url" content="https://dracoverse.online/">
-<meta name="twitter:card" content="summary_large_image">
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>AIVerse — Discover the Best AI Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>AIVerse — Discover & Compare the Best AI Tools, Prompts & Guides (2026)</title>
+<meta name="description" content="AIVerse is the largest independent AI tools directory: 247+ hand-reviewed AI tools, 86 free prompt templates, and 34 in-depth guides. Compare ChatGPT, Claude, Midjourney, Cursor and more by price, rating, and use case — updated weekly."/>
+<meta name="keywords" content="AI tools, best AI tools 2026, AI tools directory, ChatGPT alternatives, AI tool comparison, free AI tools, AI prompt library, AI writing tools, AI image generators, AI coding assistants, AI video generators, AI productivity tools"/>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
+<meta name="author" content="AIVerse Editorial Team"/>
+<meta name="theme-color" content="#060608"/>
+<link rel="canonical" href="https://aiverse.example.com/"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E"/>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="AIVerse"/>
+<meta property="og:title" content="AIVerse — Discover & Compare the Best AI Tools"/>
+<meta property="og:description" content="247+ hand-reviewed AI tools, 86 prompt templates, and 34 expert guides. Find, compare, and save the right AI tool for any job."/>
+<meta property="og:image" content="https://aiverse.example.com/preview.png"/>
+<meta property="og:url" content="https://aiverse.example.com/"/>
+<meta property="og:locale" content="en_US"/>
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AIVerse — Discover & Compare the Best AI Tools"/>
+<meta name="twitter:description" content="247+ hand-reviewed AI tools, 86 prompt templates, and 34 expert guides, updated weekly."/>
+<meta name="twitter:image" content="https://aiverse.example.com/preview.png"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+
+<!--
+  ══════════════════════════════════════════════════════════════════
+  GOOGLE ADSENSE — replace ca-pub-XXXXXXXXXXXXXXXX with your own
+  publisher ID once your AdSense account is approved, then uncomment.
+  Ad units are already placed responsibly throughout the page inside
+  <div class="ad-slot"> containers — see .ad-slot in the CSS and the
+  ad markup near the tool grid, sidebar, and footer.
+  ══════════════════════════════════════════════════════════════════
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+-->
+
+<!-- JSON-LD structured data: WebSite + ItemList + FAQPage for rich results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "AIVerse",
+  "url": "https://aiverse.example.com/",
+  "description": "AIVerse is an independent, hand-curated directory of 247+ AI tools, prompts, and guides.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://aiverse.example.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is AIVerse?",
+      "acceptedAnswer": {"@type":"Answer","text":"AIVerse is an independent directory of AI tools, prompts, and guides. Every listing is hand-reviewed and includes pricing, ratings, pros and cons, and real use cases so you can pick the right AI tool without hours of research."}
+    },
+    {
+      "@type": "Question",
+      "name": "Are the AI tools on AIVerse free to use?",
+      "acceptedAnswer": {"@type":"Answer","text":"AIVerse lists free, freemium, paid, and free-trial AI tools. Use the pricing filter or the 'Free Only' sort option to see only tools with a genuinely free tier."}
+    },
+    {
+      "@type": "Question",
+      "name": "How does AIVerse choose which AI tools to list?",
+      "acceptedAnswer": {"@type":"Answer","text":"Tools are added through editorial research and community submissions, then reviewed for functionality, pricing accuracy, and real-world usefulness before publishing."}
+    },
+    {
+      "@type": "Question",
+      "name": "Can I submit my own AI tool to AIVerse?",
+      "acceptedAnswer": {"@type":"Answer","text":"Yes. Use the 'Submit Tool' button in the navigation to add your AI product. Submissions are typically reviewed within 24 hours."}
+    }
+  ]
+}
+</script>
 <style>
 :root {
   --bg:        #060608;
@@ -153,15 +226,19 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 
 /* ═══════ TOOL GRID ═══════ */
 .content-area{flex:1;overflow-y:auto;overflow-x:hidden}
-.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:20px 28px}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;padding:24px 28px;align-items:stretch}
 .tool-grid.two-col{grid-template-columns:repeat(2,1fr)}
-.tool-grid.list-view{grid-template-columns:1fr;gap:8px}
+.tool-grid.list-view{grid-template-columns:1fr;gap:10px}
 
-/* Card */
-.tool-card{position:relative;border-radius:var(--r);cursor:pointer;transition:transform .2s,box-shadow .2s;background:var(--bg2);border:1px solid var(--border)}
-.tool-card:hover{transform:translateY(-2px);border-color:var(--border3);box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 0 1px rgba(124,58,237,.12)}
-.tool-card.featured{border-color:rgba(124,58,237,.25);background:linear-gradient(135deg,var(--bg2) 0%,rgba(124,58,237,.04) 100%)}
-.tool-card-inner{padding:18px;height:100%;display:flex;flex-direction:column}
+/* Card — sized up for a more premium, professional feel with room for extra metadata */
+.tool-card{position:relative;border-radius:var(--r);cursor:pointer;transition:transform .2s,box-shadow .2s;background:var(--bg2);border:1px solid var(--border);display:flex;flex-direction:column;min-height:290px}
+.tool-card:hover{transform:translateY(-3px);border-color:var(--border3);box-shadow:0 12px 36px rgba(0,0,0,.5),0 0 0 1px rgba(124,58,237,.14)}
+.tool-card.featured{border-color:rgba(124,58,237,.25);background:linear-gradient(135deg,var(--bg2) 0%,rgba(124,58,237,.05) 100%)}
+.tool-card-inner{padding:22px;height:100%;display:flex;flex-direction:column;flex:1}
+.tool-quick-visit{margin-top:12px;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;border-radius:var(--r-sm);background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-size:12px;font-weight:600;font-family:var(--font-body);cursor:pointer;transition:all .15s}
+.tool-quick-visit:hover{background:var(--violet-d2);border-color:rgba(124,58,237,.35);color:var(--violet2)}
+.tool-bestfor{font-size:11px;color:var(--text3);margin:8px 0 2px;display:flex;align-items:center;gap:5px}
+.tool-bestfor strong{color:var(--text2);font-weight:600}
 
 /* List view card */
 .tool-grid.list-view .tool-card-inner{flex-direction:row;align-items:center;gap:16px;padding:14px 18px}
@@ -443,33 +520,154 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   .detail-breadcrumb{text-align:left}
 }
 
+/* ═══════ AD SLOTS (AdSense-ready containers) ═══════ */
+.ad-slot{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg2);border:1px dashed var(--border3);border-radius:var(--r-sm);color:var(--text3);font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;font-family:var(--font-mono);gap:4px;overflow:hidden;position:relative}
+.ad-slot::before{content:'Advertisement';opacity:.7}
+.ad-slot-leaderboard{width:100%;min-height:90px;margin:0 28px;margin-top:14px;max-width:100%}
+.ad-slot-infeed{grid-column:1/-1;min-height:120px;width:100%}
+.ad-slot-sidebar{width:100%;min-height:250px}
+.ad-slot-footer{width:100%;min-height:100px;margin-bottom:20px}
+@media(max-width:720px){ .ad-slot-leaderboard{margin:14px 14px 0} }
+
+/* ═══════ SEO CONTENT SECTIONS ═══════ */
+.seo-block{padding:36px 28px 8px;max-width:1100px}
+.seo-block h2{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text);margin-bottom:12px;letter-spacing:-.3px}
+.seo-block h3{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--text);margin:18px 0 8px}
+.seo-block p{font-size:13px;color:var(--text2);line-height:1.8;margin-bottom:12px}
+.seo-block ul{margin:0 0 12px 20px}
+.seo-block li{font-size:13px;color:var(--text2);line-height:1.8}
+.seo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:16px 0 8px}
+.seo-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:16px}
+.seo-card h4{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px}
+.seo-card p{font-size:12px;color:var(--text2);margin:0;line-height:1.6}
+
+/* ═══════ FAQ ACCORDION ═══════ */
+.faq-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.faq-item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;cursor:pointer;font-size:13px;font-weight:600;color:var(--text);font-family:var(--font-body)}
+.faq-q .faq-arrow{transition:transform .2s;color:var(--violet2);flex-shrink:0}
+.faq-item.open .faq-q .faq-arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a p{padding:0 16px 16px;font-size:12.5px;color:var(--text2);line-height:1.7;margin:0}
+
+/* ═══════ RELATED TOOLS (detail page) ═══════ */
+.related-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.related-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:6px}
+.related-card:hover{border-color:var(--border3);transform:translateY(-2px)}
+.related-card .r-top{display:flex;align-items:center;gap:8px}
+.related-card .r-logo{width:32px;height:32px;border-radius:8px;background:var(--bg3);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.related-card .r-name{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--text)}
+.related-card .r-desc{font-size:11.5px;color:var(--text2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+/* ═══════ DETAIL PAGE SHARE / SIDE WIDGETS ═══════ */
+.detail-share{display:flex;gap:8px;flex-wrap:wrap}
+.share-btn{width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r-sm);cursor:pointer;color:var(--text2);font-size:14px;transition:all .15s}
+.share-btn:hover{border-color:var(--violet);color:var(--violet2)}
+
+/* ═══════ NEWSLETTER ═══════ */
+.newsletter-box{background:linear-gradient(135deg,var(--bg3) 0%,rgba(124,58,237,.08) 100%);border:1px solid var(--border2);border-radius:var(--r);padding:16px}
+.newsletter-box h4{font-family:var(--font-display);font-size:13px;font-weight:700;margin-bottom:5px;color:var(--text)}
+.newsletter-box p{font-size:11.5px;color:var(--text2);margin-bottom:10px;line-height:1.5}
+.newsletter-row{display:flex;gap:6px}
+.newsletter-row input{flex:1;min-width:0;padding:8px 10px;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r-xs);color:var(--text);font-size:12px;font-family:var(--font-body);outline:none}
+.newsletter-row input:focus{border-color:var(--violet)}
+.newsletter-row button{padding:8px 14px;background:linear-gradient(90deg,var(--violet),#5b21b6);border:none;border-radius:var(--r-xs);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font-body);white-space:nowrap}
+
+/* ═══════ FOOTER ═══════ */
+.site-footer{border-top:1px solid var(--border);padding:32px 28px 90px;background:var(--bg1)}
+.footer-grid{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:24px;margin-bottom:28px}
+.footer-col h5{font-family:var(--font-display);font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.footer-col a{display:block;font-size:12.5px;color:var(--text2);text-decoration:none;margin-bottom:9px;cursor:pointer;transition:color .15s}
+.footer-col a:hover{color:var(--violet2)}
+.footer-brand-blurb{font-size:12.5px;color:var(--text2);line-height:1.7;max-width:320px;margin-top:10px}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:20px;border-top:1px solid var(--border);font-size:11.5px;color:var(--text3)}
+.footer-bottom a{color:var(--text3);text-decoration:none;margin-left:14px}
+.footer-bottom a:hover{color:var(--text2)}
+.footer-social{display:flex;gap:8px}
+
+/* ═══════ BACK TO TOP ═══════ */
+.back-to-top{position:fixed;bottom:24px;left:24px;z-index:150;width:42px;height:42px;border-radius:50%;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);display:none;align-items:center;justify-content:center;cursor:pointer;font-size:16px;box-shadow:var(--shadow);transition:all .15s}
+.back-to-top.visible{display:flex}
+.back-to-top:hover{color:var(--text);border-color:var(--violet)}
+
+/* ═══════ MOBILE NAV DRAWER ═══════ */
+.mobile-nav-toggle{display:none;width:36px;height:36px;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text2);cursor:pointer;font-size:16px;flex-shrink:0}
+.drawer-close-btn{display:none;width:32px;height:32px;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r-sm);color:var(--text2);cursor:pointer;font-size:14px;margin-right:16px;flex-shrink:0}
+@media(max-width:720px){ .drawer-close-btn{display:flex} }
+.nav-scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:299}
+.nav-scrim.open{display:block}
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--violet);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;z-index:10000;font-size:13px;font-weight:600}
+.skip-link:focus{left:0}
+
 /* ═══════ RESPONSIVE ═══════ */
+@media(max-width:1400px){
+  :root{--rside-w:264px}
+}
 @media(max-width:1150px){
   :root{--rside-w:0px}
   .right-sidebar{display:none}
-  .tool-grid{grid-template-columns:repeat(2,1fr)}
   .compare-bar{right:0}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:900px){
+  .tool-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .stats-bar{flex-wrap:wrap}
+  .stat-item{flex:1 1 50%;border-bottom:1px solid var(--border)}
 }
 @media(max-width:720px){
   :root{--nav-w:0px}
-  .left-nav{display:none}
+  .shell{grid-template-columns:1fr}
+  .left-nav{display:flex;position:fixed;top:0;left:0;bottom:0;width:280px;z-index:300;transform:translateX(-100%);transition:transform .25s ease;box-shadow:var(--shadow-lg)}
+  .left-nav.open{transform:translateX(0)}
+  .mobile-nav-toggle{display:flex}
   .tool-grid{grid-template-columns:1fr}
-  .compare-bar{left:0}
+  .compare-bar{left:0;flex-wrap:wrap}
+  .page-title{font-size:18px}
+  .search-wrap{max-width:none}
+  .topbar{padding:12px 14px;gap:8px}
+  .tabs-row{padding:0 14px}
+  .controls-bar{padding:12px 14px}
+  .content-area .tool-grid, .prompt-list, .guide-list{padding-left:14px;padding-right:14px}
+  .stats-bar{padding:0 4px}
+  .stat-item{padding:12px 14px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .site-footer{padding:24px 14px 100px}
+  .seo-block{padding:28px 14px 4px}
+  .detail-body{padding:24px 16px 60px}
+  .detail-topbar{padding:14px 16px}
+  .submit-btn span{display:none}
+}
+@media(max-width:480px){
+  .footer-grid{grid-template-columns:1fr}
+  .card-footer{flex-wrap:wrap}
+  .tool-card{min-height:260px}
+  .detail-name{font-size:22px}
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
 }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#mainScroll">Skip to content</a>
+<div class="nav-scrim" id="navScrim" onclick="toggleMobileNav(false)"></div>
 <div class="shell">
 
 <!-- ═══ LEFT NAV ═══ -->
-<nav class="left-nav">
+<nav class="left-nav" id="leftNav" aria-label="Primary">
+  <div style="display:flex;align-items:center;justify-content:space-between">
   <a class="brand" href="#">
     <div class="brand-mark">⚡</div>
     <div class="brand-text">
       <span class="brand-name">AI<span>Verse</span></span>
-      <span class="brand-tagline">247 tools curated</span>
+      <span class="brand-tagline">247 AI tools, hand-reviewed</span>
     </div>
   </a>
+  <button class="drawer-close-btn" onclick="toggleMobileNav(false)" aria-label="Close menu">✕</button>
+  </div>
 
   <div class="nav-label">Discover</div>
   <a class="nav-item active" id="nav-tools" onclick="switchTab('tools-tab',event,this)"><span class="ni">⚡</span>AI Tools <span class="nav-badge" id="toolCount">247</span></a>
@@ -510,6 +708,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 
   <!-- Topbar -->
   <div class="topbar">
+    <button class="mobile-nav-toggle" onclick="toggleMobileNav(true)" aria-label="Open menu" title="Menu">☰</button>
     <h1 class="page-title" id="pageTitle"><span class="accent">AI Tools</span></h1>
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
@@ -519,7 +718,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="topbar-actions">
       <div class="icon-btn" id="compareToggleBtn" onclick="toggleCompareMode()" title="Compare tools">⊞</div>
       <div class="icon-btn" onclick="toggleNotifPanel()" title="Notifications">🔔<div class="badge-dot" id="notifDot"></div></div>
-      <button class="submit-btn" onclick="openSubmitModal(event)">＋ Submit Tool</button>
+      <button class="submit-btn" onclick="openSubmitModal(event)">＋ <span>Submit Tool</span></button>
     </div>
   </div>
 
@@ -532,6 +731,12 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 
   <!-- ─── TOOLS PANEL ─── -->
   <div class="tab-panel active" id="tools-tab">
+    <!-- Ad slot: leaderboard (e.g. Google AdSense 728x90 / responsive display ad) -->
+    <div class="ad-slot ad-slot-leaderboard" aria-hidden="true">
+      <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000000" data-ad-format="auto" data-full-width-responsive="true"></ins>
+           <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+      <span>Ad space — 728×90 leaderboard</span>
+    </div>
     <!-- Stats bar -->
     <div class="stats-bar">
       <div class="stat-item">
@@ -590,6 +795,59 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
       <div class="load-more-wrap">
         <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">Load more tools ↓</button>
       </div>
+
+      <!-- ═══ SEO CONTENT: rich, keyword-relevant, genuinely useful editorial copy ═══ -->
+      <article class="seo-block">
+        <h2>The Complete Guide to Choosing the Best AI Tools in 2026</h2>
+        <p>Artificial intelligence tools have moved from novelty to necessity. Whether you're a student looking for a faster way to study, a founder trying to ship a product without a full engineering team, or a marketer who needs a month of content in an afternoon, there is almost certainly an AI tool built for exactly that job. AIVerse exists to cut through the noise: every one of our 247+ listings is reviewed for real functionality, current pricing, and genuine usefulness — not just marketing copy.</p>
+
+        <h3>How to pick the right AI tool for your workflow</h3>
+        <p>Start with the job you're trying to get done, not the tool's brand name. An <strong>AI writing assistant</strong> like Grammarly AI or Jasper AI solves a different problem than an <strong>AI coding assistant</strong> like Cursor or GitHub Copilot. Use the category chips above the grid — AI Assistant, Writing, Image, Video, Audio, Code, Productivity, and Research — to narrow the field before you compare individual tools.</p>
+
+        <div class="seo-grid">
+          <div class="seo-card">
+            <h4>🤖 Best AI Assistants</h4>
+            <p>General-purpose chatbots such as ChatGPT, Claude, and Gemini handle writing, research, coding help, and everyday Q&amp;A in one interface.</p>
+          </div>
+          <div class="seo-card">
+            <h4>🎨 Best AI Image Generators</h4>
+            <p>Midjourney, DALL·E 3, Leonardo AI, and Ideogram turn text prompts into illustrations, concept art, and marketing visuals in seconds.</p>
+          </div>
+          <div class="seo-card">
+            <h4>🖱️ Best AI Coding Tools</h4>
+            <p>Cursor, GitHub Copilot, v0, Bolt.new, and Lovable can scaffold, refactor, and ship full applications from natural-language prompts.</p>
+          </div>
+          <div class="seo-card">
+            <h4>🎬 Best AI Video Tools</h4>
+            <p>Runway, Pika, and Synthesia generate, edit, and narrate video content without a camera crew or editing suite.</p>
+          </div>
+          <div class="seo-card">
+            <h4>🎤 Best AI Audio Tools</h4>
+            <p>Suno and ElevenLabs cover full song generation and hyper-realistic voice synthesis for podcasts, dubs, and narration.</p>
+          </div>
+          <div class="seo-card">
+            <h4>🔍 Best AI Research Tools</h4>
+            <p>Perplexity, NotebookLM, Elicit, and Consensus give sourced, citation-backed answers instead of unverifiable summaries.</p>
+          </div>
+        </div>
+
+        <h3>Free vs. freemium vs. paid: what the pricing labels actually mean</h3>
+        <ul>
+          <li><strong>Free</strong> — no payment required for the core product, though usage limits may apply.</li>
+          <li><strong>Freemium</strong> — a genuinely useful free tier, with paid plans that unlock higher limits or advanced features.</li>
+          <li><strong>Free Trial</strong> — full access for a limited time before a subscription is required.</li>
+          <li><strong>Paid</strong> — subscription or one-time purchase required from the start.</li>
+        </ul>
+        <p>Use the <strong>Free Only</strong> option in the sort dropdown to instantly filter the directory down to tools you can start using today without a credit card.</p>
+
+        <h3>Frequently asked questions</h3>
+        <div class="faq-list" id="faqList"></div>
+      </article>
+
+      <!-- Ad slot: footer banner -->
+      <div style="padding:0 28px 8px">
+        <div class="ad-slot ad-slot-footer" aria-hidden="true"><span>Ad space — responsive banner</span></div>
+      </div>
     </div>
   </div>
 
@@ -609,6 +867,12 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="content-area" style="padding:0">
       <div style="padding:14px 28px 4px;font-size:12.5px;color:var(--text3)">Click any prompt to copy instantly. Upvote your favorites.</div>
       <div class="prompt-list" id="promptList"></div>
+      <article class="seo-block">
+        <h2>Free AI Prompt Library: 86 Tested Templates for ChatGPT, Claude & Gemini</h2>
+        <p>A good prompt is the difference between a generic AI response and one that's genuinely usable. Every prompt in the AIVerse library follows a clear structure — role, task, constraints, and format — so you can drop it into any large language model and get a consistent result. Replace anything in <span class="prompt-var" style="color:var(--amber)">[brackets]</span> with your own details before running the prompt.</p>
+        <h3>Why structured prompts outperform casual ones</h3>
+        <p>Vague requests like "write me a blog post" force the model to guess at length, tone, audience, and format. The prompts here specify all four up front, which is why they consistently produce output you can use with little to no editing — whether that's a study plan, a cold email, or a full code review.</p>
+      </article>
     </div>
   </div>
 
@@ -625,8 +889,74 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     </div>
     <div class="content-area" style="padding:0">
       <div class="guide-list" style="margin-top:16px" id="guideList"></div>
+      <article class="seo-block">
+        <h2>AI Guides & Tutorials: Roundups, Comparisons, and Step-by-Step Walkthroughs</h2>
+        <p>Our editorial team publishes hands-on comparisons and tutorials so you don't have to test every tool yourself. Each guide is written after real usage — not just reading a product's landing page — and is updated whenever a major model or pricing change makes the original advice stale.</p>
+        <h3>Popular guide categories</h3>
+        <ul>
+          <li><strong>Roundup</strong> — curated lists of the best tools for a specific goal, like studying or automating your inbox.</li>
+          <li><strong>Comparison</strong> — head-to-head breakdowns (ChatGPT vs. Gemini vs. Claude, Cursor vs. Copilot) with a clear recommendation.</li>
+          <li><strong>Tutorial</strong> — step-by-step walkthroughs for building something specific, like a website or a prompt library of your own.</li>
+          <li><strong>Story</strong> — first-person accounts of real workflows that AI tools replaced or improved.</li>
+        </ul>
+      </article>
     </div>
   </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a class="brand" href="#" style="padding:0;margin-bottom:2px">
+          <div class="brand-mark">⚡</div>
+          <div class="brand-text"><span class="brand-name">AI<span>Verse</span></span></div>
+        </a>
+        <p class="footer-brand-blurb">AIVerse is an independent, hand-reviewed directory of AI tools, prompts, and guides. We help over 240,000 monthly readers choose the right AI product without the marketing spin.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Top Categories</h5>
+        <a onclick="sidebarCat('AI Assistant')">AI Assistants</a>
+        <a onclick="sidebarCat('Writing')">Writing Tools</a>
+        <a onclick="sidebarCat('Image')">Image Generators</a>
+        <a onclick="sidebarCat('Video')">Video Tools</a>
+        <a onclick="sidebarCat('Code')">Coding Assistants</a>
+        <a onclick="sidebarCat('Audio')">Audio &amp; Voice AI</a>
+      </div>
+      <div class="footer-col">
+        <h5>Popular Tools</h5>
+        <a onclick="openToolDetail(1)">ChatGPT Review</a>
+        <a onclick="openToolDetail(2)">Claude Review</a>
+        <a onclick="openToolDetail(5)">Midjourney Review</a>
+        <a onclick="openToolDetail(7)">Cursor Review</a>
+        <a onclick="openToolDetail(3)">Perplexity AI Review</a>
+      </div>
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <a onclick="switchTab('prompts-tab',null,null)">Prompt Library</a>
+        <a onclick="switchTab('guides-tab',null,null)">AI Guides</a>
+        <a href="#" onclick="openSubmitModal(event)">Submit a Tool</a>
+        <a href="#">Hall of Fame</a>
+        <a href="#">AI News</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#">About AIVerse</a>
+        <a href="#">Contact</a>
+        <a href="#">Advertise with Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 AIVerse. All trademarks belong to their respective owners.</span>
+      <span class="footer-social">
+        <a href="#" title="X / Twitter">🐦</a>
+        <a href="#" title="LinkedIn">💼</a>
+        <a href="#" title="YouTube">▶️</a>
+        <a href="#" title="RSS feed">📡</a>
+      </span>
+    </div>
+  </footer>
 
 </main>
 
@@ -693,6 +1023,27 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
       <div class="widget-title">✨ Recently Added</div>
     </div>
     <ul class="recent-list" id="recentList"></ul>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- Newsletter -->
+  <div class="newsletter-box">
+    <h4>📬 Weekly AI Digest</h4>
+    <p>The best new tools, prompts, and guides — one email every Friday. No spam.</p>
+    <div class="newsletter-row">
+      <input type="email" id="newsletterEmail" placeholder="you@email.com" aria-label="Email address"/>
+      <button onclick="subscribeNewsletter()">Join</button>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <!-- Ad slot: sidebar 300x250 -->
+  <div class="ad-slot ad-slot-sidebar" aria-hidden="true">
+    <!-- <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="0000000000"></ins>
+         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
+    <span>Ad space — 300×250</span>
   </div>
 
 </aside>
@@ -798,6 +1149,10 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 
 <!-- Tool detail page — SPA route: /aiverse.html/<tool-slug> -->
 <div class="detail-overlay" id="toolDetailPage"></div>
+
+
+<!-- Back to top -->
+<button class="back-to-top" id="backToTop" onclick="document.getElementById('mainScroll').scrollTo({top:0,behavior:'smooth'})" title="Back to top" aria-label="Back to top">↑</button>
 
 <!-- Toast -->
 <div class="toast" id="toastEl"><div class="toast-bar"></div><span id="toastMsg"></span></div>
@@ -928,6 +1283,15 @@ const GUIDES = [
   {id:8, emoji:'🤖', label:'Comparison', date:'May 26', title:'Best AI Coding Assistants: Cursor vs Copilot vs Bolt', desc:'Three elite AI coding tools go head to head. We benchmark speed, accuracy, context windows, and pricing in real projects.', readTime:'11 min', views:'12.7K'},
 ];
 
+const FAQS = [
+  {q:'What is AIVerse?', a:"AIVerse is an independent directory of AI tools, prompts, and guides. Every listing is hand-reviewed and includes pricing, ratings, pros and cons, and real use cases so you can pick the right AI tool without hours of research."},
+  {q:'Are the AI tools on AIVerse free to use?', a:"AIVerse lists free, freemium, paid, and free-trial AI tools. Use the pricing filter chips or the 'Free Only' sort option above the grid to see only tools with a genuinely free tier."},
+  {q:'How does AIVerse choose which AI tools to list?', a:'Tools are added through editorial research and community submissions, then reviewed for functionality, pricing accuracy, and real-world usefulness before publishing. We re-check listings periodically as products change.'},
+  {q:'Can I submit my own AI tool to AIVerse?', a:"Yes — use the “Submit Tool” button in the navigation or topbar to add your AI product. Submissions are typically reviewed within 24 hours and, once approved, get their own dedicated review page."},
+  {q:'How do I compare two AI tools side by side?', a:'Click the compare icon (⊞) in the topbar to enter compare mode, then check "Add to compare" on up to two tool cards and click "Compare →" to see a full feature-by-feature breakdown.'},
+  {q:'How often is AIVerse updated?', a:'New tools, prompts, and guides are added weekly. Trending and Top Rated widgets in the sidebar reflect community activity from the current week.'},
+];
+
 const NOTIFS = [
   {text:'<strong>Cursor</strong> released a major update with background agents.', time:'2h', read:false},
   {text:'New tool added: <strong>Suno v4</strong> — now with voice cloning.', time:'5h', read:false},
@@ -1027,10 +1391,11 @@ function renderTools() {
     return;
   }
 
-  grid.innerHTML = list.map(t => {
+  grid.innerHTML = list.map((t, idx) => {
     const saved = savedSet.has(t.id);
     const inCompare = compareSet.has(t.id);
-    return `
+    const bestFor = (t.useCases && t.useCases[0]) ? t.useCases[0] : t.cat;
+    const cardHtml = `
     <div class="tool-card${t.hot && sortMode==='hot'?' featured':''}" onclick="openToolDetail(${t.id})">
       ${t.hot && sortMode==='hot' ? '<div class="featured-badge">🔥 Hot</div>' : ''}
       <div class="tool-card-inner">
@@ -1048,6 +1413,7 @@ function renderTools() {
           </button>
         </div>
         <div class="tool-desc">${t.desc}</div>
+        <div class="tool-bestfor">🎯 <strong>Best for:</strong> ${bestFor}</div>
         <div class="card-footer">
           <div class="rating">
             <span class="star-fill">★</span>
@@ -1056,11 +1422,17 @@ function renderTools() {
           <div class="views">👁 ${t.views}</div>
           <span class="price-pill ${priceClass(t.price)}">${priceLabel(t.price)}</span>
         </div>
+        <div class="tool-quick-visit" onclick="event.stopPropagation();window.open('${t.url}','_blank','noopener')">🔗 Visit Website</div>
       </div>
       <div class="compare-check" onclick="event.stopPropagation();toggleCompare(${t.id},'${t.name}')">
         <input type="checkbox" ${inCompare?'checked':''} onchange="event.stopPropagation()"> Add to compare
       </div>
     </div>`;
+    // Insert a responsive in-feed ad slot every 6 cards (skipped entirely in list view via CSS grid-column rule)
+    const adHtml = (viewMode === 'grid' && (idx+1) % 6 === 0)
+      ? `<div class="ad-slot ad-slot-infeed" aria-hidden="true"><span>Ad space — in-feed native unit</span></div>`
+      : '';
+    return cardHtml + adHtml;
   }).join('');
 
   if (compareMode) {
