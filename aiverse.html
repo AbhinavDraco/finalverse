@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>AIVerse — Discover & Compare the Best AI Tools, Prompts & Guides (2026)</title>
-<meta name="description" content="AIVerse is the largest independent AI tools directory: 247+ hand-reviewed AI tools, 86 free prompt templates, and 34 in-depth guides. Compare ChatGPT, Claude, Midjourney, Cursor and more by price, rating, and use case — updated weekly."/>
+<meta name="description" content="AIVerse is an independent AI tools directory: 30 hand-reviewed AI tools, 10 free prompt templates, and 8 in-depth guides. Compare ChatGPT, Claude, Midjourney, Cursor and more by price, rating, and use case — updated weekly."/>
 <meta name="keywords" content="AI tools, best AI tools 2026, AI tools directory, ChatGPT alternatives, AI tool comparison, free AI tools, AI prompt library, AI writing tools, AI image generators, AI coding assistants, AI video generators, AI productivity tools"/>
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1"/>
 <meta name="author" content="AIVerse Editorial Team"/>
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="AIVerse"/>
 <meta property="og:title" content="AIVerse — Discover & Compare the Best AI Tools"/>
-<meta property="og:description" content="247+ hand-reviewed AI tools, 86 prompt templates, and 34 expert guides. Find, compare, and save the right AI tool for any job."/>
+<meta property="og:description" content="30 hand-reviewed AI tools, 10 prompt templates, and 8 expert guides. Find, compare, and save the right AI tool for any job."/>
 <meta property="og:image" content="https://aiverse.example.com/preview.png"/>
 <meta property="og:url" content="https://aiverse.example.com/"/>
 <meta property="og:locale" content="en_US"/>
@@ -24,7 +24,7 @@
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="AIVerse — Discover & Compare the Best AI Tools"/>
-<meta name="twitter:description" content="247+ hand-reviewed AI tools, 86 prompt templates, and 34 expert guides, updated weekly."/>
+<meta name="twitter:description" content="30 hand-reviewed AI tools, 10 prompt templates, and 8 expert guides, updated weekly."/>
 <meta name="twitter:image" content="https://aiverse.example.com/preview.png"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -49,7 +49,7 @@
   "@type": "WebSite",
   "name": "AIVerse",
   "url": "https://aiverse.example.com/",
-  "description": "AIVerse is an independent, hand-curated directory of 247+ AI tools, prompts, and guides.",
+  "description": "AIVerse is an independent, hand-curated directory of AI tools, prompts, and guides.",
   "potentialAction": {
     "@type": "SearchAction",
     "target": "https://aiverse.example.com/?q={search_term_string}",
@@ -260,6 +260,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 .cat-video{background:rgba(244,63,94,.12);color:var(--rose)}
 .cat-productivity{background:rgba(124,58,237,.1);color:#c4b5fd}
 .cat-audio{background:rgba(236,72,153,.12);color:var(--pink)}
+.cat-design{background:rgba(251,146,60,.12);color:var(--orange)}
 .cat-new{background:rgba(16,185,129,.1);color:var(--green)}
 .cat-hot{background:rgba(249,115,22,.12);color:var(--orange)}
 
@@ -663,16 +664,16 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="brand-mark">⚡</div>
     <div class="brand-text">
       <span class="brand-name">AI<span>Verse</span></span>
-      <span class="brand-tagline">247 AI tools, hand-reviewed</span>
+      <span class="brand-tagline" id="brandTagline">30 AI tools, hand-reviewed</span>
     </div>
   </a>
   <button class="drawer-close-btn" onclick="toggleMobileNav(false)" aria-label="Close menu">✕</button>
   </div>
 
   <div class="nav-label">Discover</div>
-  <a class="nav-item active" id="nav-tools" onclick="switchTab('tools-tab',event,this)"><span class="ni">⚡</span>AI Tools <span class="nav-badge" id="toolCount">247</span></a>
-  <a class="nav-item" id="nav-prompts" onclick="switchTab('prompts-tab',event,this)"><span class="ni">📝</span>Prompt Library<span class="nav-badge">86</span></a>
-  <a class="nav-item" id="nav-guides" onclick="switchTab('guides-tab',event,this)"><span class="ni">📚</span>AI Guides<span class="nav-badge">34</span></a>
+  <a class="nav-item active" id="nav-tools" onclick="switchTab('tools-tab',event,this)"><span class="ni">⚡</span>AI Tools <span class="nav-badge" id="toolCount">30</span></a>
+  <a class="nav-item" id="nav-prompts" onclick="switchTab('prompts-tab',event,this)"><span class="ni">📝</span>Prompt Library<span class="nav-badge" id="promptCount">10</span></a>
+  <a class="nav-item" id="nav-guides" onclick="switchTab('guides-tab',event,this)"><span class="ni">📚</span>AI Guides<span class="nav-badge" id="guideCount">8</span></a>
   <a class="nav-item" href="#"><span class="ni">🏆</span>Hall of Fame</a>
   <a class="nav-item" href="#"><span class="ni">📰</span>AI News</a>
 
@@ -691,7 +692,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
   <div style="flex:1;min-height:20px"></div>
 
   <div class="pro-card">
-    <div class="pro-card-label">Unlock more with</div>
+    <div class="pro-card-label" id="proStatusLabel">Unlock more with</div>
     <div class="pro-card-title">AIVerse Pro</div>
     <ul class="pro-perks">
       <li>Early access to new tools</li>
@@ -699,7 +700,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
       <li>Unlimited prompt saves</li>
       <li>Ad-free experience</li>
     </ul>
-    <button class="upgrade-btn" onclick="showToast('🚀 Pro plan coming soon — stay tuned!','info')">⚡ Upgrade — $9/mo</button>
+    <button class="upgrade-btn" id="upgradeBtn" onclick="handleUpgradeClick()">⚡ Upgrade — $9/mo</button>
   </div>
 </nav>
 
@@ -712,7 +713,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <h1 class="page-title" id="pageTitle"><span class="accent">AI Tools</span></h1>
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" placeholder="Search 247 tools, prompts, guides…" oninput="handleSearch()"/>
+      <input type="text" id="searchInput" placeholder="Search tools, prompts, guides…" oninput="handleSearch()"/>
       <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Clear">✕</button>
     </div>
     <div class="topbar-actions">
@@ -724,9 +725,9 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 
   <!-- Tabs -->
   <div class="tabs-row">
-    <button class="tab active" id="tab-tools" onclick="switchTab('tools-tab',event,null)">⚡ AI Tools <span class="tab-count" id="tc-tools">247</span></button>
-    <button class="tab" id="tab-prompts" onclick="switchTab('prompts-tab',event,null)">📝 Prompts <span class="tab-count">86</span></button>
-    <button class="tab" id="tab-guides" onclick="switchTab('guides-tab',event,null)">📚 Guides <span class="tab-count">34</span></button>
+    <button class="tab active" id="tab-tools" onclick="switchTab('tools-tab',event,null)">⚡ AI Tools <span class="tab-count" id="tc-tools">30</span></button>
+    <button class="tab" id="tab-prompts" onclick="switchTab('prompts-tab',event,null)">📝 Prompts <span class="tab-count" id="tc-prompts">10</span></button>
+    <button class="tab" id="tab-guides" onclick="switchTab('guides-tab',event,null)">📚 Guides <span class="tab-count" id="tc-guides">8</span></button>
   </div>
 
   <!-- ─── TOOLS PANEL ─── -->
@@ -737,41 +738,41 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> -->
       <span>Ad space — 728×90 leaderboard</span>
     </div>
-    <!-- Stats bar -->
+    <!-- Stats bar (all values computed live from the TOOLS array — see computeStats()) -->
     <div class="stats-bar">
       <div class="stat-item">
-        <div class="stat-value" id="statTools">247 <span>tools</span></div>
+        <div class="stat-value" id="statTools">30 <span>tools</span></div>
         <div class="stat-label">Total curated</div>
       </div>
       <div class="stat-item">
-        <div class="stat-value" id="statNew">18 <span>new</span></div>
-        <div class="stat-label">Added this week</div>
-        <div class="stat-delta">↑ +12% vs last week</div>
+        <div class="stat-value" id="statNew">13 <span>new</span></div>
+        <div class="stat-label">Marked as new</div>
+        <div class="stat-delta" id="statNewDelta">↑ recently added</div>
       </div>
       <div class="stat-item">
-        <div class="stat-value">4.7 <span>avg</span></div>
+        <div class="stat-value" id="statAvgRating">4.7 <span>avg</span></div>
         <div class="stat-label">Average rating</div>
         <div class="stat-delta">★ Community verified</div>
       </div>
       <div class="stat-item">
-        <div class="stat-value">89 <span>free</span></div>
+        <div class="stat-value" id="statFree">24 <span>free</span></div>
         <div class="stat-label">Free / freemium</div>
-        <div class="stat-delta">36% of catalog</div>
+        <div class="stat-delta" id="statFreePct">80% of catalog</div>
       </div>
     </div>
 
     <!-- Controls -->
     <div class="controls-bar">
       <div class="chips-group" id="toolChips">
-        <button class="chip active" onclick="filterTools('All',this)"><span class="chip-dot" style="background:var(--violet2)"></span>All</button>
-        <button class="chip" onclick="filterTools('AI Assistant',this)"><span class="chip-dot" style="background:#a78bfa"></span>Assistant</button>
-        <button class="chip" onclick="filterTools('Writing',this)"><span class="chip-dot" style="background:var(--cyan)"></span>Writing</button>
-        <button class="chip" onclick="filterTools('Image',this)"><span class="chip-dot" style="background:var(--amber)"></span>Image</button>
-        <button class="chip" onclick="filterTools('Video',this)"><span class="chip-dot" style="background:var(--rose)"></span>Video</button>
-        <button class="chip" onclick="filterTools('Audio',this)"><span class="chip-dot" style="background:var(--pink)"></span>Audio</button>
-        <button class="chip" onclick="filterTools('Code',this)"><span class="chip-dot" style="background:var(--blue)"></span>Code</button>
-        <button class="chip" onclick="filterTools('Productivity',this)"><span class="chip-dot" style="background:#c4b5fd"></span>Productivity</button>
-        <button class="chip" onclick="filterTools('Research',this)"><span class="chip-dot" style="background:var(--green)"></span>Research</button>
+        <button class="chip active" data-cat="All" onclick="filterTools('All',this)"><span class="chip-dot" style="background:var(--violet2)"></span>All</button>
+        <button class="chip" data-cat="AI Assistant" onclick="filterTools('AI Assistant',this)"><span class="chip-dot" style="background:#a78bfa"></span>Assistant</button>
+        <button class="chip" data-cat="Writing" onclick="filterTools('Writing',this)"><span class="chip-dot" style="background:var(--cyan)"></span>Writing</button>
+        <button class="chip" data-cat="Image" onclick="filterTools('Image',this)"><span class="chip-dot" style="background:var(--amber)"></span>Image</button>
+        <button class="chip" data-cat="Video" onclick="filterTools('Video',this)"><span class="chip-dot" style="background:var(--rose)"></span>Video</button>
+        <button class="chip" data-cat="Audio" onclick="filterTools('Audio',this)"><span class="chip-dot" style="background:var(--pink)"></span>Audio</button>
+        <button class="chip" data-cat="Code" onclick="filterTools('Code',this)"><span class="chip-dot" style="background:var(--blue)"></span>Code</button>
+        <button class="chip" data-cat="Productivity" onclick="filterTools('Productivity',this)"><span class="chip-dot" style="background:#c4b5fd"></span>Productivity</button>
+        <button class="chip" data-cat="Research" onclick="filterTools('Research',this)"><span class="chip-dot" style="background:var(--green)"></span>Research</button>
       </div>
       <div class="controls-right">
         <div class="view-toggle">
@@ -799,7 +800,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
       <!-- ═══ SEO CONTENT: rich, keyword-relevant, genuinely useful editorial copy ═══ -->
       <article class="seo-block">
         <h2>The Complete Guide to Choosing the Best AI Tools in 2026</h2>
-        <p>Artificial intelligence tools have moved from novelty to necessity. Whether you're a student looking for a faster way to study, a founder trying to ship a product without a full engineering team, or a marketer who needs a month of content in an afternoon, there is almost certainly an AI tool built for exactly that job. AIVerse exists to cut through the noise: every one of our 247+ listings is reviewed for real functionality, current pricing, and genuine usefulness — not just marketing copy.</p>
+        <p>Artificial intelligence tools have moved from novelty to necessity. Whether you're a student looking for a faster way to study, a founder trying to ship a product without a full engineering team, or a marketer who needs a month of content in an afternoon, there is almost certainly an AI tool built for exactly that job. AIVerse exists to cut through the noise: every listing in our growing directory is reviewed for real functionality, current pricing, and genuine usefulness — not just marketing copy.</p>
 
         <h3>How to pick the right AI tool for your workflow</h3>
         <p>Start with the job you're trying to get done, not the tool's brand name. An <strong>AI writing assistant</strong> like Grammarly AI or Jasper AI solves a different problem than an <strong>AI coding assistant</strong> like Cursor or GitHub Copilot. Use the category chips above the grid — AI Assistant, Writing, Image, Video, Audio, Code, Productivity, and Research — to narrow the field before you compare individual tools.</p>
@@ -868,7 +869,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
       <div style="padding:14px 28px 4px;font-size:12.5px;color:var(--text3)">Click any prompt to copy instantly. Upvote your favorites.</div>
       <div class="prompt-list" id="promptList"></div>
       <article class="seo-block">
-        <h2>Free AI Prompt Library: 86 Tested Templates for ChatGPT, Claude & Gemini</h2>
+        <h2 id="promptSeoHeading">Free AI Prompt Library: 10 Tested Templates for ChatGPT, Claude & Gemini</h2>
         <p>A good prompt is the difference between a generic AI response and one that's genuinely usable. Every prompt in the AIVerse library follows a clear structure — role, task, constraints, and format — so you can drop it into any large language model and get a consistent result. Replace anything in <span class="prompt-var" style="color:var(--amber)">[brackets]</span> with your own details before running the prompt.</p>
         <h3>Why structured prompts outperform casual ones</h3>
         <p>Vague requests like "write me a blog post" force the model to guess at length, tone, audience, and format. The prompts here specify all four up front, which is why they consistently produce output you can use with little to no editing — whether that's a study plan, a cold email, or a full code review.</p>
@@ -911,7 +912,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
           <div class="brand-mark">⚡</div>
           <div class="brand-text"><span class="brand-name">AI<span>Verse</span></span></div>
         </a>
-        <p class="footer-brand-blurb">AIVerse is an independent, hand-reviewed directory of AI tools, prompts, and guides. We help over 240,000 monthly readers choose the right AI product without the marketing spin.</p>
+        <p class="footer-brand-blurb">AIVerse is an independent, hand-reviewed directory of AI tools, prompts, and guides — built to help you choose the right AI product without the marketing spin.</p>
       </div>
       <div class="footer-col">
         <h5>Top Categories</h5>
@@ -987,8 +988,8 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
     <div class="totw-desc">The sharpest AI search engine built for research. Real-time citations, academic depth, and clear answers.</div>
     <div class="totw-rating">
       <span class="totw-stars">★★★★★</span>
-      <span class="totw-score">4.8</span>
-      <span class="totw-votes">· 2,419 votes</span>
+      <span class="totw-score">4.7</span>
+      <span class="totw-votes">· community rated</span>
     </div>
     <button class="totw-visit" onclick="window.open('https://perplexity.ai','_blank','noopener')">Visit Perplexity AI →</button>
   </div>
@@ -1160,6 +1161,7 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-hei
 <script>
 /* ════ STORAGE ════ */
 let userSubmittedTools = JSON.parse(localStorage.getItem('aiverseSubmittedTools')) || [];
+let isPro = JSON.parse(localStorage.getItem('aiversePro')) || false;
 
 /* ════ DATA ════ */
 let TOOLS = [
@@ -1230,25 +1232,43 @@ const TOOL_DETAILS = {
 };
 TOOLS.forEach(t => Object.assign(t, TOOL_DETAILS[t.id] || {}));
 
-const CATEGORIES = [
-  {name:'AI Assistant', count:41, color:'#a78bfa'},
-  {name:'Writing', count:18, color:'#06b6d4'},
-  {name:'Image', count:21, color:'#f59e0b'},
-  {name:'Video', count:15, color:'#f43f5e'},
-  {name:'Code', count:20, color:'#3b82f6'},
-  {name:'Productivity', count:17, color:'#c4b5fd'},
-  {name:'Research', count:12, color:'#10b981'},
-  {name:'Audio', count:9, color:'#ec4899'},
-  {name:'Design', count:11, color:'#fb923c'},
+/* Merge back any tools a user previously submitted this browser (persisted in localStorage)
+   so they don't silently disappear on refresh. */
+userSubmittedTools.forEach(t => {
+  if (!TOOLS.some(x => x.id === t.id)) TOOLS.unshift(t);
+});
+
+/* CATEGORIES counts are computed live from TOOLS (see computeCategoryCounts) so the
+   sidebar never shows a number that disagrees with what's actually in the catalog.
+   Colors/labels for every category the submit form can produce, including ones
+   with zero tools right now (e.g. Design), are defined here. */
+const CATEGORY_META = [
+  {name:'AI Assistant', color:'#a78bfa'},
+  {name:'Writing', color:'#06b6d4'},
+  {name:'Image', color:'#f59e0b'},
+  {name:'Video', color:'#f43f5e'},
+  {name:'Code', color:'#3b82f6'},
+  {name:'Productivity', color:'#c4b5fd'},
+  {name:'Research', color:'#10b981'},
+  {name:'Audio', color:'#ec4899'},
+  {name:'Design', color:'#fb923c'},
 ];
+let CATEGORIES = [];
+function computeCategoryCounts() {
+  CATEGORIES = CATEGORY_META.map(meta => ({
+    ...meta,
+    count: TOOLS.filter(t => t.cat === meta.name).length
+  }));
+}
+computeCategoryCounts();
 
 const TRENDING = [
   {name:'Cursor', sub:'Code', pct:'+24%', up:true, emoji:'🖱️'},
-  {name:'Gemini 2.0', sub:'AI Assistant', pct:'+18%', up:true, emoji:'💎'},
-  {name:'Midjourney v7', sub:'Image', pct:'+16%', up:true, emoji:'🎨'},
-  {name:'Claude 3.7', sub:'AI Assistant', pct:'+12%', up:true, emoji:'🧠'},
-  {name:'Perplexity Pro', sub:'Research', pct:'+9%', up:true, emoji:'🔍'},
-  {name:'Suno v4', sub:'Audio', pct:'-3%', up:false, emoji:'🎵'},
+  {name:'Gemini', sub:'AI Assistant', pct:'+18%', up:true, emoji:'💎'},
+  {name:'Midjourney', sub:'Image', pct:'+16%', up:true, emoji:'🎨'},
+  {name:'Claude', sub:'AI Assistant', pct:'+12%', up:true, emoji:'🧠'},
+  {name:'Perplexity AI', sub:'Research', pct:'+9%', up:true, emoji:'🔍'},
+  {name:'Suno AI', sub:'Audio', pct:'-3%', up:false, emoji:'🎵'},
 ];
 
 const TOP_RATED = [
@@ -1294,9 +1314,9 @@ const FAQS = [
 
 const NOTIFS = [
   {text:'<strong>Cursor</strong> released a major update with background agents.', time:'2h', read:false},
-  {text:'New tool added: <strong>Suno v4</strong> — now with voice cloning.', time:'5h', read:false},
+  {text:'New tool added: <strong>Suno AI</strong> — now with voice cloning.', time:'5h', read:false},
   {text:'Guide published: <strong>Best AI Tools for Students</strong>', time:'1d', read:false},
-  {text:'<strong>ChatGPT-5</strong> has been added to the directory.', time:'2d', read:true},
+  {text:'<strong>ChatGPT</strong> listing was refreshed with the latest pricing.', time:'2d', read:true},
   {text:'Your saved tool <strong>Midjourney</strong> has a price change.', time:'3d', read:true},
 ];
 
@@ -1321,7 +1341,7 @@ function catClass(c) {
   return {
     'AI Assistant':'cat-assistant','Writing':'cat-writing','Image':'cat-image',
     'Research':'cat-research','Code':'cat-coding','Video':'cat-video',
-    'Productivity':'cat-productivity','Audio':'cat-audio'
+    'Productivity':'cat-productivity','Audio':'cat-audio','Design':'cat-design'
   }[c]||'cat-assistant';
 }
 function priceClass(p){return{'free':'pill-free','freemium':'pill-freemium','paid':'pill-paid','free-trial':'pill-free-trial'}[p]}
@@ -1357,6 +1377,34 @@ function handleLogoError(img) {
   span.style.fontSize = img.style.width;
   span.textContent = emoji;
   img.replaceWith(span);
+}
+
+/* Recompute every header stat (total tools, new count, avg rating, free/freemium
+   count + %) straight from the live TOOLS array, so these numbers can never drift
+   out of sync with what's actually in the catalog (e.g. after a new submission). */
+function computeStats() {
+  const total = TOOLS.length;
+  const newCount = TOOLS.filter(t => t.isNew).length;
+  const avgRating = total ? (TOOLS.reduce((s,t)=>s+t.rating,0) / total) : 0;
+  const freeCount = TOOLS.filter(t => t.price === 'free' || t.price === 'freemium').length;
+  const freePct = total ? Math.round((freeCount/total)*100) : 0;
+
+  document.getElementById('statTools').innerHTML = `${total} <span>tools</span>`;
+  document.getElementById('statNew').innerHTML = `${newCount} <span>new</span>`;
+  document.getElementById('statAvgRating').innerHTML = `${avgRating.toFixed(1)} <span>avg</span>`;
+  document.getElementById('statFree').innerHTML = `${freeCount} <span>free</span>`;
+  document.getElementById('statFreePct').textContent = `${freePct}% of catalog`;
+
+  document.getElementById('toolCount').textContent = total;
+  document.getElementById('tc-tools').textContent = total;
+  document.getElementById('promptCount').textContent = PROMPTS.length;
+  document.getElementById('tc-prompts').textContent = PROMPTS.length;
+  document.getElementById('guideCount').textContent = GUIDES.length;
+  document.getElementById('tc-guides').textContent = GUIDES.length;
+  document.getElementById('brandTagline').textContent = `${total} AI tools, hand-reviewed`;
+
+  const promptHeading = document.getElementById('promptSeoHeading');
+  if (promptHeading) promptHeading.textContent = `Free AI Prompt Library: ${PROMPTS.length} Tested Templates for ChatGPT, Claude & Gemini`;
 }
 
 /* ════ TOOLS ════ */
@@ -1400,7 +1448,7 @@ function renderTools() {
       ${t.hot && sortMode==='hot' ? '<div class="featured-badge">🔥 Hot</div>' : ''}
       <div class="tool-card-inner">
         <div class="card-top">
-          <div class="tool-logo">${t.emoji}</div>
+          <div class="tool-logo">${toolLogoHtml(t, 44)}</div>
           <div class="tool-header">
             <div class="tool-name">${t.name}</div>
             <div class="tool-cats">
@@ -1409,7 +1457,7 @@ function renderTools() {
             </div>
           </div>
           <button class="save-btn ${saved?'saved':''}" onclick="event.stopPropagation();toggleSave(${t.id})" title="${saved?'Unsave':'Save'}">
-            ${saved ? '🔖' : '🔖'}
+            🔖
           </button>
         </div>
         <div class="tool-desc">${t.desc}</div>
@@ -1573,6 +1621,56 @@ function toggleSave(id) {
 
 function loadMore() { shownCount += 6; renderTools(); }
 
+/* ════ MOBILE NAV ════ */
+function toggleMobileNav(open) {
+  const nav = document.getElementById('leftNav');
+  const scrim = document.getElementById('navScrim');
+  const shouldOpen = typeof open === 'boolean' ? open : !nav.classList.contains('open');
+  nav.classList.toggle('open', shouldOpen);
+  scrim.classList.toggle('open', shouldOpen);
+}
+
+/* ════ NEWSLETTER ════ */
+function subscribeNewsletter() {
+  const input = document.getElementById('newsletterEmail');
+  const email = input.value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast('Please enter a valid email address','error');
+    return;
+  }
+  input.value = '';
+  showToast('✅ Subscribed! Check your inbox for a confirmation.','success');
+}
+
+/* ════ AIVERSE PRO (simulated upgrade) ════ */
+function handleUpgradeClick() {
+  if (isPro) {
+    showToast('You already have AIVerse Pro ⚡','info');
+    return;
+  }
+  isPro = true;
+  localStorage.setItem('aiversePro', 'true');
+  applyProStatus();
+  showToast('🚀 Welcome to AIVerse Pro! All perks unlocked.','success');
+}
+function applyProStatus() {
+  const label = document.getElementById('proStatusLabel');
+  const btn = document.getElementById('upgradeBtn');
+  if (isPro) {
+    label.textContent = 'You have';
+    btn.textContent = '⚡ AIVerse Pro — Active';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+    btn.style.cursor = 'default';
+  } else {
+    label.textContent = 'Unlock more with';
+    btn.textContent = '⚡ Upgrade — $9/mo';
+    btn.disabled = false;
+    btn.style.opacity = '';
+    btn.style.cursor = 'pointer';
+  }
+}
+
 /* ════ COMPARE ════ */
 function toggleCompareMode() {
   compareMode = !compareMode;
@@ -1634,7 +1732,7 @@ function openCompareModal() {
   let html = `<div class="compare-table" style="--cols:${cols}">`;
   html += '<div class="ct-label"></div>';
   tools.forEach(t => {
-    html += `<div class="ct-head"><div class="tool-logo" style="width:36px;height:36px;font-size:20px;margin-bottom:6px;background:var(--bg3);border-radius:8px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center">${t.emoji}</div><div class="ct-head-name">${t.name}</div><span class="tool-cat ${catClass(t.cat)}">${t.cat}</span></div>`;
+    html += `<div class="ct-head"><div class="tool-logo" style="width:36px;height:36px;font-size:20px;margin-bottom:6px;background:var(--bg3);border-radius:8px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center">${toolLogoHtml(t, 36)}</div><div class="ct-head-name">${t.name}</div><span class="tool-cat ${catClass(t.cat)}">${t.cat}</span></div>`;
   });
   rows.forEach(([label, vals]) => {
     html += `<div class="ct-label">${label}</div>`;
@@ -1733,16 +1831,12 @@ function submitNewTool() {
   userSubmittedTools.push(newTool);
   localStorage.setItem('aiverseSubmittedTools', JSON.stringify(userSubmittedTools));
 
-  const catItem = CATEGORIES.find(c => c.name === cat);
-  if (catItem) catItem.count++;
+  computeCategoryCounts();
 
   closeSubmitModal();
-  showToast(`✅ ${name} submitted! Opening its new AIVerse page…`,'success');
+  showToast(`✅ ${name} submitted! Pending review — it's live on your device now, with a "Pending Review" status, and typically confirmed within 24 hours.`,'success');
 
-  document.getElementById('tc-tools').textContent = TOOLS.length;
-  document.getElementById('statTools').innerHTML = `${TOOLS.length} <span>tools</span>`;
-  document.getElementById('toolCount').textContent = TOOLS.length;
-
+  computeStats();
   renderTools();
   renderCatList();
   renderTrending();
@@ -1755,7 +1849,7 @@ function submitNewTool() {
 
 /* ════ SIDEBAR ════ */
 function renderCatList() {
-  const maxCount = Math.max(...CATEGORIES.map(c => c.count));
+  const maxCount = Math.max(...CATEGORIES.map(c => c.count), 1);
   const filtered = catSearchQ
     ? CATEGORIES.filter(c => c.name.toLowerCase().includes(catSearchQ))
     : CATEGORIES;
@@ -1784,8 +1878,7 @@ function filterCats(q) {
 function sidebarCat(name) {
   toolFilter = name;
   document.querySelectorAll('#toolChips .chip').forEach(c => {
-    const txt = c.textContent.trim().replace(/^.*?\s/,'');
-    c.classList.toggle('active', txt === name || (name === 'All' && txt === 'All'));
+    c.classList.toggle('active', c.dataset.cat === name);
   });
   renderTools();
   renderCatList();
@@ -1900,6 +1993,12 @@ function copyPrompt(e, btn, text) {
 function renderGuides() {
   const labelClass = {Roundup:'label-roundup',Comparison:'label-comparison',Tutorial:'label-tutorial',Story:'label-story'};
   let list = guideFilter === 'All' ? GUIDES : GUIDES.filter(g => g.label === guideFilter);
+  if (searchQ) list = list.filter(g => g.title.toLowerCase().includes(searchQ) || g.desc.toLowerCase().includes(searchQ));
+
+  if (!list.length) {
+    document.getElementById('guideList').innerHTML = `<div class="empty-state"><div class="empty-icon">📚</div><div class="empty-title">No guides found</div><div class="empty-sub">Try a different filter or search term.</div><button class="empty-cta" onclick="clearSearch()">Clear search</button></div>`;
+    return;
+  }
 
   document.getElementById('guideList').innerHTML = list.map(g => {
     const bookmarked = savedGuides.has(g.id);
@@ -1929,6 +2028,22 @@ function toggleGuideBookmark(id) {
   if (savedGuides.has(id)) { savedGuides.delete(id); showToast('Guide removed from bookmarks','info'); }
   else { savedGuides.add(id); showToast('✅ Guide bookmarked!','success'); }
   renderGuides();
+}
+
+/* ════ FAQ ════ */
+function renderFAQ() {
+  const list = document.getElementById('faqList');
+  if (!list) return;
+  list.innerHTML = FAQS.map((f,i) => `
+    <div class="faq-item" id="faq-${i}">
+      <div class="faq-q" onclick="toggleFaq(${i})">
+        <span>${f.q}</span><span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a"><p>${f.a}</p></div>
+    </div>`).join('');
+}
+function toggleFaq(i) {
+  document.getElementById('faq-'+i).classList.toggle('open');
 }
 
 /* ════ NOTIFICATIONS ════ */
@@ -1994,7 +2109,7 @@ function switchTab(tabId, e, navEl) {
 function filterTools(cat, btn) {
   toolFilter = cat; shownCount = 9;
   document.querySelectorAll('#toolChips .chip').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   renderTools(); renderCatList();
 }
 function filterPrompts(cat, btn) {
@@ -2029,6 +2144,7 @@ function handleSearch() {
   const active = document.querySelector('.tab-panel.active').id;
   if (active==='tools-tab') renderTools();
   if (active==='prompts-tab') renderPrompts();
+  if (active==='guides-tab') renderGuides();
 }
 function clearSearch() {
   searchQ = '';
@@ -2037,6 +2153,7 @@ function clearSearch() {
   const active = document.querySelector('.tab-panel.active').id;
   if (active==='tools-tab') renderTools();
   if (active==='prompts-tab') renderPrompts();
+  if (active==='guides-tab') renderGuides();
 }
 
 /* ════ TOAST ════ */
@@ -2050,13 +2167,21 @@ function showToast(msg, type='success') {
   setTimeout(() => el.classList.remove('show'), 2800);
 }
 
+/* ════ BACK TO TOP ════ */
+document.getElementById('mainScroll').addEventListener('scroll', function () {
+  document.getElementById('backToTop').classList.toggle('visible', this.scrollTop > 400);
+});
+
 /* ════ INIT ════ */
+computeStats();
+applyProStatus();
 renderTools();
 renderCatList();
 renderTrending();
 renderTopRated();
 renderRecent();
 renderNotifs();
+renderFAQ();
 routeInit();
 </script>
 </body>
