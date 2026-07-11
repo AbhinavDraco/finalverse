@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>DracoLogs – AI Tools, Tech News, Blogs &amp; Community Discussions | DracoVerse</title>
-    <meta name="description" content="DracoLogs is DracoVerse's community platform: discover AI tools, tech news, blogs, quizzes, upvoted discussions and niche communities. Read, post, comment, vote and connect with tech creators for free.">
-    <meta name="keywords" content="DracoLogs, DracoVerse, AI tools, tech news, tech blog, community platform, reddit alternative, blogging platform, tech discussions, developer community, AI news, programming forum, create a blog, tech communities, trending tech posts">
+    <title>DracoLogs – AI Tools,  Blogs &amp; Community Discussions | DracoVerse</title>
+    <meta name="description" content="DracoLogs is DracoVerse's community platform: discover AI tools,  blogs, quizzes, upvoted discussions and niche communities. Read, post, comment, vote and connect with tech creators for free.">
+    <meta name="keywords" content="DracoLogs, DracoVerse, AI tools,  tech blog, community platform, reddit alternative, blogging platform, tech discussions, developer community,  programming forum, create a blog, tech communities, trending tech posts">
     <meta name="author" content="DracoVerse">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
@@ -22,7 +22,7 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="DracoVerse">
-    <meta property="og:title" content="DracoLogs – AI Tools, Tech News, Blogs & Community Discussions">
+    <meta property="og:title" content="DracoLogs – AI Tools,  Blogs & Community Discussions">
     <meta property="og:description" content="Knowledge Reimagined. Explore trending tech blogs, AI tool reviews, and vibrant niche communities. Join DracoLogs to post, vote and discuss with fellow creators.">
     <meta property="og:image" content="https://dracoverse.online/preview.png">
     <meta property="og:image:width" content="1200">
@@ -32,7 +32,7 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="DracoLogs – AI Tools, Tech News & Community Discussions">
+    <meta name="twitter:title" content="DracoLogs – AI Tools & Community Discussions">
     <meta name="twitter:description" content="Knowledge Reimagined. Discover AI tools, tech blogs and community discussions on DracoVerse.">
     <meta name="twitter:image" content="https://dracoverse.online/preview.png">
     <meta name="twitter:site" content="@dracoverse">
@@ -66,7 +66,7 @@
       "name": "DracoLogs",
       "alternateName": "DracoVerse",
       "url": "https://dracoverse.online/",
-      "description": "DracoLogs is a community platform for AI tools, tech news, blogs, quizzes and discussions.",
+      "description": "DracoLogs is a community platform for AI tools, blogs, quizzes and discussions.",
       "potentialAction": {
         "@type": "SearchAction",
         "target": "https://dracoverse.online/search?q={search_term_string}",
@@ -92,7 +92,7 @@
         {
           "@type": "Question",
           "name": "What is DracoLogs?",
-          "acceptedAnswer": { "@type": "Answer", "text": "DracoLogs is DracoVerse's community blogging platform where members publish posts, discuss AI tools and tech news, join topic-based communities, and vote on the best content." }
+          "acceptedAnswer": { "@type": "Answer", "text": "DracoLogs is DracoVerse's community blogging platform where members publish posts, discuss AI tools and, join topic-based communities, and vote on the best content." }
         },
         {
           "@type": "Question",
@@ -1666,7 +1666,43 @@
         body.compact-view .post-content { padding: 8px 12px; }
         body.compact-view .post-image, body.compact-view .image-carousel { display: none; }
         body.compact-view .post-description { -webkit-line-clamp: 1; margin-bottom: 4px; }
+
+        /* ======================== CUTE LOGIN POPUP (replaces alert()/toast() for auth) ======================== */
+        .draco-toast-popup{
+            position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-24px);
+            background:linear-gradient(135deg,#1a1a1b,#242438);
+            border:1px solid rgba(129,140,255,.4);border-radius:16px;
+            padding:16px 24px;display:flex;align-items:center;gap:14px;
+            box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:999999;
+            opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);max-width:90vw;
+            pointer-events:none;
+        }
+        .draco-toast-popup.show{opacity:1;transform:translateX(-50%) translateY(0);}
+        .draco-toast-icon{font-size:26px;flex-shrink:0;}
+        .draco-toast-text{font-family:'Poppins',sans-serif;}
+        .draco-toast-title{font-weight:700;font-size:14px;color:#fff;margin-bottom:2px;}
+        .draco-toast-msg{font-size:12px;color:#a5b4fc;line-height:1.4;}
+        .draco-toast-popup.error{border-color:rgba(239,68,68,.5);}
+        .draco-toast-popup.error .draco-toast-msg{color:#fca5a5;}
     </style>
+    <script>
+    function dracoPopup(title, message, opts = {}) {
+        const { icon = "🐉", type = "success", duration = 3200 } = opts;
+        const old = document.getElementById('dracoToastPopup');
+        if (old) old.remove();
+        const el = document.createElement('div');
+        el.id = 'dracoToastPopup';
+        el.className = 'draco-toast-popup' + (type === 'error' ? ' error' : '');
+        el.innerHTML = `<div class="draco-toast-icon">${icon}</div>
+          <div class="draco-toast-text">
+            <div class="draco-toast-title">${title}</div>
+            <div class="draco-toast-msg">${message}</div>
+          </div>`;
+        document.body.appendChild(el);
+        requestAnimationFrame(() => el.classList.add('show'));
+        setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 350); }, duration);
+    }
+    </script>
 </head>
 <body>
     <header class="topbar" role="banner">
@@ -1742,7 +1778,7 @@
             <div class="feed-header">
                 <div>
                     <div class="feed-title" id="feedTitle">Home</div>
-                    <div class="feed-subtitle" id="feedSubtitle">Fresh AI tools, tech news and community blogs — curated by DracoLogs</div>
+                    <div class="feed-subtitle" id="feedSubtitle">Fresh AI tools and community blogs — curated by DracoLogs</div>
                 </div>
                 <div class="feed-controls">
                     <select class="feed-select" id="sortSelect" onchange="applySorting()">
@@ -1770,7 +1806,7 @@
 
             <section class="seo-section" aria-labelledby="aboutHeading">
                 <h2 id="aboutHeading">About DracoLogs</h2>
-                <p>DracoLogs is the community blogging engine behind <strong>DracoVerse</strong> — a hub built for people who follow artificial intelligence, software engineering and emerging technology closely. Every post on this feed is written and voted on by real community members: reviews of new AI tools, explainers on the latest tech news, opinion pieces, tutorials, and open discussion threads.</p>
+                <p>DracoLogs is the community blogging engine behind <strong>DracoVerse</strong> — a hub built for people who follow artificial intelligence, software engineering and emerging technology closely. Every post on this feed is written and voted on by real community members: reviews of new AI tools, opinion pieces, tutorials, and open discussion threads.</p>
                 <h3>Why creators publish on DracoLogs</h3>
                 <ul>
                     <li>Reach a focused audience of AI, tech and developer enthusiasts.</li>
@@ -1781,7 +1817,7 @@
                 <h3>Popular topics on DracoLogs</h3>
                 <div class="tag-cloud" id="seoTagCloud">
                     <span class="tag-pill">AI Tools</span>
-                    <span class="tag-pill">Tech News</span>
+                    <span class="tag-pill">Daily Polls</span>
                     <span class="tag-pill">Programming</span>
                     <span class="tag-pill">Machine Learning</span>
                     <span class="tag-pill">Startups</span>
@@ -1797,7 +1833,7 @@
                 <h2 id="faqHeading">Frequently Asked Questions</h2>
                 <div class="faq-item" onclick="this.classList.toggle('open')">
                     <div class="faq-question">What is DracoLogs? <span class="faq-toggle-icon">+</span></div>
-                    <div class="faq-answer">DracoLogs is DracoVerse's community blogging platform where members publish posts, discuss AI tools and tech news, join topic-based communities, and vote on the best content.</div>
+                    <div class="faq-answer">DracoLogs is DracoVerse's community blogging platform where members publish posts, discuss AI tools and Polls, join topic-based communities, and vote on the best content.</div>
                 </div>
                 <div class="faq-item" onclick="this.classList.toggle('open')">
                     <div class="faq-question">Is DracoLogs free to use? <span class="faq-toggle-icon">+</span></div>
@@ -1877,7 +1913,7 @@
                     <div class="card-title">🏷️ Explore Topics</div>
                     <div class="tag-cloud">
                         <span class="tag-pill" onclick="document.getElementById('searchInput').value='AI';searchPosts();">AI Tools</span>
-                        <span class="tag-pill" onclick="document.getElementById('searchInput').value='news';searchPosts();">Tech News</span>
+                        <span class="tag-pill" onclick="document.getElementById('searchInput').value='news';searchPosts();">Daily Polls</span>
                         <span class="tag-pill" onclick="document.getElementById('searchInput').value='code';searchPosts();">Programming</span>
                         <span class="tag-pill" onclick="document.getElementById('searchInput').value='startup';searchPosts();">Startups</span>
                     </div>
@@ -2146,6 +2182,16 @@ const ADMIN_USERNAME = "abhi67";
 const MANAGER_USERNAME = "Zekken";
 const ADMIN_PASSWORD = "admin67";
 const MANAGER_PASSWORD = "sush67";
+// Shared key used across index.html, community.html and blogs.html so a
+// single login is recognized everywhere.
+const SHARED_STORAGE_KEY = "tdi_user";
+
+// Persists the given user object under both this page's own key (dracoUser)
+// and the shared cross-page key, so index.html / community.html recognize it too.
+function persistUser(userObj) {
+    localStorage.setItem('dracoUser', JSON.stringify(userObj));
+    localStorage.setItem(SHARED_STORAGE_KEY, JSON.stringify(userObj));
+}
 
 // ==================== RANK SYSTEM ====================
 const RANKS = [
@@ -2461,7 +2507,7 @@ window.toggleCompactView = function() {
 
 // ==================== PROFILE MODAL ====================
 window.openProfileModal = function() {
-    if (!currentUser) { alert('Please log in first'); return; }
+    if (!currentUser) { dracoPopup("Not logged in", "Please log in first.", { icon: "⚠️", type: "error" }); return; }
     const userPosts = allPosts.filter(p => p.author === currentUser.username);
     const totalUpvotes = userPosts.reduce((acc, p) => acc + (p.upvotes?.length || 0), 0);
     const totalComments = userPosts.reduce((acc, p) => acc + (p.comments?.length || 0), 0);
@@ -2516,6 +2562,8 @@ function checkIndexAuth() {
     if (savedUser) {
         try {
             currentUser = JSON.parse(savedUser);
+            // Keep the page-local key in sync too
+            localStorage.setItem('dracoUser', JSON.stringify(currentUser));
             document.getElementById('authModal').classList.remove('active');
             updateUserDisplay();
             loadInitialData();
@@ -2578,12 +2626,14 @@ window.authenticate = function() {
         posts: []
     };
 
-    localStorage.setItem('dracoUser', JSON.stringify(currentUser));
+    persistUser(currentUser);
     document.getElementById('authModal').classList.remove('active');
     updateUserDisplay();
     updateCreateCommunityButton();
     loadInitialData();
-    showToast(`Welcome, ${currentUser.username}!`);
+
+    const niceTitle = role === 'admin' ? `Welcome back, ${currentUser.username} 👑` : role === 'manager' ? `Welcome back, ${currentUser.username} ⭐` : `Welcome, ${currentUser.username}!`;
+    dracoPopup(niceTitle, "Ready to explore DracoLogs.", { icon: "🐉" });
 };
 
 window.authenticateAsGuest = function() {
@@ -2591,11 +2641,12 @@ window.authenticateAsGuest = function() {
     if (savedUser) {
         const existingUser = JSON.parse(savedUser);
         currentUser = existingUser;
+        persistUser(currentUser);
         document.getElementById('authModal').classList.remove('active');
         updateUserDisplay();
         updateCreateCommunityButton();
         loadInitialData();
-        showToast(`Welcome back, ${currentUser.username}!`);
+        dracoPopup(`Welcome back, ${currentUser.username}!`, "Ready to explore DracoLogs.", { icon: "🐉" });
         return;
     }
 
@@ -2608,12 +2659,12 @@ window.authenticateAsGuest = function() {
         posts: []
     };
 
-    localStorage.setItem('dracoUser', JSON.stringify(currentUser));
+    persistUser(currentUser);
     document.getElementById('authModal').classList.remove('active');
     updateUserDisplay();
     updateCreateCommunityButton();
     loadInitialData();
-    showToast(`Welcome, ${currentUser.username}!`);
+    dracoPopup(`Welcome, ${username}!`, "You're browsing as a guest.", { icon: "👤" });
 };
 
 // ==================== UI ====================
@@ -2649,7 +2700,7 @@ function updateCreateCommunityButton() {
 
 window.openCreatePostModal = function() {
     if (!currentUser) {
-        alert('Please log in first');
+        dracoPopup("Not logged in", "Please log in first.", { icon: "⚠️", type: "error" });
         return;
     }
     loadCommunitySelect();
@@ -2748,7 +2799,7 @@ window.navigateCarousel = function(carouselId, direction) {
 
 window.openCreateCommunityModal = function() {
     if (!currentUser) {
-        alert('Please log in first');
+        dracoPopup("Not logged in", "Please log in first.", { icon: "⚠️", type: "error" });
         return;
     }
     if (currentUser.role !== 'admin' && currentUser.role !== 'manager') {
@@ -3030,7 +3081,7 @@ window.submitPost = async function() {
 
         if (!currentUser.posts) currentUser.posts = [];
         currentUser.posts.push(newPost.id);
-        localStorage.setItem('dracoUser', JSON.stringify(currentUser));
+        persistUser(currentUser);
 
         if (shareToCommuntiy) {
             await sharePostToCommunity(newPost);
@@ -3463,7 +3514,7 @@ window.deletePost = async function(postId) {
         
         if (currentUser.posts && Array.isArray(currentUser.posts)) {
             currentUser.posts = currentUser.posts.filter(id => id !== postId);
-            localStorage.setItem('dracoUser', JSON.stringify(currentUser));
+            persistUser(currentUser);
         }
 
         closeFullscreenPost();
