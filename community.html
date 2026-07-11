@@ -933,7 +933,43 @@
         }
 
         .hidden { display: none !important; }
+
+        /* ======================== CUTE LOGIN POPUP (replaces alert()/toast() for auth) ======================== */
+        .draco-toast-popup{
+            position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-24px);
+            background:linear-gradient(135deg,#1a1a1b,#242438);
+            border:1px solid rgba(129,140,255,.4);border-radius:16px;
+            padding:16px 24px;display:flex;align-items:center;gap:14px;
+            box-shadow:0 20px 50px rgba(0,0,0,.5);z-index:999999;
+            opacity:0;transition:all .35s cubic-bezier(.22,1,.36,1);max-width:90vw;
+            pointer-events:none;
+        }
+        .draco-toast-popup.show{opacity:1;transform:translateX(-50%) translateY(0);}
+        .draco-toast-icon{font-size:26px;flex-shrink:0;}
+        .draco-toast-text{font-family:'Poppins',sans-serif;}
+        .draco-toast-title{font-weight:700;font-size:14px;color:#fff;margin-bottom:2px;}
+        .draco-toast-msg{font-size:12px;color:#a5b4fc;line-height:1.4;}
+        .draco-toast-popup.error{border-color:rgba(239,68,68,.5);}
+        .draco-toast-popup.error .draco-toast-msg{color:#fca5a5;}
     </style>
+    <script>
+    function dracoPopup(title, message, opts = {}) {
+        const { icon = "🐉", type = "success", duration = 3200 } = opts;
+        const old = document.getElementById('dracoToastPopup');
+        if (old) old.remove();
+        const el = document.createElement('div');
+        el.id = 'dracoToastPopup';
+        el.className = 'draco-toast-popup' + (type === 'error' ? ' error' : '');
+        el.innerHTML = `<div class="draco-toast-icon">${icon}</div>
+          <div class="draco-toast-text">
+            <div class="draco-toast-title">${title}</div>
+            <div class="draco-toast-msg">${message}</div>
+          </div>`;
+        document.body.appendChild(el);
+        requestAnimationFrame(() => el.classList.add('show'));
+        setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 350); }, duration);
+    }
+    </script>
 </head>
 <body>
 
@@ -1151,8 +1187,11 @@ const ADMIN_USERNAME = "abhi67";
 const MANAGER_USERNAME = "Zekken";
 const ADMIN_PASSWORD = "admin67";
 const MANAGER_PASSWORD = "sush67";
-// Single localStorage key used everywhere
+// Community's own local key (kept for backwards compatibility)
 const STORAGE_KEY = "communityUser";
+// Shared key used across index.html, community.html and blogs.html so a
+// single login is recognized everywhere.
+const SHARED_STORAGE_KEY = "tdi_user";
 
 let currentUser = null;
 let currentChannel = "general";
@@ -1194,11 +1233,22 @@ window.toast = function(msg, type = "success") {
 };
 
 // ==================== AUTH ====================
+// Persists the given user object under both the community-specific key and
+// the shared cross-page key, so index.html / blogs.html recognize it too.
+function persistUser(userObj) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(userObj));
+    localStorage.setItem(SHARED_STORAGE_KEY, JSON.stringify(userObj));
+}
+
 function checkAuthStatus() {
-    const savedUser = localStorage.getItem(STORAGE_KEY);
+    // Prefer the shared login (set by index.html or blogs.html) so a single
+    // sign-in works across the whole site. Fall back to the community-only key.
+    const savedUser = localStorage.getItem(SHARED_STORAGE_KEY) || localStorage.getItem(STORAGE_KEY);
     if (savedUser) {
         try {
             currentUser = JSON.parse(savedUser);
+            // Keep both keys in sync
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUser));
             document.getElementById("authModal").classList.remove("show");
             initSidebar();
             loadMessages();
@@ -1244,25 +1294,25 @@ window.authenticate = function() {
     }
 
     currentUser = { username, role, bio: "", status: "Online", avatar: null };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUser));
+    persistUser(currentUser);
     document.getElementById("authModal").classList.remove("show");
     initSidebar();
     loadMessages();
-    toast(`Welcome, ${username}!`);
+    dracoPopup(`Welcome, ${username}!`, "You're now connected to the community.", { icon: "🐉" });
 };
 
 window.authenticateAsGuest = function() {
     const username = document.getElementById("authUsername").value.trim();
     if (!username || username.length < 3) {
-        toast("Username must be at least 3 characters", "error");
+        dracoPopup("Username too short", "Username must be at least 3 characters", { icon: "⚠️", type: "error" });
         return;
     }
     currentUser = { username, role: 'user', bio: "", status: "Online", avatar: null };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUser));
+    persistUser(currentUser);
     document.getElementById("authModal").classList.remove("show");
     initSidebar();
     loadMessages();
-    toast(`Welcome, ${username}!`);
+    dracoPopup(`Welcome, ${username}!`, "You're now connected to the community.", { icon: "🐉" });
 };
 
 document.getElementById("authUsername").addEventListener("input", function() {
@@ -1752,7 +1802,7 @@ window.saveProfile = function() {
     if (!currentUser) return;
     currentUser.bio = document.getElementById("profileBio").value.trim();
     currentUser.status = document.getElementById("profileStatus").value;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUser));
+    persistUser(currentUser);
     closeModal("profileModal");
     toast("Profile updated ✨");
 };
