@@ -1,10 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- ============================================================
+       AUTH ENFORCEMENT — must run before anything else renders.
+       If this browser has NO saved DracoVerse session, bounce back
+       to the login page (index.html) immediately.
+       ============================================================ -->
+  <script>
+    (function(){
+      try {
+        var saved = localStorage.getItem('tdi_user');
+        if (!saved) {
+          window.location.replace('index.html');
+          return;
+        }
+        var user = JSON.parse(saved);
+        if (!user || !user.username) {
+          localStorage.removeItem('tdi_user');
+          window.location.replace('index.html');
+        }
+      } catch(e) {
+        try { localStorage.removeItem('tdi_user'); } catch(e2){}
+        window.location.replace('index.html');
+      }
+    })();
+  </script>
+
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>DracoVerse — AI Tools Directory, Tech Blogs, Daily Polls &amp; Community Hub</title>
-  <meta name="description" content="DracoVerse is a free knowledge hub featuring a live AI tools directory pulled from Hacker News, community-written tech &amp; science blogs, a daily opinion poll, and a real-time discussion community — all built by an independent creator, Abhinav.">
+  <meta name="description" content="DracoVerse is a free knowledge hub featuring a live AI tools directory community-written tech &amp; science blogs, a daily opinion poll, and a real-time discussion community — all built by an independent creator, Abhinav.">
   <meta name="keywords" content="AI tools, AI tools directory, tech blogs, tech news, daily poll, developer community, startup news, science blog, DracoVerse, Abhinav, knowledge hub, technology community">
   <meta name="author" content="Abhinav">
   <meta name="robots" content="index, follow, max-image-preview:large">
@@ -297,6 +322,26 @@ nav.scrolled .navMobileMenu { color: white; }
 nav.scrolled .themeToggle, nav.scrolled .cmdkBtn { border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.06); color: #cdd6f4; }
 .themeToggle:hover, .cmdkBtn:hover { background: var(--gradient); color: white; border-color: transparent; transform: translateY(-2px); }
 .kbdHint { font-size: 10px; opacity: 0.6; border: 1px solid currentColor; border-radius: 5px; padding: 1px 5px; }
+
+/* User badge + logout button in nav */
+.userBadge {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(79,140,255,0.08); border: 1.5px solid rgba(79,140,255,0.18);
+  padding: 6px 12px 6px 6px; border-radius: 50px; font-size: 12px; font-weight: 600;
+  color: var(--dark);
+}
+nav.scrolled .userBadge { color: #e8edff; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+.userBadgeAvatar {
+  width: 26px; height: 26px; border-radius: 50%; background: var(--gradient);
+  color: white; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; flex-shrink: 0;
+}
+.logoutBtn {
+  border: none; background: transparent; cursor: pointer; font-size: 15px;
+  color: #94a3b8; padding: 4px; display: flex; align-items: center; justify-content: center;
+  border-radius: 8px; transition: 0.2s;
+}
+.logoutBtn:hover { background: rgba(230,57,70,0.12); color: #e63946; transform: none; }
 
 /* ============================================================
    6. MAIN HERO SECTIONS & LAYOUT ELEMENTS
@@ -1574,6 +1619,12 @@ body.dark #hh {
   border-color: rgba(79, 140, 255, 0.3);
   color: #ffffff;
 }
+
+body.dark .userBadge {
+  color: #e8edff;
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
 </style>
 </head>
 <body>
@@ -1593,6 +1644,11 @@ body.dark #hh {
     <a href="policy.html" id="hh" target="_blank" class="navLink">Privacy & Policy</a>
   </div>
   <div class="navTools">
+    <span class="userBadge" id="userBadge" style="display:none;">
+      <span class="userBadgeAvatar" id="userBadgeAvatar">?</span>
+      <span id="userBadgeName">—</span>
+      <button class="logoutBtn" onclick="dracoLogout()" title="Log out">⎋</button>
+    </span>
     <button class="cmdkBtn" onclick="openCmdk()" title="Search everything (Ctrl+K)">🔎 Search <span class="kbdHint">Ctrl K</span></button>
     <button class="themeToggle" onclick="toggleReadingDrawer()" title="Reading list">🔖</button>
     <button class="themeToggle" id="themeBtn" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
@@ -1605,6 +1661,36 @@ body.dark #hh {
     color:rgb(246, 245, 245);
   }
 </style>
+
+<script>
+/* ── SHARED LOGIN / LOGOUT ──
+   Reads the same 'tdi_user' key written by index.html so the nav shows
+   who's logged in, and lets the user log out from any page. */
+function dracoInitUserBadge(){
+  try{
+    const saved = localStorage.getItem('tdi_user');
+    if(!saved) return; // enforcement script already redirected if this were missing
+    const user = JSON.parse(saved);
+    if(!user || !user.username) return;
+    const badge = document.getElementById('userBadge');
+    const nameEl = document.getElementById('userBadgeName');
+    const avatarEl = document.getElementById('userBadgeAvatar');
+    if(!badge) return;
+    nameEl.textContent = user.role === 'admin' ? user.username+' 👑' : user.role === 'manager' ? user.username+' ⭐' : user.username;
+    avatarEl.textContent = (user.username||'U').substring(0,2).toUpperCase();
+    badge.style.display = 'flex';
+  }catch(e){}
+}
+window.dracoLogout = function(){
+  if(!confirm('Log out of DracoVerse on this device?')) return;
+  try{
+    localStorage.removeItem('tdi_user');
+    localStorage.removeItem('dracoUser');
+  }catch(e){}
+  window.location.href = 'index.html';
+};
+dracoInitUserBadge();
+</script>
 
 <!-- Section scroll-spy dots -->
 <div id="sectionDots">
@@ -2033,6 +2119,7 @@ body.dark #hh {
       <button class="btn btnOutline" onclick="closeModal('mobileNav');toggleReadingDrawer()" style="justify-content:center;">🔖 Reading List</button>
       <button class="btn btnOutline" onclick="closeModal('mobileNav');toggleTheme()" style="justify-content:center;">🌙 Toggle Dark Mode</button>
       <a class="btn btnOutline" href="policy.html" target="_blank" onclick="closeModal('mobileNav')" style="justify-content:center;">🛡️ Privacy Policy</a>
+      <button class="btn btnOutline" onclick="dracoLogout()" style="justify-content:center;color:#e63946;border-color:rgba(230,57,70,0.3);">⎋ Log Out</button>
     </div>
   </div>
 </div>
@@ -2608,6 +2695,7 @@ const CMDK_STATIC=[
   {icon:'🤖',label:'Open AI Tools Page',action:()=>window.open('aiverse.html','_blank')},
   {icon:'💬',label:'Open Community',action:()=>window.open('community.html','_blank')},
   {icon:'🛡️',label:'Open Privacy Policy',action:()=>window.open('policy.html','_blank')},
+  {icon:'⎋',label:'Log Out',action:()=>dracoLogout()},
 ];
 let cmdkActiveIdx=-1;
 window.openCmdk=function(){
@@ -2700,7 +2788,8 @@ const FAQS=[
   {q:"Can I use DracoVerse as a guest without signing up?",a:"Yes, guest access lets you explore the platform before committing to a full account."},
   {q:"How do I report an issue or give feedback?",a:"Use the contact links in the About section or reach out through DracoCommunity — feedback directly shapes what gets built next."},
   {q:"Does DracoVerse show real statistics?",a:"Yes. Blog post counts and total likes are pulled live from Firestore. and page views are tracked as an honest running counter rather than a fabricated number."},
-  {q:"Is DracoVerse still being actively developed?",a:"Yes — as an independent project, DracoVerse is updated directly based on real community feedback and new feature ideas."}
+  {q:"Is DracoVerse still being actively developed?",a:"Yes — as an independent project, DracoVerse is updated directly based on real community feedback and new feature ideas."},
+  {q:"How do I log out of DracoVerse?",a:"Click the logout icon next to your name in the navigation bar (or 'Log Out' in the mobile menu / command palette). This clears your saved session on this device and returns you to the login screen."}
 ];
 function renderFaq(){
   const el=document.getElementById('faqList');
