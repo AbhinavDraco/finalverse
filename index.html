@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+  // Runs immediately, before the page paints — if this browser has logged in
+  // before, skip the login screen entirely and go straight to home.html.
+  (function(){
+    try {
+      var saved = localStorage.getItem('tdi_user');
+      if (saved) {
+        var user = JSON.parse(saved);
+        if (user && user.username) {
+          window.location.replace('home.html');
+        }
+      }
+    } catch(e) {
+      localStorage.removeItem('tdi_user');
+    }
+  })();
+</script>
     <meta name="description" content="Welcome to DracoVerse — The ultimate technical intelligence hub. Explore a curated live directory of 240+ AI tools, deep-dive technology blogs, real-time developer community forums, daily opinion polls, and technical quizzes. Sign up or explore as a guest to maximize your workflow efficiency.">
     <meta name="keywords" content="DracoVerse, AI tools directory, best AI tools, tech blogs, developer community, prompt library, artificial intelligence, technology discussions, coding tools, creative AI">
     <link rel="canonical" href="https://dracoverse.online/">
@@ -786,15 +803,17 @@ function initIndexAuth() {
   if (savedUser) {
     try {
       const user = JSON.parse(savedUser);
-      document.getElementById('indexAuthModal').classList.remove('active');
-      document.body.style.overflow = '';
+      if (user && user.username) {
+        window.location.replace("home.html");
+        return;
+      }
     } catch (e) {
-      showIndexAuthModal();
+      localStorage.removeItem('tdi_user');
     }
   }
+  // No valid saved session — this is a first-time/logged-out visitor, show login normally.
 }
 
-// Check auth on page load
 window.addEventListener('load', initIndexAuth);
 </script>
 </head>
