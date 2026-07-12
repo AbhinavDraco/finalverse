@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ============================================================
-       AUTH ENFORCEMENT — must run before anything else renders.
-       If this browser has NO saved DracoVerse session, bounce back
-       to the login page (index.html) immediately.
-       ============================================================ -->
   <script>
     (function(){
       try {
@@ -47,8 +42,7 @@
   <meta name="twitter:description" content="Knowledge Reimagined — a live AI tools directory, community blogs, daily polls and real-time discussion, all in one place.">
   <meta name="twitter:image" content="https://dracoverse.online/preview.png">
 
- <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GG7CQ1TL2G"></script>
+ <script async src="https://www.googletagmanager.com/gtag/js?id=G-GG7CQ1TL2G"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -64,11 +58,8 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1307099726971871"
      crossorigin="anonymous"></script>
 
-  <!-- EmailJS — sends the real "Welcome to the Verse" email from the Never Miss a Beat form.
-       Setup (~5 min, one time): see the big comment above subscribeletter() near the bottom of this file. -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<!-- Structured data: helps search engines understand the site (SEO) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1626,13 +1617,135 @@ body.dark .userBadge {
   border-color: rgba(255, 255, 255, 0.12);
 }
 </style>
+
+<style>
+.dvHero2{ width:100%; max-width:1180px; margin:0 auto; position:relative; }
+.dvHero2 .blobWrap2{ position:absolute; inset:-70px; z-index:-1; pointer-events:none; overflow:hidden; border-radius:60px; }
+.dvHero2 .blob2{ position:absolute; border-radius:50%; filter:blur(60px); opacity:.32; animation:dv2Float ease-in-out infinite; }
+@keyframes dv2Float{ 0%,100%{transform:translate(0,0) scale(1);} 33%{transform:translate(26px,-18px) scale(1.05);} 66%{transform:translate(-18px,26px) scale(.96);} }
+
+.dv2Card{
+  display:grid; grid-template-columns:1.15fr 1fr;
+  background:linear-gradient(135deg, rgba(255,255,255,.9) 0%, rgba(240,245,255,.84) 100%);
+  backdrop-filter:blur(28px);
+  border:1.5px solid rgba(255,255,255,.95);
+  border-radius:36px;
+  box-shadow:0 0 0 1px rgba(79,140,255,.08), 0 40px 100px rgba(79,140,255,.16), 0 10px 30px rgba(0,0,0,.06);
+  overflow:hidden;
+  animation:dv2FadeUp .9s var(--ease-smooth) both;
+}
+body.dark .dv2Card{ background:linear-gradient(135deg,rgba(16,24,48,.9) 0%,rgba(13,19,38,.9) 100%); border-color:rgba(79,140,255,.18); }
+@keyframes dv2FadeUp{ from{opacity:0; transform:translateY(26px);} to{opacity:1; transform:translateY(0);} }
+
+.dv2Left{ padding:60px 54px; display:flex; flex-direction:column; justify-content:center; position:relative; z-index:2; }
+
+.dv2Title{
+  font-family:'Syne',sans-serif; font-weight:800;
+  font-size:clamp(2.6rem, 5.5vw, 4.6rem);
+  background:linear-gradient(135deg,#2563eb,#7c4dff,#4f8cff);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-size:200% auto; animation:gradientShift 6s ease-in-out infinite;
+  line-height:.95; letter-spacing:-2.5px; margin-bottom:18px;
+}
+
+.dv2Badge{
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(79,140,255,.1); border:1px solid rgba(79,140,255,.22);
+  padding:6px 14px; border-radius:50px; font-size:11.5px;
+  color:var(--blue); font-weight:700; letter-spacing:.5px; margin-bottom:16px; width:fit-content;
+}
+.dv2Dot{ width:6px; height:6px; border-radius:50%; background:#51cf66; display:inline-block; animation:livePulse 1.5s ease-in-out infinite; }
+
+.dv2Term{
+  display:inline-flex; align-items:center; gap:9px;
+  font-family:'Courier New',monospace; font-size:12.5px; font-weight:600;
+  color:#5b6b8c; background:rgba(15,20,25,.045); border:1px solid rgba(59,91,219,.14);
+  padding:9px 14px; border-radius:10px; margin-bottom:26px; width:fit-content; max-width:100%;
+}
+body.dark .dv2Term{ color:#9fb1de; background:rgba(255,255,255,.05); border-color:rgba(79,140,255,.2); }
+.dv2Term .dv2Prompt{ color:var(--purple); font-weight:700; flex-shrink:0; }
+.dv2Term .dv2TypeTarget{ color:var(--blue); font-weight:700; white-space:nowrap; overflow:hidden; }
+.dv2Term .dv2Cursor{ display:inline-block; width:2px; height:13px; background:var(--blue); margin-left:1px; animation:dv2Blink 1s step-end infinite; flex-shrink:0; }
+@keyframes dv2Blink{ 50%{ opacity:0; } }
+
+.dv2By{ font-family:'Playfair Display',serif; font-style:italic; font-size:1.08rem; color:#7c4dff; font-weight:600; letter-spacing:1.5px; display:block; margin-bottom:18px; }
+.dv2Desc{ font-size:1rem; color:#475569; line-height:1.75; margin-bottom:32px; max-width:420px; }
+body.dark .dv2Desc{ color:#aab4cc; }
+.dv2Desc strong{ color:var(--blue); }
+
+.dv2Ctas{ display:flex; gap:12px; flex-wrap:wrap; }
+.dv2Btn{
+  padding:13px 26px; border-radius:13px; border:none; cursor:pointer;
+  font-weight:600; font-size:14px; font-family:'Inter',sans-serif;
+  display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+  transition:transform .3s var(--ease-smooth), box-shadow .3s var(--ease-smooth), background .3s;
+}
+.dv2Btn:hover{ transform:translateY(-3px); }
+.dv2Btn:active{ transform:scale(.97); transition:transform .12s; }
+.dv2BtnPrimary{ background:var(--gradient); color:#fff; box-shadow:0 8px 22px rgba(79,140,255,.35); }
+.dv2BtnPrimary:hover{ box-shadow:0 14px 34px rgba(79,140,255,.45); }
+.dv2BtnOutline{ background:transparent; border:2px solid rgba(59,91,219,.3); color:var(--blue); }
+.dv2BtnOutline:hover{ background:rgba(79,140,255,.07); }
+
+.dv2Right{
+  background:linear-gradient(165deg, #0d1220 0%, #161b2e 60%, #1c1436 100%);
+  padding:0; position:relative; overflow:hidden; display:flex; flex-direction:column;
+}
+.dv2Right::before{ content:''; position:absolute; top:-90px; right:-70px; width:280px; height:280px; background:radial-gradient(circle, rgba(124,77,255,.22), transparent 70%); pointer-events:none; }
+
+.dv2ConsoleBar{ display:flex; align-items:center; gap:8px; padding:16px 20px; border-bottom:1px solid rgba(255,255,255,.08); font-family:'Courier New',monospace; font-size:11px; color:rgba(255,255,255,.4); }
+.dv2ConsoleDots{ display:flex; gap:6px; margin-right:6px; }
+.dv2ConsoleDots span{ width:9px; height:9px; border-radius:50%; display:block; }
+.dv2ConsoleDots span:nth-child(1){ background:#ff5f56; }
+.dv2ConsoleDots span:nth-child(2){ background:#ffbd2e; }
+.dv2ConsoleDots span:nth-child(3){ background:#27c93f; }
+
+.dv2StatGrid{ display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid rgba(255,255,255,.08); position:relative; z-index:2; }
+.dv2StatCell{ padding:20px; border-right:1px solid rgba(255,255,255,.07); border-bottom:1px solid rgba(255,255,255,.07); }
+.dv2StatCell:nth-child(2n){ border-right:none; }
+.dv2StatCell:nth-child(3),.dv2StatCell:nth-child(4){ border-bottom:none; }
+.dv2StatKey{ font-family:'Courier New',monospace; font-size:9.5px; color:#6f7fae; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
+.dv2StatKey .k{ color:#4f7fff; }
+.dv2StatVal{ font-family:'Syne',sans-serif; font-weight:800; font-size:1.6rem; background:linear-gradient(135deg,#8fb1ff,#c9a4ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+.dv2Feats{ padding:18px 18px 22px; display:flex; flex-direction:column; gap:8px; position:relative; z-index:2; }
+.dv2FeatLabel{ font-family:'Courier New',monospace; font-size:9.5px; color:#5c6a94; letter-spacing:1.5px; text-transform:uppercase; padding:4px 4px 6px; }
+.dv2Feat{ display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.08); border-radius:13px; padding:12px 14px; text-decoration:none; color:inherit; transition:background .25s var(--ease-smooth), border-color .25s, transform .25s; }
+.dv2Feat:hover{ background:rgba(79,140,255,.14); border-color:rgba(79,140,255,.35); transform:translateX(3px); }
+.dv2FeatIcon{ width:36px; height:36px; border-radius:10px; flex-shrink:0; background:var(--gradient); display:flex; align-items:center; justify-content:center; font-size:16px; box-shadow:0 4px 12px rgba(79,140,255,.35); }
+.dv2FeatText{ flex:1; min-width:0; }
+.dv2FeatTitle{ font-weight:700; font-size:13px; color:#eef1fb; margin-bottom:1px; }
+.dv2FeatDesc{ font-size:11px; color:#8892b8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dv2FeatArrow{ color:#5c6a94; font-size:14px; transition:.2s; flex-shrink:0; }
+.dv2Feat:hover .dv2FeatArrow{ color:#8fb1ff; transform:translateX(3px); }
+
+@media (max-width:1024px){
+  .dv2Card{ grid-template-columns:1fr; border-radius:28px; }
+  .dv2Left{ padding:48px 40px 36px; }
+  .dv2Right{ order:-1; }
+  .dv2ConsoleBar{ padding:14px 20px; }
+}
+@media (max-width:640px){
+  .dv2Left{ padding:38px 24px 30px; }
+  .dv2Title{ letter-spacing:-1.5px; }
+  .dv2Ctas{ flex-direction:column; }
+  .dv2Btn{ width:100%; justify-content:center; }
+  .dv2StatVal{ font-size:1.35rem; }
+  .dv2StatCell{ padding:16px; }
+  .dv2Term{ font-size:11px; }
+  .dv2FeatDesc{ display:none; }
+  .dvHero2 .blobWrap2{ display:none; }
+}
+@media (prefers-reduced-motion: reduce){
+  .dv2Title, .dv2Dot, .dv2Cursor, .dv2Card{ animation:none !important; }
+}
+</style>
 </head>
 <body>
 
 <div id="readProgress"></div>
 <div class="heroBg"></div>
 
-<!-- NAV -->
 <nav id="navbar">
   <a class="navLogo" href="index.html">🐉 DracoVerse</a>
   <div class="navLinks">
@@ -1692,7 +1805,6 @@ window.dracoLogout = function(){
 dracoInitUserBadge();
 </script>
 
-<!-- Section scroll-spy dots -->
 <div id="sectionDots">
   <div class="sdot" data-target="blogsAnchor" title="Blogs"></div>
   <div class="sdot" data-target="pollAnchor" title="Poll"></div>
@@ -1700,80 +1812,116 @@ dracoInitUserBadge();
   <div class="sdot" data-target="faqAnchor" title="FAQ"></div>
 </div>
 
-<!-- HERO -->
- <br>
-<section class="hero">
-  <div class="heroInner">
-    <div class="blobWrap">
-      <div class="blob" style="width:320px;height:320px;background:rgba(79,140,255,0.25);top:5%;left:10%;animation-duration:7s;"></div>
-      <div class="blob" style="width:260px;height:260px;background:rgba(124,77,255,0.2);bottom:10%;right:12%;animation-duration:9s;animation-delay:-3s;"></div>
-      <div class="blob" style="width:180px;height:180px;background:rgba(245,197,66,0.12);top:55%;left:45%;animation-duration:6s;animation-delay:-1s;"></div>
-    </div>
+<br><br><br><br><br><br>
+<div class="dvHero2">
+  <div class="blobWrap2">
+    <div class="blob2" style="width:300px;height:300px;background:rgba(79,140,255,.28);top:0;left:8%;animation-duration:7s;"></div>
+    <div class="blob2" style="width:240px;height:240px;background:rgba(124,77,255,.22);bottom:5%;right:10%;animation-duration:9s;animation-delay:-3s;"></div>
+  </div>
 
-    <div class="glassCard">
-      <!-- LEFT -->
-      <div class="cardLeft">
-        <div class="heroBadge">
-          <span class="liveDot"></span>
-          Live · DracoVerse
-        </div>
-        <h1 class="heroTitle">DracoVerse</h1>
-        <span class="heroBy">~ by Abhinav</span>
-        <p class="heroDesc">
-          Your gateway to curated <strong>blogs</strong>, live <strong>Ai Tools</strong>, and a growing <strong>community</strong> of thinkers — all in one stunning verse.
-        </p>
-        <div class="heroCtas">
-          <a class="btn btnPrimary" href="blogs.html" target="_blank">📚 Explore Blogs</a>
-          <a class="btn btnOutline" href="aiverse.html" target="_blank">🤖 Explore Ai Tools</a>
-        </div>
+  <div class="dv2Card">
+    <div class="dv2Left">
+      <div class="dv2Badge"><span class="dv2Dot"></span>Live · DracoVerse</div>
+
+      <div class="dv2Term">
+        <span class="dv2Prompt">&gt;</span>
+        <span>init —</span>
+        <span class="dv2TypeTarget" id="dv2Type"></span><span class="dv2Cursor"></span>
       </div>
 
-      <!-- RIGHT -->
-      <div class="cardRight">
-        <div class="miniStatRow">
-          <div class="miniStat"><span class="miniStatNum" id="msBlog">0</span><div class="miniStatLbl">Blog Posts Today</div></div>
-          <div class="miniStat"><span class="miniStatNum" id="ms">100+ </span><div class="miniStatLbl"> Ai tools</div></div>
-          <div class="miniStat"><span class="miniStatNum" id="msMembers">—</span><div class="miniStatLbl">Real Page Views</div></div>
-          <div class="miniStat"><span class="miniStatNum">24/7</span><div class="miniStatLbl">Live Updates</div></div>
-        </div>
-        <div class="heroFeatures" style="display:flex;flex-direction:column;gap:12px;">
-          <a class="hFeat" href="blogs.html" target="_blank">
-            <div class="hFeatIcon">📚</div>
-            <div class="hFeatText">
-              <div class="hFeatTitle">DracoBlog Pro</div>
-              <div class="hFeatDesc">Write, like and discover blogs</div>
-            </div>
-            <span class="hFeatArrow">→</span>
-          </a>
-          <a class="hFeat" href="aiverse.html" target="_blank">
-            <div class="hFeatIcon">🤖</div>
-            <div class="hFeatText">
-              <div class="hFeatTitle">Ai Verse </div>
-              <div class="hFeatDesc">Global Ai tools and resources</div>
-            </div>
-            <span class="hFeatArrow">→</span>
-          </a>
-          <a class="hFeat" href="community.html" target="_blank">
-            <div class="hFeatIcon">💬</div>
-            <div class="hFeatText">
-              <div class="hFeatTitle">DracoCommunity</div>
-              <div class="hFeatDesc">Chat, polls and discussion</div>
-            </div>
-            <span class="hFeatArrow">→</span>
-          </a>
-        </div>
+      <h1 class="dv2Title">DracoVerse</h1>
+      <span class="dv2By">~ by Abhinav</span>
+      <p class="dv2Desc">
+        Your gateway to curated <strong>blogs</strong>, live <strong>Ai Tools</strong>, and a growing <strong>community</strong> of thinkers — all in one stunning verse.
+      </p>
+
+      <div class="dv2Ctas">
+        <a class="dv2Btn dv2BtnPrimary" href="blogs.html" target="_blank">📚 Explore Blogs</a>
+        <a class="dv2Btn dv2BtnOutline" href="aiverse.html" target="_blank">🤖 Explore Ai Tools</a>
       </div>
     </div>
 
-    <div class="heroScroll">
-      <span>Scroll</span>
-      <div class="scrollLine"></div>
+    <div class="dv2Right">
+      <div class="dv2ConsoleBar">
+        <span class="dv2ConsoleDots"><span></span><span></span><span></span></span>
+        dracoverse — status
+      </div>
+
+      <div class="dv2StatGrid">
+        <div class="dv2StatCell">
+          <div class="dv2StatKey"><span class="k">#</span>blog_posts_today</div>
+          <div class="dv2StatVal" id="msBlog">0</div>
+        </div>
+        <div class="dv2StatCell">
+          <div class="dv2StatKey"><span class="k">#</span>ai_tools</div>
+          <div class="dv2StatVal" id="ms">100+</div>
+        </div>
+        <div class="dv2StatCell">
+          <div class="dv2StatKey"><span class="k">#</span>real_page_views</div>
+          <div class="dv2StatVal" id="msMembers">—</div>
+        </div>
+        <div class="dv2StatCell">
+          <div class="dv2StatKey"><span class="k">#</span>live_updates</div>
+          <div class="dv2StatVal">24/7</div>
+        </div>
+      </div>
+
+      <div class="dv2Feats">
+        <div class="dv2FeatLabel">// modules</div>
+        <a class="dv2Feat" href="blogs.html" target="_blank">
+          <div class="dv2FeatIcon">📚</div>
+          <div class="dv2FeatText">
+            <div class="dv2FeatTitle">DracoBlog Pro</div>
+            <div class="dv2FeatDesc">Write, like and discover blogs</div>
+          </div>
+          <span class="dv2FeatArrow">→</span>
+        </a>
+        <a class="dv2Feat" href="aiverse.html" target="_blank">
+          <div class="dv2FeatIcon">🤖</div>
+          <div class="dv2FeatText">
+            <div class="dv2FeatTitle">Ai Verse</div>
+            <div class="dv2FeatDesc">Global Ai tools and resources</div>
+          </div>
+          <span class="dv2FeatArrow">→</span>
+        </a>
+        <a class="dv2Feat" href="community.html" target="_blank">
+          <div class="dv2FeatIcon">💬</div>
+          <div class="dv2FeatText">
+            <div class="dv2FeatTitle">DracoCommunity</div>
+            <div class="dv2FeatDesc">Chat, polls and discussion</div>
+          </div>
+          <span class="dv2FeatArrow">→</span>
+        </a>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- TICKER -->
-<div class="ticker">
+<script>
+/* Typewriter signature — cycles through the three pillars.
+   IDs are kept the same as your original markup (msBlog, ms, msMembers)
+   so your existing Firebase/stat-injection script keeps working untouched. */
+(function(){
+  const words = ["blogs.load()", "ai_tools.sync()", "community.connect()"];
+  const el = document.getElementById('dv2Type');
+  if(!el) return;
+  let wi = 0, ci = 0, deleting = false;
+
+  function tick(){
+    const w = words[wi];
+    el.textContent = deleting ? w.slice(0, ci--) : w.slice(0, ci++);
+
+    let delay = deleting ? 35 : 65;
+    if(!deleting && ci === w.length + 1){ delay = 1400; deleting = true; }
+    else if(deleting && ci === 0){ deleting = false; wi = (wi+1) % words.length; delay = 300; }
+
+    setTimeout(tick, delay);
+  }
+  tick();
+})();
+</script>
+
+<div class="ticker" style="margin-top:60px;">
   <div class="tickerInner">
     <span class="tickerItem"><span class="tickerDot"></span>AI is reshaping everything</span>
     <span class="tickerItem"><span class="tickerDot"></span>Web3 on the rise</span>
@@ -1794,7 +1942,6 @@ dracoInitUserBadge();
   </div>
 </div>
 
-<!-- STATS (all figures below are live/real, pulled from Firestore and the Hacker News API — no placeholder numbers) -->
 <div class="statsBand">
   <div class="statsGrid">
     <div class="statItem reveal"><span class="statNum" id="statBlogsN">0</span><div class="statLbl">Blog Posts (Live)</div></div>
@@ -1805,7 +1952,6 @@ dracoInitUserBadge();
   </div>
 </div>
 
-<!-- BLOGS -->
 <section class="section sectionWhite" id="blogsAnchor">
   <div style="max-width:1200px;margin:auto;">
     <div class="sectionHead reveal">
@@ -1841,7 +1987,6 @@ dracoInitUserBadge();
   </div>
 </section>
 
-<!-- WHY DRACOVERSE — 12 feature info cards (original content for SEO/AdSense quality) -->
 <section class="section sectionLight" id="whyAnchor">
   <div style="max-width:1200px;margin:auto;">
     <div class="sectionHead reveal">
@@ -1865,7 +2010,6 @@ dracoInitUserBadge();
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section class="section sectionWhite" id="howAnchor">
   <div style="max-width:1200px;margin:auto;">
     <div class="sectionHead reveal">
@@ -1882,7 +2026,6 @@ dracoInitUserBadge();
   </div>
 </section>
 
-<!-- DAILY POLL -->
 <section class="section sectionDark" id="pollAnchor">
   <div style="max-width:1200px;margin:auto;">
     <div class="sectionHead reveal">
@@ -1898,7 +2041,6 @@ dracoInitUserBadge();
   </div>
 </section>
 
-<!-- FEATURE CARDS -->
 <section class="section sectionLight">
   <div style="max-width:1200px;margin:auto;">
     <div class="sectionHead reveal">
@@ -1937,7 +2079,6 @@ dracoInitUserBadge();
   </div>
 </section>
 
-<!-- AI TOOLS -->
 <section class="section sectionDark" id="aitoolsAnchor">
   <div style="max-width:1200px;margin:auto;">
     <div class="sectionHead reveal">
@@ -1965,7 +2106,6 @@ dracoInitUserBadge();
   </div>
 </section>
 
-<!-- CONTENT CATEGORIES -->
 <section class="section sectionWhite" id="categoriesAnchor">
   <div style="max-width:1200px;margin:auto;">
     <div class="sectionHead reveal">
@@ -1985,7 +2125,6 @@ dracoInitUserBadge();
   </div>
 </section>
 
-<!-- ABOUT / STORY LONGFORM CONTENT (unique original writing for SEO & AdSense content quality) -->
 <section class="section sectionLight" id="aboutAnchor">
   <div style="max-width:820px;margin:auto;">
     <div class="sectionHead reveal">
@@ -2002,7 +2141,6 @@ dracoInitUserBadge();
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="section sectionWhite" id="faqAnchor">
   <div style="max-width:820px;margin:auto;">
     <div class="sectionHead reveal">
@@ -2014,7 +2152,6 @@ dracoInitUserBadge();
   </div>
 </section>
 
-<!-- LETTER -->
 <section class="section sectionDark" style="padding-top:0;">
   <div style="max-width:640px;margin:auto;text-align:center;" class="reveal">
     <div class="sectionLabel">📬 Ai tools</div>
@@ -2066,11 +2203,9 @@ dracoInitUserBadge();
   </div>
 </footer>
 
-<!-- TOASTS -->
 <div class="toastStack" id="toastStack"></div>
 <button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<!-- ABOUT MODAL -->
 <div class="modal" id="aboutModal">
   <div class="modalBox">
     <div class="modalHead">
@@ -2090,7 +2225,6 @@ dracoInitUserBadge();
   </div>
 </div>
 
-<!-- BLOG DETAIL MODAL -->
 <div class="modal" id="blogModal">
   <div class="modalBox">
     <div class="modalHead">
@@ -2104,7 +2238,6 @@ dracoInitUserBadge();
   </div>
 </div>
 
-<!-- MOBILE NAV -->
 <div class="modal" id="mobileNav">
   <div class="modalBox" style="max-width:300px;">
     <div class="modalHead">
@@ -2124,7 +2257,6 @@ dracoInitUserBadge();
   </div>
 </div>
 
-<!-- COMMAND PALETTE -->
 <div id="cmdkPalette" onclick="if(event.target===this)closeCmdk()">
   <div class="cmdkBox">
     <input id="cmdkInput" placeholder="Search blogs, Ai Tools, sections… try 'dark mode' or 'poll'" autocomplete="off"/>
@@ -2132,7 +2264,6 @@ dracoInitUserBadge();
   </div>
 </div>
 
-<!-- READING LIST DRAWER -->
 <div id="drawerOverlay" onclick="toggleReadingDrawer()"></div>
 <div id="readingDrawer">
   <div class="readingDrawerHead">
@@ -2142,7 +2273,6 @@ dracoInitUserBadge();
   <div id="readingList"></div>
 </div>
 
-<!-- FIREBASE + BLOGS — REAL-TIME LISTENER -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
 import { getFirestore, collection, query, orderBy, getDocs, onSnapshot, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
@@ -2204,7 +2334,11 @@ function loadBlogs(){
         snap.forEach(d => allBlogs.push({id: d.id, ...d.data()}));
         allBlogs.sort((a,b) => (b.likes?.length||0) - (a.likes?.length||0));
         document.getElementById("statBlogsN").textContent = allBlogs.length;
-        document.getElementById("msBlog").textContent = allBlogs.length;
+        
+        // Safety check for the new hero's ID
+        const msBlogEl = document.getElementById("msBlog");
+        if(msBlogEl) msBlogEl.textContent = allBlogs.length;
+        
         updateLikesStat();
         renderBlogs();
         window.__allBlogs = allBlogs;
@@ -2351,9 +2485,14 @@ async function load(){
   try{
     const ids = await(await fetch(`${HN_BASE}/${currentHnEndpoint}.json`)).json();
     if(!Array.isArray(ids)||!ids.length){ row.innerHTML='<div style="color:rgba(255,255,255,0.4);padding:40px;">No stories found</div>'; return; }
-    document.getElementById("ms").textContent = ids.length+"+";
+    
+    // Safety check for new hero's ID
+    const msEl = document.getElementById("ms");
+    if(msEl) msEl.textContent = ids.length+"+";
+    
     const statNEl = document.getElementById("statN");
     if(statNEl) statNEl.textContent = ids.length+"+";
+    
     let batch = ids.slice(0,40);
     const stories = await Promise.all(batch.map(id=>fetch(`${HN_BASE}/item/${id}.json`).then(r=>r.json()).catch(()=>null)));
     let filtered = stories.filter(s => s && s.title && s.type!=="comment");
@@ -2401,7 +2540,6 @@ loadBlogs();
 load();
 </script>
 
-<!-- POLL + UTILS + NEW FEATURES -->
 <script>
 const POLLS=[
   {q:"What tech trend will dominate 2025?",opts:["Generative AI","Quantum Computing","AR/VR Headsets","Autonomous Vehicles"]},
