@@ -1740,6 +1740,134 @@ body.dark .dv2Desc{ color:#aab4cc; }
   .dv2Title, .dv2Dot, .dv2Cursor, .dv2Card{ animation:none !important; }
 }
 </style>
+
+<style>
+/* ============================================================
+   10. REDESIGNED RESPONSIVE HEADER / NAVBAR
+   (Overrides earlier nav rules — placed last on purpose so it
+    always wins the cascade for equal-specificity selectors.)
+   ============================================================ */
+
+nav#navbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:nowrap;
+  padding:10px 20px;
+}
+
+.navLinks{
+  display:flex;
+  align-items:center;
+  gap:2px;
+  flex-wrap:nowrap;
+}
+.navLink{
+  white-space:nowrap;
+  padding:8px 12px;
+  font-size:12.5px;
+}
+#hh.navLink{
+  padding:9px 16px;
+  margin-left:6px;
+  white-space:nowrap;
+  border-radius:10px;
+}
+
+.navTools{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-shrink:0;
+}
+
+.cmdkBtn{
+  gap:5px;
+}
+.cmdkBtn .cmdkLabel{ white-space:nowrap; }
+
+.userBadge{
+  padding:5px 10px 5px 5px;
+  white-space:nowrap;
+  max-width:170px;
+  overflow:hidden;
+}
+#userBadgeName{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:110px;
+}
+
+/* Mobile identity block inside the hamburger menu (hidden by default,
+   shown only on the collapsed nav breakpoints) */
+.mobileUserBadge{
+  display:none;
+  align-items:center;
+  gap:10px;
+  background:rgba(79,140,255,0.08);
+  border:1.5px solid rgba(79,140,255,0.18);
+  padding:10px 14px;
+  border-radius:14px;
+  font-size:13px;
+  font-weight:600;
+  color:var(--dark);
+  margin-bottom:6px;
+}
+body.dark .mobileUserBadge{
+  color:#e8edff;
+  background:rgba(255,255,255,0.06);
+  border-color:rgba(255,255,255,0.12);
+}
+.mobileUserBadge .userBadgeAvatar{ width:30px; height:30px; font-size:12px; }
+.mobileUserBadge .mobileUserBadgeName{ flex:1; }
+
+/* ---------- LAPTOP / SMALL DESKTOP: tighten before collapsing ---------- */
+@media (max-width:1180px){
+  .navLink{ padding:8px 10px; font-size:12px; }
+  #hh.navLink{ padding:8px 14px; }
+  .navLinks{ gap:0; }
+}
+@media (max-width:1080px){
+  .navLogo{ font-size:1.22rem; }
+  .navTools{ gap:4px; }
+  .cmdkBtn{ padding:0 10px; }
+  .cmdkBtn .kbdHint{ display:none; }
+  .userBadge{ max-width:120px; }
+  #userBadgeName{ max-width:60px; }
+}
+
+/* ---------- COLLAPSE FULL NAV LINKS INTO HAMBURGER (TABLET) ---------- */
+@media (max-width:940px){
+  nav#navbar{ padding:10px 16px; }
+  .navLinks{ display:none !important; }
+  .navMobileMenu{ display:flex !important; align-items:center; justify-content:center; }
+  .userBadge{ display:none !important; }
+  .mobileUserBadge{ display:flex; }
+}
+
+/* ---------- MOBILE PHONES ---------- */
+@media (max-width:620px){
+  nav#navbar{ padding:9px 14px; border-radius:16px; }
+  .navLogo{ font-size:1.08rem; }
+  .navTools{ gap:5px; }
+  .themeToggle,.cmdkBtn{ width:36px; height:36px; border-radius:11px; }
+  .cmdkBtn{ width:36px; padding:0; }
+  .cmdkBtn .cmdkLabel,
+  .cmdkBtn .kbdHint{ display:none; }
+  .navMobileMenu{ font-size:20px; width:36px; height:36px; }
+}
+
+/* ---------- VERY SMALL PHONES ---------- */
+@media (max-width:380px){
+  nav#navbar{ padding:8px 12px; gap:6px; }
+  .navLogo{ font-size:0.98rem; }
+  .navTools{ gap:4px; }
+  .themeToggle,.cmdkBtn{ width:33px; height:33px; }
+  .navMobileMenu{ width:33px; height:33px; font-size:18px; }
+}
+</style>
 </head>
 <body>
 
@@ -1762,7 +1890,7 @@ body.dark .dv2Desc{ color:#aab4cc; }
       <span id="userBadgeName">—</span>
       <button class="logoutBtn" onclick="dracoLogout()" title="Log out">⎋</button>
     </span>
-    <button class="cmdkBtn" onclick="openCmdk()" title="Search everything (Ctrl+K)">🔎 Search <span class="kbdHint">Ctrl K</span></button>
+    <button class="cmdkBtn" onclick="openCmdk()" title="Search everything (Ctrl+K)">🔎 <span class="cmdkLabel">Search</span> <span class="kbdHint">Ctrl K</span></button>
     <button class="themeToggle" onclick="toggleReadingDrawer()" title="Reading list">🔖</button>
     <button class="themeToggle" id="themeBtn" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
     <button class="navMobileMenu" onclick="openModal('mobileNav')">☰</button>
@@ -1788,10 +1916,22 @@ function dracoInitUserBadge(){
     const badge = document.getElementById('userBadge');
     const nameEl = document.getElementById('userBadgeName');
     const avatarEl = document.getElementById('userBadgeAvatar');
-    if(!badge) return;
-    nameEl.textContent = user.role === 'admin' ? user.username+' 👑' : user.role === 'manager' ? user.username+' ⭐' : user.username;
-    avatarEl.textContent = (user.username||'U').substring(0,2).toUpperCase();
-    badge.style.display = 'flex';
+    const label = user.role === 'admin' ? user.username+' 👑' : user.role === 'manager' ? user.username+' ⭐' : user.username;
+    const initials = (user.username||'U').substring(0,2).toUpperCase();
+    if(badge){
+      nameEl.textContent = label;
+      avatarEl.textContent = initials;
+      badge.style.display = 'flex';
+    }
+    // Mirror the same identity into the mobile hamburger menu
+    const mBadge = document.getElementById('mobileUserBadge');
+    const mName = document.getElementById('mobileUserBadgeName');
+    const mAvatar = document.getElementById('mobileUserBadgeAvatar');
+    if(mBadge){
+      mName.textContent = label;
+      mAvatar.textContent = initials;
+      mBadge.style.display = 'flex';
+    }
   }catch(e){}
 }
 window.dracoLogout = function(){
@@ -2244,10 +2384,17 @@ dracoInitUserBadge();
       <h2 class="modalTitle">🐉 DracoVerse</h2>
       <button class="modalClose" onclick="closeModal('mobileNav')">✕</button>
     </div>
+    <div class="mobileUserBadge" id="mobileUserBadge">
+      <span class="userBadgeAvatar" id="mobileUserBadgeAvatar">?</span>
+      <span class="mobileUserBadgeName" id="mobileUserBadgeName">—</span>
+      <button class="logoutBtn" onclick="dracoLogout()" title="Log out">⎋</button>
+    </div>
     <div style="display:flex;flex-direction:column;gap:10px;">
       <a class="btn btnPrimary" href="blogs.html" target="_blank" onclick="closeModal('mobileNav')">📚 Blogs</a>
       <a class="btn btnPrimary" href="aiverse.html" target="_blank" onclick="closeModal('mobileNav')">🤖 Ai Tools</a>
       <a class="btn btnOutline" href="community.html" target="_blank" onclick="closeModal('mobileNav')">💬 Community</a>
+      <button class="btn btnOutline" onclick="closeModal('mobileNav');scrollSec('pollAnchor')" style="justify-content:center;">🗳️ Daily Poll</button>
+      <button class="btn btnOutline" onclick="closeModal('mobileNav');scrollSec('faqAnchor')" style="justify-content:center;">❓ FAQ</button>
       <button class="btn btnDark" onclick="closeModal('mobileNav');openModal('aboutModal')">🐉 About</button>
       <button class="btn btnOutline" onclick="closeModal('mobileNav');toggleReadingDrawer()" style="justify-content:center;">🔖 Reading List</button>
       <button class="btn btnOutline" onclick="closeModal('mobileNav');toggleTheme()" style="justify-content:center;">🌙 Toggle Dark Mode</button>
